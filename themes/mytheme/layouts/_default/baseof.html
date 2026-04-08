@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,15 +83,26 @@
     <div class="footer-tagline">Let there be light.</div>
 
     <!-- Social links -->
-    <div class="footer-links">
-      <a href="mailto:nknagu24@gmail.com">Email</a>
-      <a href="https://scholar.google.com/citations?user=JpwAWNwAAAAJ&hl=en" target="_blank">Google Scholar</a>
-      <a href="https://www.linkedin.com/in/nagendra-kamath-3b955677/" target="_blank">LinkedIn</a>
-      <a href="https://orcid.org/0000-0001-9854-4054" target="_blank">ORCID</a>
-      <a href="https://www.instagram.com/nagukamath" target="_blank">Instagram</a>
-      <a href="https://www.x.com/theNaguKamath" target="_blank">X / Twitter</a>
-    </div>
-
+   <div class="footer-links">
+  <a href="mailto:nknagu24@gmail.com" title="Email">
+    <i class="fas fa-envelope"></i>
+  </a>
+  <a href="https://scholar.google.com/citations?user=JpwAWNwAAAAJ&hl=en" target="_blank" title="Google Scholar">
+    <i class="fas fa-graduation-cap"></i>
+  </a>
+  <a href="https://www.linkedin.com/in/nagendra-kamath-3b955677/" target="_blank" title="LinkedIn">
+    <i class="fab fa-linkedin"></i>
+  </a>
+  <a href="https://orcid.org/0000-0001-9854-4054" target="_blank" title="ORCID">
+    <i class="fab fa-orcid"></i>
+  </a>
+  <a href="https://www.instagram.com/nagukamath" target="_blank" title="Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://www.x.com/theNaguKamath" target="_blank" title="X / Twitter">
+    <i class="fab fa-x-twitter"></i>
+  </a>
+</div>
     <!-- Bottom bar -->
     <div class="footer-bottom">
       <p>© {{ now.Year }} {{ .Site.Title }}</p>

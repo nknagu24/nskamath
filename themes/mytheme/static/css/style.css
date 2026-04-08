@@ -175,23 +175,21 @@ footer {
 }
 
 .footer-links a {
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 1.3rem;
   color: #aaaaaa;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s, transform 0.2s;
+  display: inline-block;
 }
 
 .footer-links a:hover {
   color: #ffffff;
+  transform: translateY(-3px);
 }
 
-/* Bottom copyright */
 .footer-bottom p {
   font-size: 0.78rem;
-  color: #888888;
+  color: #666666;
   letter-spacing: 0.05em;
   margin: 0;
 }
