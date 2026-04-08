@@ -1051,3 +1051,172 @@ article p {
   color: #ffffff;
   background-color: #222222;
 }
+
+/* ===== MOBILE RESPONSIVE ===== */
+/* These styles apply only on screens smaller than 768px (phones) */
+
+@media (max-width: 768px) {
+
+  /* ===== HEADER ===== */
+  header {
+    padding: 16px 20px;
+  }
+
+  /* Hide desktop nav on mobile */
+  nav {
+    display: none;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  main {
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    margin-top: 40px;
+    padding: 20px;
+  }
+
+  /* ===== MENU TRAY ===== */
+  .menu-tray {
+    width: 100vw;
+    right: -100vw;
+  }
+
+  /* ===== HERO SECTION ===== */
+  .hero {
+    padding: 60px 24px;
+    min-height: auto;
+  }
+
+  .hero-name {
+    font-size: 3rem;
+  }
+
+  .hero-top {
+    margin-bottom: 24px;
+  }
+
+  .hero-links a {
+    margin-bottom: 10px;
+    display: block;
+    width: fit-content;
+  }
+
+  /* ===== ABOUT PAGE ===== */
+  .about-intro {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-links {
+    justify-content: center;
+  }
+
+  /* ===== SECTION TILES ===== */
+  .section-tiles {
+    grid-template-columns: 1fr;
+  }
+
+  /* ===== RECENT GRID ===== */
+  .recent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .recent-heading {
+    font-size: 1.5rem;
+  }
+
+  /* ===== TRAVEL LIST ===== */
+  .travel-card {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ===== TRAVEL POST ===== */
+  .travel-post-cover {
+    height: 30vh;
+  }
+
+  .travel-post-title {
+    font-size: 1.6rem;
+  }
+
+  .travel-post-content p {
+    font-size: 1rem;
+    line-height: 1.9;
+  }
+
+  /* ===== PHOTOGRAPHY ===== */
+  .photo-albums {
+    grid-template-columns: 1fr;
+  }
+
+  .photo-post-hero {
+    height: 40vh;
+  }
+
+  .photo-post-title {
+    font-size: 1.6rem;
+  }
+
+  .photo-post-hero-overlay {
+    padding: 20px;
+  }
+
+  .photo-post-grid {
+    column-count: 2;
+  }
+
+  /* ===== POSTCARD ===== */
+  .postcard-content img {
+    max-width: 100%;
+    display: block;
+    margin-right: 0;
+    margin-bottom: 16px;
+  }
+
+  /* ===== ACADEMICS ===== */
+  .ac-head {
+    flex-direction: column;
+  }
+
+  .ac-date {
+    margin-left: 0;
+    margin-top: 4px;
+  }
+
+  .ac-entry {
+    padding-left: 12px;
+  }
+
+  /* ===== DROPDOWN ===== */
+  .nav-dropdown-menu {
+    display: none !important;
+  }
+
+}
+
+/* ===== VERY SMALL SCREENS (phones under 480px) ===== */
+@media (max-width: 480px) {
+
+  .hero-name {
+    font-size: 2.5rem;
+  }
+
+  .photo-post-grid {
+    column-count: 1;
+  }
+
+  .section-tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .recent-grid {
+    grid-template-columns: 1fr;
+  }
+
+}
