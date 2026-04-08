@@ -8,7 +8,7 @@
     {{ range ($pages.ByDate.Reverse) }}
       {{ if .Params.summary }}
       <a class="recent-card" href="{{ .RelPermalink }}">
-        <div class="recent-meta">{{ .Params.date | time.Format "January 2006" }} · {{ .Section }}</div>
+        <div class="recent-meta">{{ .Params.date | time.Format "January 2006" }} · {{ .Type }}</div>
         <div class="recent-card-title">{{ .Title }}</div>
         <div class="recent-summary">{{ .Params.summary }}</div>
       </a>

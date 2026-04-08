@@ -142,41 +142,73 @@ blockquote {
 
 /* ===== FOOTER ===== */
 footer {
-  text-align: center;
-  padding: 30px;
   background-color: #111111;
   color: #aaaaaa;
-  font-size: 0.8rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
   margin-top: 80px;
+  padding: 60px 60px 30px;
 }
 
-/* ===== BLOG POST LISTING ===== */
-/* Each post card in a section listing */
-article {
-  border-bottom: 1px solid #eeeeee;
-  padding: 24px 0;
+.footer-content {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-article h2 {
-  margin-top: 0;
-  font-size: 1.1rem;
+/* Tagline */
+.footer-tagline {
+  font-family: 'Bonheur Royale', cursive;
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 32px;
+  letter-spacing: 0.02em;
 }
 
-article h2 a {
+/* Social links */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #222222;
+}
+
+.footer-links a {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #aaaaaa;
   text-decoration: none;
-  color: #111111;
+  transition: color 0.2s;
 }
 
-article h2 a:hover {
-  color: #555555;
+.footer-links a:hover {
+  color: #ffffff;
 }
 
-article p {
-  margin-bottom: 4px;
-  font-size: 0.85rem;
-  color: #777777;
+/* Bottom copyright */
+.footer-bottom p {
+  font-size: 0.78rem;
+  color: #888888;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* ===== FOOTER MOBILE ===== */
+@media (max-width: 768px) {
+  footer {
+    padding: 40px 24px 24px;
+  }
+
+  .footer-tagline {
+    font-size: 2rem;
+  }
+
+  .footer-links {
+    gap: 16px;
+  }
 }
 
 /* ===== HOME PAGE ===== */

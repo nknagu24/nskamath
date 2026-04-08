@@ -75,9 +75,29 @@
     {{ block "main" . }}{{ end }}
   </main>
 
-  <footer>
-    <p>© {{ now.Year }} {{ .Site.Title }}</p>
-  </footer>
+<footer>
+  <div class="footer-content">
+
+    <!-- Tagline -->
+    <div class="footer-tagline">Let there be light.</div>
+
+    <!-- Social links -->
+    <div class="footer-links">
+      <a href="mailto:nknagu24@gmail.com">Email</a>
+      <a href="https://scholar.google.com/citations?user=JpwAWNwAAAAJ&hl=en" target="_blank">Google Scholar</a>
+      <a href="https://www.linkedin.com/in/nagendra-kamath-3b955677/" target="_blank">LinkedIn</a>
+      <a href="https://orcid.org/0000-0001-9854-4054" target="_blank">ORCID</a>
+      <a href="https://www.instagram.com/nagukamath" target="_blank">Instagram</a>
+      <a href="https://www.x.com/theNaguKamath" target="_blank">X / Twitter</a>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <p>© {{ now.Year }} {{ .Site.Title }}</p>
+    </div>
+
+  </div>
+</footer>
 
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
