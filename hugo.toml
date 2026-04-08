@@ -38,3 +38,7 @@ theme = "mytheme"
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+# Generate JSON search index
+[outputs]
+  home = ["HTML", "JSON"]

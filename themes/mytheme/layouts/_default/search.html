@@ -1,0 +1,61 @@
+{{ define "main" }}
+
+<div class="search-page">
+  <h1>Search</h1>
+
+  <div class="search-box-wrap">
+    <input 
+      type="text" 
+      id="searchInput" 
+      class="search-input" 
+      placeholder="Search posts, publications, travel..."
+      autofocus>
+  </div>
+
+  <div id="searchResults" class="search-results"></div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+  let fuse;
+
+  // Load the search index
+  fetch('/index.json')
+    .then(res => res.json())
+    .then(data => {
+      fuse = new Fuse(data, {
+        keys: ['title', 'summary', 'section'],
+        threshold: 0.3,
+        includeScore: true
+      });
+    });
+
+  // Search as user types
+  document.getElementById('searchInput').addEventListener('input', function() {
+    const query = this.value.trim();
+    const resultsDiv = document.getElementById('searchResults');
+
+    if (query.length < 2) {
+      resultsDiv.innerHTML = '';
+      return;
+    }
+
+    const results = fuse.search(query);
+
+    if (results.length === 0) {
+      resultsDiv.innerHTML = '<p class="search-no-results">No results found.</p>';
+      return;
+    }
+
+    resultsDiv.innerHTML = results.map(r => `
+      <a class="search-result-card" href="${r.item.url}">
+        <div class="search-result-meta">${r.item.date} · ${r.item.section}</div>
+        <div class="search-result-title">${r.item.title}</div>
+        <div class="search-result-summary">${r.item.summary || ''}</div>
+      </a>
+    `).join('');
+  });
+</script>
+
+{{ end }}
