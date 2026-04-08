@@ -1,0 +1,9 @@
+{{ define "main" }}
+
+  <!-- Page title -->
+  <h1>{{ .Title }}</h1>
+
+  <!-- Only show this page's own content, not children -->
+  {{ .Content }}
+
+{{ end }}

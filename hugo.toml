@@ -1,0 +1,40 @@
+# The base URL - for local testing we use localhost
+baseURL = "http://localhost:1313/"
+
+# The title that appears on your browser tab
+title = "Nagendra S Kamath"
+
+# The language of your site
+languageCode = "en-us"
+
+# This tells Hugo to use our custom theme
+theme = "mytheme"
+
+# NAVIGATION MENU
+# weight controls the order of menu items
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 2
+
+  [[menu.main]]
+    name = "Academics"
+    url = "/academics/"
+    weight = 3
+
+  [[menu.main]]
+    name = "Personal Blog"
+    url = "/blog/"
+    weight = 4
+
+# This makes external links open in a new tab
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

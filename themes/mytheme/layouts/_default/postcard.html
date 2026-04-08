@@ -1,0 +1,14 @@
+{{ define "main" }}
+
+<div class="postcard-header">
+  <div class="postcard-meta">{{ .Params.city }}, {{ .Params.country }} · {{ .Params.date | time.Format "January 2006" }}</div>
+  <h1 class="postcard-title">{{ .Title }}</h1>
+</div>
+
+<hr>
+
+<div class="postcard-content">
+  {{ .Content }}
+</div>
+
+{{ end }}

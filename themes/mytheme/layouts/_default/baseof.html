@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+</head>
+
+<body>
+
+  <header>
+    <a href="/" class="site-title">{{ .Site.Title }}</a>
+   <nav>
+  <a href="/">Home</a>
+
+  <a href="/about/">About</a>
+
+  <div class="nav-dropdown">
+    <a href="/academics/">Academics</a>
+    <div class="nav-dropdown-menu">
+      <a href="/academics/education/">Education</a>
+      <a href="/academics/publications/">Publications</a>
+      <a href="/academics/awards/">Awards</a>
+      <a href="/academics/conferences/">Conferences</a>
+      <a href="/academics/skills/">Skills</a>
+      <a href="/CV-Nagendra.pdf" target="_blank">Curriculum Vitae</a>
+    </div>
+  </div>
+
+  <div class="nav-dropdown">
+    <a href="/blog/">Personal Blog</a>
+    <div class="nav-dropdown-menu">
+      <a href="/blog/travel/">Travel</a>
+      <a href="/blog/postcards/">Postcards</a>
+      <a href="/blog/history/">History</a>
+      <a href="/blog/photography/">Photography</a>
+    </div>
+  </div>
+</nav>
+    <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
+  </header>
+
+  <div class="menu-tray" id="menuTray">
+    <button class="menu-close" onclick="toggleMenu()">&#10005;</button>
+    <div class="tray-section">
+      <p class="tray-label">Academic</p>
+      <a href="/academics/education/">Education</a>
+      <a href="/academics/publications/">Publications</a>
+      <a href="/academics/awards/">Awards</a>
+      <a href="/academics/conferences/">Conferences</a>
+      <a href="/academics/skills/">Skills</a>
+      <a href="/CV-Nagendra.pdf" target="_blank">Curriculum Vitae</a>
+    </div>
+    <div class="tray-section">
+      <p class="tray-label">Personal</p>
+      <a href="/blog/travel/">Travel</a>
+      <a href="/blog/postcards/">Postcards</a>
+      <a href="/blog/history/">History</a>
+      <a href="/blog/photography/">Photography</a>
+    </div>
+    <div class="tray-section">
+      <p class="tray-label">About</p>
+      <a href="/about/">About Me</a>
+    </div>
+  </div>
+
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <footer>
+    <p>© {{ now.Year }} {{ .Site.Title }}</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <script>
+    // Hamburger menu
+    function toggleMenu() {
+      document.getElementById('menuTray').classList.toggle('open');
+      document.getElementById('menuOverlay').classList.toggle('open');
+    }
+
+    // GLightbox initialization
+    const lightbox = GLightbox({ selector: '.glightbox' });
+  </script>
+
+</body>
+</html>

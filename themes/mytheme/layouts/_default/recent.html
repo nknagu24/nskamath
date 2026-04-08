@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<div class="recent-section">
+  <h1 class="recent-heading">Recent Posts</h1>
+
+  <div class="recent-grid">
+    {{ $pages := where site.RegularPages "Section" "ne" "" }}
+    {{ range ($pages.ByDate.Reverse) }}
+      {{ if .Params.summary }}
+      <a class="recent-card" href="{{ .RelPermalink }}">
+        <div class="recent-meta">{{ .Params.date | time.Format "January 2006" }} · {{ .Section }}</div>
+        <div class="recent-card-title">{{ .Title }}</div>
+        <div class="recent-summary">{{ .Params.summary }}</div>
+      </a>
+      {{ end }}
+    {{ end }}
+  </div>
+
+</div>
+
+{{ end }}

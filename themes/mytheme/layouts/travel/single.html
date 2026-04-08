@@ -1,0 +1,28 @@
+{{ define "main" }}
+
+<!-- Cover image if available -->
+{{ with .Params.cover_image }}
+<div class="travel-post-cover">
+  <img src="{{ . }}" alt="{{ $.Title }}">
+</div>
+{{ end }}
+
+<!-- Post header -->
+<div class="travel-post-header">
+  <div class="travel-post-meta">
+    {{ $.Params.city }}, {{ $.Params.country }}
+    {{ with $.Params.trip_type }} · {{ . }}{{ end }}
+    {{ with $.Params.duration }} · {{ . }}{{ end }}
+  </div>
+  <h1 class="travel-post-title">{{ .Title }}</h1>
+  <div class="travel-post-date">{{ .Params.date | time.Format "January 2006" }}</div>
+</div>
+
+<hr>
+
+<!-- Post content -->
+<div class="travel-post-content">
+  {{ .Content }}
+</div>
+
+{{ end }}

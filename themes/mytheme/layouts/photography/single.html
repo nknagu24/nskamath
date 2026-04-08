@@ -1,0 +1,23 @@
+{{ define "main" }}
+
+<!-- Hero image at top -->
+<div class="photo-post-hero">
+  {{ with .Params.cover_image }}
+    <img src="{{ . }}" alt="{{ $.Title }}">
+  {{ end }}
+  <div class="photo-post-hero-overlay">
+    <h1 class="photo-post-title">{{ .Title }}</h1>
+    <p class="photo-post-meta">{{ .Params.location }} · {{ .Params.date | time.Format "January 2006" }}</p>
+  </div>
+</div>
+
+<!-- Photo grid with lightbox -->
+<div class="photo-post-grid" id="photoGrid">
+  {{ range .Params.images }}
+  <a href="{{ . }}" class="glightbox">
+    <img src="{{ . }}" alt="">
+  </a>
+  {{ end }}
+</div>
+
+{{ end }}

@@ -1,0 +1,29 @@
+{{ define "main" }}
+
+  <h1>{{ .Title }}</h1>
+  <p class="section-desc">{{ .Content }}</p>
+
+  <div class="photo-albums">
+    {{ range .RegularPages.ByDate.Reverse }}
+    <a class="photo-album" href="{{ .RelPermalink }}">
+
+      <div class="photo-album-cover">
+        {{ with .Params.cover_image }}
+          <img src="{{ . }}" alt="{{ $.Title }}">
+        {{ else }}
+          <div class="photo-album-placeholder"></div>
+        {{ end }}
+
+        <!-- Text overlay on image -->
+        <div class="photo-album-overlay">
+          <div class="photo-album-title">{{ .Title }}</div>
+          <div class="photo-album-meta">{{ .Params.location }}</div>
+        </div>
+
+      </div>
+
+    </a>
+    {{ end }}
+  </div>
+
+{{ end }}

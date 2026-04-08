@@ -1,0 +1,1053 @@
+/* ===== GOOGLE FONT ===== */
+/* Imports Montserrat in multiple weights */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* ===== RESET ===== */
+/* Removes default browser spacing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== BODY ===== */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #ffffff;
+  color: #111111;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+/* ===== HEADER ===== */
+header {
+  background-color: #111111;
+  padding: 20px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Site title in header */
+.site-title {
+  font-family: 'Bonheur Royale', cursive;
+  color: #ffffff;
+  font-size: 1.6rem;
+  text-decoration: none;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.site-title:hover {
+  color: #aaaaaa;
+  text-decoration: none;
+}
+
+/* Navigation links */
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 30px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #aaaaaa;
+  text-decoration: none;
+}
+
+/* ===== MAIN CONTENT ===== */
+main {
+  max-width: 860px;
+  margin: 60px auto;
+  padding: 0 30px;
+}
+
+/* ===== HEADINGS ===== */
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-top: 40px;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 25px;
+  margin-bottom: 8px;
+}
+
+/* ===== PARAGRAPHS ===== */
+p {
+  margin-bottom: 16px;
+  font-size: 0.95rem;
+  color: #333333;
+}
+
+/* ===== LINKS ===== */
+a {
+  color: #111111;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #555555;
+  text-decoration: none;
+}
+
+/* ===== LISTS ===== */
+ul, ol {
+  margin-left: 20px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+/* ===== HORIZONTAL RULE ===== */
+hr {
+  border: none;
+  border-top: 1px solid #eeeeee;
+  margin: 40px 0;
+}
+
+/* ===== BLOCKQUOTE ===== */
+/* Used in postcard section for written messages */
+blockquote {
+  border-left: 3px solid #111111;
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  color: #555555;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 30px;
+  background-color: #111111;
+  color: #aaaaaa;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-top: 80px;
+}
+
+/* ===== BLOG POST LISTING ===== */
+/* Each post card in a section listing */
+article {
+  border-bottom: 1px solid #eeeeee;
+  padding: 24px 0;
+}
+
+article h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+article h2 a {
+  text-decoration: none;
+  color: #111111;
+}
+
+article h2 a:hover {
+  color: #555555;
+}
+
+article p {
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  color: #777777;
+}
+
+/* ===== HOME PAGE ===== */
+.home-intro {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin-top: 40px;
+}
+
+.home-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+  filter: grayscale(100%);
+}
+
+.home-text h1 {
+  margin-bottom: 4px;
+}
+
+.home-text h3 {
+  font-weight: 400;
+  color: #555555;
+  margin-bottom: 4px;
+  margin-top: 0;
+  font-size: 0.95rem;
+}
+
+.home-text p {
+  margin-bottom: 12px;
+}
+
+.home-links a {
+  display: inline-block;
+  margin-right: 10px;
+  margin-top: 16px;
+  padding: 8px 20px;
+  background-color: #111111;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-links a:hover {
+  background-color: #444444;
+}
+
+/* ===== ACADEMICS ENTRIES ===== */
+
+/* Each entry card */
+.ac-entry {
+  border-left: 2px solid #111111;
+  padding-left: 20px;
+  margin-bottom: 36px;
+}
+
+/* Header row with title and date side by side */
+.ac-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+
+/* Degree or role title */
+.ac-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111111;
+}
+
+/* Date on the right */
+.ac-date {
+  font-size: 0.78rem;
+  color: #777777;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  margin-left: 20px;
+}
+
+/* Institution name */
+.ac-institution {
+  font-size: 0.88rem;
+  color: #555555;
+  margin-bottom: 6px;
+}
+
+/* Detail lines like thesis, advisor, highlights */
+.ac-detail {
+  font-size: 0.88rem;
+  color: #444444;
+  margin-bottom: 4px;
+}
+
+/* ===== SECTION TILES ===== */
+
+.section-tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* Each tile block */
+.section-tile {
+  display: block;
+  padding: 28px;
+  text-decoration: none;
+  color: #111111;
+  border: 1px solid #111111;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover — card goes black */
+.section-tile:hover {
+  background-color: #111111;
+  color: #ffffff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+/* Tile title */
+.tile-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Tile description */
+.tile-desc {
+  font-size: 0.82rem;
+  color: #666666;
+  line-height: 1.5;
+}
+
+/* Keep text white on hover */
+.section-tile:hover .tile-title {
+  color: #ffffff;
+}
+
+.section-tile:hover .tile-desc {
+  color: #cccccc;
+}
+
+/* ===== ABOUT PAGE ===== */
+
+/* Photo and text side by side */
+.about-intro {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+/* Circular profile photo */
+.about-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Text next to photo */
+.about-text h1 {
+  font-size: 1.6rem;
+  margin-bottom: 4px;
+}
+
+.about-text h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555555;
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+.about-text p {
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+/* Social links row */
+.about-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.about-links a {
+  padding: 6px 16px;
+  border: 1px solid #111111;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #111111;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.about-links a:hover {
+  background-color: #111111;
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ===== HERO SECTION ===== */
+
+/* Full width dark hero banner */
+.hero {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 100px 60px;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+
+/* Large name with Bonheur Royale font */
+.hero-name {
+  font-family: 'Bonheur Royale', cursive;
+  font-size: 5rem;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+  line-height: 1.1;
+}
+
+/* Institution */
+.hero-sub {
+  font-size: 0.95rem;
+  color: #aaaaaa;
+  margin-bottom: 20px;
+}
+
+/* Short description */
+.hero-desc {
+  font-size: 0.95rem;
+  color: #cccccc;
+  max-width: 600px;
+  line-height: 1.8;
+  margin-bottom: 36px;
+}
+
+/* Navigation buttons */
+.hero-links a {
+  display: inline-block;
+  margin-right: 12px;
+  padding: 10px 24px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.hero-links a:hover {
+  background-color: #ffffff;
+  color: #111111;
+}
+
+/* ===== HAMBURGER MENU BUTTON ===== */
+.menu-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin-left: 20px;
+}
+
+/* ===== MENU TRAY ===== */
+/* Hidden by default, slides in from right */
+.menu-tray {
+  position: fixed;
+  top: 0;
+  right: -380px;
+  width: 360px;
+  height: 100vh;
+  background-color: #ffffff;
+  z-index: 1000;
+  padding: 60px 40px;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+}
+
+/* When open */
+.menu-tray.open {
+  right: 0;
+}
+
+/* Close button */
+.menu-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #111111;
+}
+
+/* Section label */
+.tray-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  margin-bottom: 12px;
+  margin-top: 0;
+}
+
+/* Section container */
+.tray-section {
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Links inside tray */
+.tray-section a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #111111;
+  text-decoration: none;
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  transition: color 0.2s;
+}
+
+.tray-section a:hover {
+  color: #555555;
+}
+
+/* Dark overlay behind tray */
+.menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.menu-overlay.open {
+  display: block;
+}
+
+/* ===== HERO TOP ROW ===== */
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.hero-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.hero-tag:hover {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+
+/* ===== RECENT POSTS SECTION ===== */
+
+.recent-section {
+  max-width: 960px;
+  margin: 60px auto;
+  padding: 0 30px;
+}
+
+.recent-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  margin-bottom: 30px;
+}
+
+/* Grid of recent post cards */
+.recent-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Each post card */
+.recent-card {
+  display: block;
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+  text-decoration: none;
+  color: #111111;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.recent-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+
+/* Section and date meta */
+.recent-meta {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  margin-bottom: 8px;
+}
+
+/* Post title */
+.recent-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+/* Summary text */
+.recent-summary {
+  font-size: 0.82rem;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* ===== RECENT PAGE HEADING ===== */
+.recent-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+/* ===== TRAVEL PAGE ===== */
+
+.section-desc {
+  color: #666666;
+  font-size: 0.9rem;
+  margin-bottom: 40px;
+}
+
+/* Each travel post row */
+.travel-list {
+  margin-top: 20px;
+}
+
+.travel-card {
+  display: flex;
+  gap: 40px;
+  padding: 24px 0;
+  border-bottom: 1px solid #eeeeee;
+  text-decoration: none;
+  color: #111111;
+  padding-left: 0;
+  transition: padding-left 0.2s ease;
+}
+
+.travel-card:hover {
+  text-decoration: none;
+  color: #111111;
+  padding-left: 12px;
+  transition: padding-left 0.2s ease;
+}
+
+.travel-card:hover .travel-title {
+  color: #555555
+}
+
+/* Left column — date and country */
+.travel-card-left {
+  min-width: 100px;
+  flex-shrink: 0;
+}
+
+.travel-date {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  margin-bottom: 4px;
+}
+
+.travel-country {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #111111;
+}
+
+/* Right column — title, meta, summary */
+.travel-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.travel-meta {
+  font-size: 0.78rem;
+  color: #aaaaaa;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.travel-summary {
+  font-size: 0.88rem;
+  color: #555555;
+  line-height: 1.6;
+}
+
+/* ===== PHOTOGRAPHY PAGE ===== */
+
+.photo-albums {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.photo-album {
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* Cover image container */
+.photo-album-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background-color: #111111;
+}
+
+.photo-album-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0.85;
+}
+
+.photo-album:hover .photo-album-cover img {
+  transform: scale(1.05);
+  opacity: 0.6;
+}
+
+/* Text overlay */
+.photo-album-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.photo-album-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.photo-album-meta {
+  font-size: 0.75rem;
+  color: #dddddd;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.photo-album-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #eeeeee;
+}
+
+/* ===== PHOTOGRAPHY POST ===== */
+
+/* Hero image at top */
+.photo-post-hero {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.photo-post-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
+.photo-post-hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 60px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+
+.photo-post-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.photo-post-meta {
+  font-size: 0.85rem;
+  color: #dddddd;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Photo grid — CSS columns masonry */
+.photo-post-grid {
+  width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 30px 60px;
+  column-count: 3;
+  column-gap: 12px;
+}
+
+.photo-post-grid a {
+  display: block;
+  margin-bottom: 12px;
+  break-inside: avoid;
+}
+
+.photo-post-grid img {
+  width: 100%;
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.photo-post-grid img:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+/* ===== TRAVEL POST ===== */
+.travel-post-header {
+  margin-bottom: 40px;
+}
+
+.travel-post-meta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  margin-bottom: 12px;
+}
+
+.travel-post-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.travel-post-date {
+  font-size: 0.82rem;
+  color: #aaaaaa;
+}
+
+/* ===== TRAVEL POST CONTENT ===== */
+.travel-post-content {
+  max-width: 780px;
+  margin-top: 40px;
+}
+
+.travel-post-content h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-top: 52px;
+  margin-bottom: 20px;
+  color: #111111;
+}
+
+.travel-post-content p {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.15rem;
+  line-height: 2.1;
+  color: #1a1a1a;
+  margin-bottom: 28px;
+  letter-spacing: 0.01em;
+  word-spacing: 0.05em;
+}
+
+/* ===== TRAVEL POST COVER IMAGE ===== */
+.travel-post-cover {
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.travel-post-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== POSTCARD POST ===== */
+
+.postcard-header {
+  margin-bottom: 30px;
+}
+
+.postcard-meta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  margin-bottom: 12px;
+}
+
+.postcard-title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Content area */
+.postcard-content {
+  max-width: 780px;
+  margin-top: 20px;
+}
+
+/* Images inside content — side by side */
+.postcard-content img {
+  max-width: 48%;
+  display: inline-block;
+  margin-right: 2%;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  vertical-align: top;
+}
+
+/* Section headings */
+.postcard-content h2 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+/* Blockquote for written message */
+.postcard-content blockquote {
+  border-left: 3px solid #111111;
+  padding: 16px 24px;
+  margin: 0 0 24px 0;
+ font-family: 'EB Garamond', Georgia, serif !important;
+  font-size: 1.3rem !important;
+  font-style: italic !important;
+  color: #444444;
+  line-height: 1.9;
+}
+.postcard-content blockquote p {
+  font-family: 'EB Garamond', Georgia, serif !important;
+  font-size: 1.3rem !important;
+  font-style: italic !important;
+  color: #444444;
+  line-height: 1.9;
+}
+
+/* Commentary text */
+.postcard-content p {
+  font-family: Georgia, serif;
+  font-size: 1.05;
+  line-height: 2;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+
+/* ===== DROPDOWN NAVIGATION ===== */
+
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 30px;
+}
+
+.nav-dropdown > a {
+  margin-left: 0;
+}
+
+/* Hidden dropdown menu */
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #111111;
+  min-width: 200px;
+  z-index: 100;
+  padding: 8px 0;
+  padding-top: 18px;
+  margin-top: 0;
+}
+
+/* Show on hover */
+.nav-dropdown:hover .nav-dropdown-menu {
+  display: block;
+}
+
+/* Links inside dropdown */
+.nav-dropdown-menu a {
+  display: block;
+  margin-left: 0;
+  padding: 8px 20px;
+  font-size: 0.78rem;
+  color: #cccccc;
+  text-decoration: none;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.nav-dropdown-menu a:hover {
+  color: #ffffff;
+  background-color: #222222;
+}

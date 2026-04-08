@@ -1,0 +1,15 @@
+{{ define "main" }}
+
+  <!-- Page title and description -->
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+
+  <!-- Only show posts, not subsections -->
+  {{ range .RegularPages }}
+    <article>
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <p>{{ .Params.summary }}</p>
+    </article>
+  {{ end }}
+
+{{ end }}
