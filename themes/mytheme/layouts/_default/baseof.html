@@ -7,6 +7,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <!-- Open Graph Meta Tags -->
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta property="og:description" content="{{ if .Params.summary }}{{ .Params.summary }}{{ else }}PhD Scholar in Physics at IIT Mandi working on ultrafast spectroscopy of 2D materials.{{ end }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{ with .Params.cover_image }}
+<meta property="og:image" content="{{ $.Site.BaseURL }}{{ . }}">
+{{ else }}
+<meta property="og:image" content="{{ $.Site.BaseURL }}images/profile.jpg">
+{{ end }}
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@theNaguKamath">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+<meta name="twitter:description" content="{{ if .Params.summary }}{{ .Params.summary }}{{ else }}PhD Scholar in Physics at IIT Mandi working on ultrafast spectroscopy of 2D materials.{{ end }}">
   <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
@@ -72,9 +89,18 @@
 
   <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
+<main>
+{{ if not .IsHome }}
+<div class="back-btn-wrap">
+  {{ if .Parent }}
+    <a href="{{ .Parent.RelPermalink }}" class="back-btn">← {{ .Parent.Title }}</a>
+  {{ else }}
+    <a href="javascript:history.back()" class="back-btn">← Back</a>
+  {{ end }}
+</div>
+{{ end }} 
+  {{ block "main" . }}{{ end }}
+</main>
 
 <footer>
   <div class="footer-content">

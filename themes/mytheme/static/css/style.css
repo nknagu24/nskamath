@@ -443,6 +443,7 @@ footer {
 .hero-content {
   max-width: 860px;
   margin: 0 auto;
+  text-align: center;
 }
 
 
@@ -469,14 +470,21 @@ footer {
   font-size: 0.95rem;
   color: #cccccc;
   max-width: 600px;
+  margin: 0 auto 36px;
   line-height: 1.8;
-  margin-bottom: 36px;
 }
 
 /* Navigation buttons */
+.hero-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
 .hero-links a {
   display: inline-block;
-  margin-right: 12px;
   padding: 10px 24px;
   border: 1px solid #ffffff;
   color: #ffffff;
@@ -590,6 +598,7 @@ footer {
   display: flex;
   justify-content: space-between;
   margin-bottom: 40px;
+  text-align: left;
 }
 
 .hero-tag {
@@ -696,24 +705,28 @@ footer {
 
 .travel-card {
   display: flex;
+  align-items: center;
   gap: 40px;
-  padding: 24px 0;
-  border-bottom: 1px solid #eeeeee;
+  padding: 24px 20px;
+  border: 1px solid #dddddd;
+  border-left: 3px solid #dddddd;
+  margin-bottom: 12px;
   text-decoration: none;
   color: #111111;
-  padding-left: 0;
-  transition: padding-left 0.2s ease;
+  transition: background-color 0.2s ease, padding-left 0.2s ease, border-color 0.2s ease;
 }
 
 .travel-card:hover {
   text-decoration: none;
   color: #111111;
-  padding-left: 12px;
-  transition: padding-left 0.2s ease;
+  background-color: #f9f9f9;
+  border: 1px solid #cccccc;
+  border-left: 3px solid #111111;
+  padding-left: 24px;
 }
 
 .travel-card:hover .travel-title {
-  color: #555555
+  color: #111111;
 }
 
 /* Left column — date and country */
@@ -738,6 +751,10 @@ footer {
 }
 
 /* Right column — title, meta, summary */
+.travel-card-right {
+  flex: 1;
+}
+
 .travel-title {
   font-size: 1rem;
   font-weight: 700;
@@ -758,6 +775,19 @@ footer {
   line-height: 1.6;
 }
 
+/* Arrow on right side */
+.travel-card::after {
+  content: '→';
+  font-size: 1.1rem;
+  color: #cccccc;
+  flex-shrink: 0;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.travel-card:hover::after {
+  transform: translateX(6px);
+  color: #111111;
+}
 /* ===== PHOTOGRAPHY PAGE ===== */
 
 .photo-albums {
@@ -1249,4 +1279,25 @@ footer {
     grid-template-columns: 1fr;
   }
 
+}
+
+/* ===== BACK BUTTON ===== */
+.back-btn-wrap {
+  max-width: 860px;
+  margin: 20px auto 0;
+  padding: 0 30px;
+}
+
+.back-btn {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.back-btn:hover {
+  color: #111111;
 }
