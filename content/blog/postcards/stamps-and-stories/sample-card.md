@@ -5,17 +5,14 @@ country = "United Kingdom"
 city = "Cambridge"
 sender = "Self"
 year_sent = "2025"
-cover_image = "/images/postcards/cambridge-front.jpg"
-back_image = "/images/postcards/cambridge-back.jpg"
 summary = "A postcard from my visit to Cambridge in July 2025."
-type = "stamps-and-stories"
 layout = "postcard"
 +++
 
 ## The Card
 
-![Front of the card](/images/postcards/cambridge-front.webp)
-![Back of the card](/images/postcards/cambridge-back.webp)
+{{< img src="images/postcards/cambridge-front.webp" alt="Front of the card" >}}
+{{< img src="images/postcards/cambridge-back.webp" alt="Back of the card" >}}
 
 ## What's Written
 

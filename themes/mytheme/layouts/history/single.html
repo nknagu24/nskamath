@@ -1,10 +1,14 @@
 {{ define "main" }}
 
-<!-- Cover image if available -->
+<!-- Cover image — optimized -->
 {{ with .Params.cover_image }}
-<div class="travel-post-cover">
-  <img src="{{ . }}" alt="{{ $.Title }}">
-</div>
+  {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
+  {{ if $image }}
+    {{ $optimized := $image.Resize "1400x webp q85" }}
+    <div class="travel-post-cover">
+      <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
+    </div>
+  {{ end }}
 {{ end }}
 
 <div class="travel-post-header">

@@ -9,12 +9,15 @@
 
       <div class="photo-album-cover">
         {{ with .Params.cover_image }}
-          <img src="{{ . }}" alt="{{ $.Title }}">
+          {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
+          {{ if $image }}
+            {{ $optimized := $image.Resize "600x webp q85" }}
+            <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
+          {{ end }}
         {{ else }}
           <div class="photo-album-placeholder"></div>
         {{ end }}
 
-        <!-- Text overlay on image -->
         <div class="photo-album-overlay">
           <div class="photo-album-title">{{ .Title }}</div>
           <div class="photo-album-meta">{{ .Params.location }}</div>

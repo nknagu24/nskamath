@@ -1,22 +1,31 @@
 {{ define "main" }}
 
-<!-- Hero image at top -->
-<div class="photo-post-hero">
-  {{ with .Params.cover_image }}
-    <img src="{{ . }}" alt="{{ $.Title }}">
+<!-- Hero image at top — optimized -->
+{{ with .Params.cover_image }}
+  {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
+  {{ if $image }}
+    {{ $optimized := $image.Resize "1400x webp q85" }}
+    <div class="photo-post-hero">
+      <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
+      <div class="photo-post-hero-overlay">
+        <h1 class="photo-post-title">{{ $.Title }}</h1>
+        <p class="photo-post-meta">{{ $.Params.location }} · {{ $.Params.date | time.Format "January 2006" }}</p>
+      </div>
+    </div>
   {{ end }}
-  <div class="photo-post-hero-overlay">
-    <h1 class="photo-post-title">{{ .Title }}</h1>
-    <p class="photo-post-meta">{{ .Params.location }} · {{ .Params.date | time.Format "January 2006" }}</p>
-  </div>
-</div>
+{{ end }}
 
-<!-- Photo grid with lightbox -->
+<!-- Photo grid with lightbox — optimized -->
 <div class="photo-post-grid" id="photoGrid">
   {{ range .Params.images }}
-  <a href="{{ . }}" class="glightbox">
-    <img src="{{ . }}" alt="">
-  </a>
+    {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
+    {{ if $image }}
+      {{ $optimized := $image.Resize "1200x webp q85" }}
+      {{ $thumb := $image.Resize "600x webp q80" }}
+      <a href="{{ $optimized.RelPermalink }}" class="glightbox">
+        <img src="{{ $thumb.RelPermalink }}" alt="">
+      </a>
+    {{ end }}
   {{ end }}
 </div>
 

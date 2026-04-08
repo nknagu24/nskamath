@@ -8,7 +8,7 @@ trip_type = "Conference"
 duration = "5 days"
 year = "2025"
 month = "July"
-cover_image = "/images/travel/cambridge.jpg"
+cover_image = "images/travel/cambridge.jpg"
 summary = "Five days in one of the world's greatest university cities for a scientific conference."
 type = "travel"
 +++
