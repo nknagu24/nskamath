@@ -15,8 +15,6 @@
 <meta property="og:site_name" content="{{ .Site.Title }}">
 {{ with .Params.cover_image }}
 <meta property="og:image" content="{{ $.Site.BaseURL }}{{ . }}">
-{{ else }}
-<meta property="og:image" content="{{ $.Site.BaseURL }}images/profile.jpg">
 {{ end }}
 
 <!-- Twitter Card -->

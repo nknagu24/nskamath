@@ -1301,3 +1301,48 @@ footer {
 .back-btn:hover {
   color: #111111;
 }
+
+/* ===== 404 PAGE ===== */
+.error-page {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.error-code {
+  font-family: 'Bonheur Royale', cursive;
+  font-size: 8rem;
+  color: #111111;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.error-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.error-desc {
+  font-size: 0.95rem;
+  color: #666666;
+  margin-bottom: 40px;
+}
+
+.error-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  background-color: #111111;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+}
+
+.error-btn:hover {
+  background-color: #444444;
+  color: #ffffff;
+}
