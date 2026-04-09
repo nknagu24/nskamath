@@ -129,7 +129,7 @@ nav a:hover {
 .header-icons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 30px;
 }
 
 /* ===== HAMBURGER MENU BUTTON ===== */
@@ -144,7 +144,7 @@ nav a:hover {
   line-height: 1;
   vertical-align: middle;
   position: relative;
-  top: -2.7px;
+  top: -3.5px;
 }
 
 /* ===== MENU TRAY ===== */

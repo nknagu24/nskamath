@@ -1,5 +1,5 @@
 +++
-title = "Personal Blog"
+title = "Blog"
 +++
 
 <div class="section-tiles">
@@ -22,6 +22,16 @@ title = "Personal Blog"
   <a class="section-tile" href="/blog/photography/">
     <div class="tile-title">Photography</div>
     <div class="tile-desc">A collection of photographs from my travels and everyday life.</div>
+  </a>
+
+  <a class="section-tile" href="/blog/physics/">
+    <div class="tile-title">Physics</div>
+    <div class="tile-desc">Resources, links and notes on physics.</div>
+  </a>
+
+  <a class="section-tile" href="/blog/miscellaneous/">
+    <div class="tile-title">Miscellaneous</div>
+    <div class="tile-desc">Interesting sites, tutorials and language learning.</div>
   </a>
 
 </div>
