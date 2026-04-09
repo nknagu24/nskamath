@@ -125,15 +125,26 @@ nav a:hover {
   }
 }
 
+/* ===== HEADER ICONS ===== */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* ===== HAMBURGER MENU BUTTON ===== */
 .menu-btn {
   background: none;
   border: none;
   color: #ffffff;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   cursor: pointer;
-  padding: 4px 8px;
-  margin-left: 20px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  vertical-align: middle;
+  position: relative;
+  top: -2.7px;
 }
 
 /* ===== MENU TRAY ===== */

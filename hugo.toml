@@ -29,7 +29,7 @@ theme = "mytheme"
     weight = 3
 
   [[menu.main]]
-    name = "Personal Blog"
+    name = "Blog"
     url = "/blog/"
     weight = 4
 
