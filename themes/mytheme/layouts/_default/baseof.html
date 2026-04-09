@@ -66,19 +66,28 @@
 </div>
   </header>
 
-  <div class="menu-tray" id="menuTray">
-    <button class="menu-close" onclick="toggleMenu()">&#10005;</button>
-    <div class="tray-section">
-      <p class="tray-label">Academic</p>
-    </div>
-    <div class="tray-section">
-      <p class="tray-label">Blog</p>
-    </div>
-    <div class="tray-section">
-      <p class="tray-label">About</p>
-      <a href="/about/">About Me</a>
-    </div>
+<div class="menu-tray" id="menuTray">
+  <button class="menu-close" onclick="toggleMenu()">&#10005;</button>
+
+  <div class="tray-section">
+    <p class="tray-label">Academic</p>
+    <a href="/academics/education/">Education</a>
+    <a href="/academics/publications/">Publications</a>
+    <a href="/CV-Nagendra.pdf" target="_blank">Curriculum Vitae</a>
   </div>
+
+  <div class="tray-section">
+    <p class="tray-label">Personal</p>
+    <a href="/blog/travel/">Travel</a>
+    <a href="/blog/photography/">Photography</a>
+  </div>
+
+  <div class="tray-section">
+    <p class="tray-label">About</p>
+    <a href="/about/">About Me</a>
+  </div>
+
+</div>
 
   <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
 
@@ -97,11 +106,19 @@
 <footer>
   <div class="footer-content">
 
+    <!-- Left — 30% — Top button and copyright -->
     <div class="footer-left">
       <a href="#" class="footer-top-btn">↑ Top</a>
       <p class="footer-copy">© {{ now.Year }} {{ .Site.Title }}</p>
     </div>
 
+    <!-- Middle — 40% — Quote -->
+    <div class="footer-middle">
+      <div class="footer-quote">"The most incomprehensible thing about the universe is that it is comprehensible."</div>
+      <div class="footer-quote-author">— Albert Einstein</div>
+    </div>
+
+    <!-- Right — 30% — Tagline and social icons -->
     <div class="footer-right">
       <div class="footer-tagline">Let there be light.</div>
       <div class="footer-links">
