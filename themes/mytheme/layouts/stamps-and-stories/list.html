@@ -3,26 +3,48 @@
   <h1>{{ .Title }}</h1>
   <p class="section-desc">{{ .Content }}</p>
 
-  <div class="travel-list">
+  <div class="sort-wrap">
+    <select class="sort-select" id="sortSelect" onchange="sortPosts()">
+      <option value="date-desc">Newest First</option>
+      <option value="date-asc">Oldest First</option>
+      <option value="alpha-asc">A → Z</option>
+      <option value="alpha-desc">Z → A</option>
+    </select>
+  </div>
+
+  <div class="travel-grid" id="postList">
     {{ range .RegularPages.ByDate.Reverse }}
-    <a class="travel-card" href="{{ .RelPermalink }}">
+    <a class="travel-grid-card"
+       href="{{ .RelPermalink }}"
+       data-date="{{ .Date.Unix }}"
+       data-title="{{ .Title }}">
 
-      <div class="travel-card-left">
-        <div class="travel-date">{{ .Params.date | time.Format "Jan 2006" }}</div>
-        <div class="travel-country">{{ .Params.country }}</div>
+      <div class="travel-grid-meta">{{ .Params.date | time.Format "Jan 2006" }} · {{ .Params.country }}</div>
+      <div class="travel-grid-title">{{ .Title }}</div>
+      <div class="travel-grid-sub">
+        {{ with .Params.city }}{{ . }}{{ end }}
+        {{ with .Params.sender }} · From {{ . }}{{ end }}
       </div>
-
-      <div class="travel-card-right">
-        <div class="travel-title">{{ .Title }}</div>
-        <div class="travel-meta">
-          {{ with .Params.city }}{{ . }}{{ end }}
-          {{ with .Params.sender }} · From {{ . }}{{ end }}
-        </div>
-        <div class="travel-summary">{{ .Params.summary }}</div>
-      </div>
+      <div class="travel-grid-summary">{{ .Params.summary }}</div>
 
     </a>
     {{ end }}
   </div>
+
+<script>
+function sortPosts() {
+  const select = document.getElementById('sortSelect');
+  const list = document.getElementById('postList');
+  const cards = Array.from(list.querySelectorAll('.travel-grid-card'));
+  cards.sort((a, b) => {
+    const val = select.value;
+    if (val === 'date-desc') return b.dataset.date - a.dataset.date;
+    if (val === 'date-asc') return a.dataset.date - b.dataset.date;
+    if (val === 'alpha-asc') return a.dataset.title.localeCompare(b.dataset.title);
+    if (val === 'alpha-desc') return b.dataset.title.localeCompare(a.dataset.title);
+  });
+  cards.forEach(card => list.appendChild(card));
+}
+</script>
 
 {{ end }}
