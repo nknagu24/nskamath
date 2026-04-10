@@ -426,6 +426,7 @@ padding-top: 0;
   flex-direction: column;
   gap: 20px;
 padding-top: 0;
+align-self:start;
 }
 
 /* Tagline with spectrum gradient */
@@ -436,7 +437,7 @@ padding-top: 0;
   background: linear-gradient(
     to right,
     #8B00FF,
-    #4400FF,
+   /* #4400FF,*/
     #0000FF,
     #00AA00,
     #FFFF00,
@@ -498,7 +499,11 @@ padding-top: 0;
 
 /* ===== HERO SECTION ===== */
 .hero {
-  background-color: #111111;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: url('/images/laser-bg.JPG');
+  background-size: cover;
+  background-position:center;
+  background-blend-mode: overlay;
   color: #ffffff;
   padding: 100px 60px;
   min-height: 60vh;
@@ -1402,4 +1407,54 @@ padding-top: 0;
 .error-btn:hover {
   background-color: #444444;
   color: #ffffff;
+}
+
+
+
+/* ===== BLOG TYPOGRAPHY ===== */
+
+/* Blog post body text — Crimson Pro */
+.travel-post-content p,
+.postcard-content p,
+.travel-post-content li,
+.postcard-content li {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #1a1a1a;
+  text-align: justify;
+}
+
+/* Blog post headings — Libre Baskerville italic */
+.travel-post-content h2,
+.travel-post-content h3,
+.postcard-content h2,
+.postcard-content h3 {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #111111;
+}
+
+/* Blog post meta — Montserrat */
+.travel-post-meta,
+.travel-post-date,
+.postcard-meta,
+.travel-date,
+.travel-meta,
+.travel-country {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Travel and history post title — Libre Baskerville italic */
+.travel-post-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Section descriptions on listing pages */
+.section-desc {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.1rem;
 }
