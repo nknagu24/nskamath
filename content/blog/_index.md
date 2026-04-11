@@ -2,7 +2,7 @@
 title = "Blog"
 +++
 
-<div class="section-tiles">
+<div class="section-tiles blog-tiles">
 
   <a class="section-tile tile-travel" href="/blog/travel/">
     <div class="tile-title">Travel</div>
