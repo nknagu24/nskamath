@@ -1,9 +1,15 @@
 {{ $src := .Get "src" }}
 {{ $alt := .Get "alt" | default "" }}
+{{ $caption := .Get "caption" | default "" }}
 {{ $image := resources.Get $src }}
-{{ if $image }}
-  {{ $optimized := $image.Resize "1200x webp q85" }}
-  <img src="{{ $optimized.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
-{{ else }}
-  <img src="{{ $src }}" alt="{{ $alt }}" loading="lazy">
-{{ end }}
+<figure class="img-figure">
+  {{ if $image }}
+    {{ $optimized := $image.Resize "1200x webp q85" }}
+    <img src="{{ $optimized.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
+  {{ else }}
+    <img src="{{ $src }}" alt="{{ $alt }}" loading="lazy">
+  {{ end }}
+  {{ if $caption }}
+    <figcaption>{{ $caption }}</figcaption>
+  {{ end }}
+</figure>

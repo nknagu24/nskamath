@@ -23,10 +23,13 @@ The city has many popular tourist attractions but if planned in advance all the 
 
 
 {{< imgrow >}}
-{{< img src="images/travel/jaipur-2023-travel/hawamahal4.jpg" alt="Jaipur 1" >}}
-{{< img src="images/travel/jaipur-2023-travel/hawamahal2.jpg" alt="Jaipur 2" >}}
-{{< img src="images/travel/jaipur-2023-travel/hawamahal3.jpg" alt="Jaipur 3" >}}
+{{< img src="images/travel/jaipur-2023-travel/hawamahal4.jpg" alt="Hawa mahal 4" caption="" >}}
+{{< img src="images/travel/jaipur-2023-travel/hawamahal2.jpg" alt="Hawa mahal 2" caption="Hawa Mahal" >}}
+{{< img src="images/travel/jaipur-2023-travel/hawamahal3.jpg" alt="Hawa mahal 3" caption="" >}}
 {{< /imgrow >}}
+
+
+
 
 
 <div class="img-row-2">

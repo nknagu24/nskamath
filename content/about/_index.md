@@ -8,8 +8,8 @@ layout = "about"
 <h1>Nagendra S Kamath</h1>
 <h3>PhD Scholar in Physics</h3>
 <p>School of Physical Sciences, Indian Institute of Technology Mandi</p>
-<p>I am a PhD scholar at the School of Physical Sciences, Indian Institute of Technology Mandi. My research focuses on studying ultrafast dynamics, spin, and valley properties in 2D materials using advanced ultrafast spectroscopy techniques. I aim to unravel the fundamental mechanisms governing valley dynamics and excitonic physics, and to explore how their interplay shapes the optoelectronic behavior of these quantum materials.</p>
-<p>Outside the lab, I enjoy learning new languages, collecting postcards (deltiology), and following Arsenal FC.</p>
+<p>I am a PhD scholar at the School of Physical Sciences, Indian Institute of Technology Mandi. My <a href="/academics/publications/">research</a> focuses on studying ultrafast dynamics, spin, and valley properties in 2D materials using advanced ultrafast spectroscopy techniques. I aim to unravel the fundamental mechanisms governing valley dynamics and excitonic physics, and to explore how their interplay shapes the optoelectronic behavior of these quantum materials.</p>
+<p>Outside the lab, I enjoy learning new languages, collecting postcards (<a href="/blog/postcards/what-is-deltiology/">deltiology</a>). I also love watching football and follow Arsenal FC.</p>
 
 </div>
 
