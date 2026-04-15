@@ -1,0 +1,29 @@
+{{ define "main" }}
+
+  <h1>{{ .Title }}</h1>
+  <p class="section-desc">{{ .Content }}</p>
+
+  <div class="travel-list">
+    {{ range .RegularPages.ByDate.Reverse }}
+    <a class="travel-card" href="{{ .RelPermalink }}">
+
+      <div class="travel-card-left">
+        <div class="travel-date">{{ .Params.date | time.Format "Jan 2006" }}</div>
+        <div class="travel-country">{{ .Params.country }}</div>
+      </div>
+
+      <div class="travel-card-right">
+        <div class="travel-title">{{ .Title }}</div>
+        <div class="travel-meta">
+          {{ with .Params.city }}{{ . }}{{ end }}
+          {{ with .Params.trip_type }} · {{ . }}{{ end }}
+          {{ with .Params.duration }} · {{ . }}{{ end }}
+        </div>
+        <div class="travel-summary">{{ .Params.summary }}</div>
+      </div>
+
+    </a>
+    {{ end }}
+  </div>
+
+{{ end }}
