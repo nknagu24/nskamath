@@ -760,13 +760,13 @@ footer {
 }
 
 .blog-tiles .section-tile {
-  min-height: 200px; /* Taller tiles give the large Bangers font room to breathe */
+  min-height: 200px;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 25px;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
-
 .blog-tiles .section-tile:hover {
   filter: brightness(95%);
   transform: translateY(-5px);
@@ -838,54 +838,37 @@ footer {
 /* ===== SECTION TILES MOBILE ===== */
 @media (max-width: 768px) {
   .section-tiles {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .blog-tiles {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .blog-tiles .section-tile {
+    min-height: 130px;
   }
 
   .blog-tiles .tile-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+  }
+
+  .tile-icon {
+    width: 30px;
+    height: 30px;
   }
 }
 
-/* ===== ACADEMICS ENTRIES ===== */
-.ac-entry {
-  border-left: 2px solid #111111;
-  padding-left: 20px;
-  margin-bottom: 36px;
+@media (max-width: 400px) {
+  .section-tiles {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-tiles {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-.ac-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 4px;
-}
-
-.ac-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #111111;
-}
-
-.ac-date {
-  font-size: 0.78rem;
-  color: #777777;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-  margin-left: 20px;
-}
-
-.ac-institution {
-  font-size: 0.88rem;
-  color: #555555;
-  margin-bottom: 6px;
-}
-
-.ac-detail {
-  font-size: 0.88rem;
-  color: #444444;
-  margin-bottom: 4px;
-}
 
 /* ===== ACADEMICS MOBILE ===== */
 @media (max-width: 768px) {
@@ -1647,4 +1630,11 @@ figcaption {
   .subsection-tiles {
     grid-template-columns: 1fr;
   }
+}
+
+.tile-icon {
+  width: 40px;
+  height: 40px;
+  display: block;
+  opacity: 0.85;
 }
