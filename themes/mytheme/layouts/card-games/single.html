@@ -1,0 +1,46 @@
+{{ define "main" }}
+
+<!-- Hero section with game image -->
+{{ with .Params.cover_image }}
+  {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
+  {{ if $image }}
+    {{ $optimized := $image.Resize "1400x webp q85" }}
+    <div class="cardgames-hero-simple">
+      <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
+    </div>
+  {{ end }}
+{{ end }}
+
+<!-- Post title -->
+<div class="cardgames-post-header-simple">
+  <h1>{{ .Title }}</h1>
+</div>
+
+<!-- Three Info Cards: Players, Deck, Card Rank (No Icons) -->
+<div class="info-cards-container">
+  
+  <div class="info-card">
+    <div class="info-card-label">Players</div>
+    <div class="info-card-value">{{ .Params.players }}</div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-label">Deck</div>
+    <div class="info-card-value">{{ .Params.deck }}</div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-label">Card Rank</div>
+    <div class="info-card-value">{{ .Params.card_rank }}</div>
+  </div>
+
+</div>
+
+<hr>
+
+<!-- Main post content -->
+<div class="cardgames-post-content-simple">
+  {{ .Content }}
+</div>
+
+{{ end }}

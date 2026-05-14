@@ -1,0 +1,10 @@
+<!-- Shortcode file: themes/mytheme/layouts/shortcodes/concept.html -->
+
+<div class="concept-box">
+  <div class="concept-sidebar">
+    <div class="concept-sidebar-title">{{ .Get "title" }}</div>
+  </div>
+  <div class="concept-content">
+    {{ .Inner | markdownify }}
+  </div>
+</div>

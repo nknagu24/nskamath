@@ -1,0 +1,48 @@
+{{ define "main" }}
+
+  <h1>{{ .Title }}</h1>
+  <p class="section-desc">{{ .Content }}</p>
+
+  <!-- Filter by number of players -->
+  <div class="cardgames-filters">
+    <select id="playerFilter" style="padding: 10px 14px; font-size: 13px; border: 1px solid #ddd; border-radius: 4px; background-color: #ffffff; cursor: pointer; font-weight: 500;">
+      <option value="">All Games</option>
+      <option value="2">2 Players</option>
+      <option value="3-4">3-4 Players</option>
+      <option value="5plus">5+ Players</option>
+    </select>
+  </div>
+
+  <!-- Grid of square game cards -->
+  <div class="cardgames-grid-square">
+    {{ $pages := where .RegularPages "Params.featured" "ne" true }}
+    {{ $pages = $pages.ByDate.Reverse }}
+
+    {{ range $pages }}
+      <a class="game-card-square" href="{{ .RelPermalink }}" data-players="{{ .Params.players }}">
+        
+        <!-- Game image container -->
+        <div class="game-card-image">
+          {{ if .Params.cover_image }}
+            {{ $image := resources.Get (strings.TrimPrefix "/" .Params.cover_image) }}
+            {{ if $image }}
+              {{ $optimized := $image.Resize "400x400 webp q85" }}
+              <img src="{{ $optimized.RelPermalink }}" alt="{{ .Title }}">
+            {{ else }}
+              <div class="game-card-placeholder">♠♥♦♣</div>
+            {{ end }}
+          {{ else }}
+            <div class="game-card-placeholder">♠♥♦♣</div>
+          {{ end }}
+        </div>
+
+        <!-- Game name overlay -->
+        <div class="game-card-overlay">
+          <h3 class="game-card-title">{{ .Title }}</h3>
+        </div>
+
+      </a>
+    {{ end }}
+  </div>
+
+{{ end }}

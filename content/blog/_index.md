@@ -34,4 +34,9 @@ title = "Blog"
     <div class="tile-title">Misc.</div>
   </a>
 
+  <a class="section-tile tile-misc" href="/blog/card-games/">
+<img src="/images/icons/cards.png" class="tile-icon" alt="">
+    <div class="tile-title">Card Games</div>
+  </a>
+
 </div>

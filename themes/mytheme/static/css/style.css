@@ -1638,3 +1638,771 @@ figcaption {
   display: block;
   opacity: 0.85;
 }
+
+
+
+/* ===== CARD GAMES SECTION ===== */
+
+.section-desc {
+  color: #666666;
+  font-size: 0.9rem;
+  margin-bottom: 40px;
+}
+
+/* Filter bar */
+.cardgames-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cardgames-filters select {
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 0.5px solid #ddd;
+  border-radius: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.cardgames-filters select:hover {
+  border-color: #999;
+}
+
+/* Featured post section */
+.cardgames-featured {
+  display: flex;
+  gap: 24px;
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 40px;
+  align-items: flex-start;
+}
+
+.featured-image {
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #eee;
+}
+
+.featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.featured-content {
+  flex: 1;
+}
+
+.featured-badge {
+  display: inline-block;
+  background-color: #5b7cfa;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.featured-content h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 8px 0;
+  color: #111111;
+  line-height: 1.4;
+}
+
+.featured-content p {
+  font-size: 13px;
+  color: #555555;
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.featured-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #888888;
+  margin-top: 12px;
+}
+
+/* Grid of post cards */
+.cardgames-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+/* Individual card */
+.cardgames-card {
+  display: block;
+  text-decoration: none;
+  color: #111111;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cardgames-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: #111111;
+}
+
+/* Card header image */
+.card-header {
+  width: 100%;
+  height: 160px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder for cards without images (suit symbol) */
+.card-placeholder {
+  font-size: 48px;
+  color: #ccc;
+}
+
+/* Card body */
+.card-body {
+  padding: 16px;
+}
+
+.card-tags {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #f0f0f0;
+  color: #666666;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card-body h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 8px 0;
+  line-height: 1.4;
+  color: #111111;
+}
+
+.card-body p {
+  font-size: 13px;
+  color: #666666;
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.card-footer {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: #999999;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* ===== CARD GAMES SECTION - WITHOUT TIP BANNER ===== */
+
+.section-desc {
+  color: #666666;
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+/* Filter controls */
+.cardgames-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.cardgames-filters select {
+  padding: 10px 14px;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: border-color 0.2s;
+}
+
+.cardgames-filters select:hover {
+  border-color: #999;
+}
+
+/* ===== SQUARE GAME CARDS GRID ===== */
+
+.cardgames-grid-square {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 60px;
+}
+
+/* Individual square game card */
+.game-card-square {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.game-card-square:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+/* Game card image container */
+.game-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.game-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.game-card-square:hover .game-card-image img {
+  transform: scale(1.05);
+}
+
+/* Placeholder for cards without images */
+.game-card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #ddd;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+}
+
+/* Dark overlay on card */
+.game-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  transition: background 0.3s ease;
+}
+
+.game-card-square:hover .game-card-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+}
+
+/* Game title on card */
+.game-card-title {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.3;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== SINGLE POST PAGE ===== */
+
+/* Hero image - simplified */
+.cardgames-hero-simple {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.cardgames-hero-simple img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Post header */
+.cardgames-post-header-simple {
+  margin-bottom: 40px;
+}
+
+.cardgames-post-header-simple h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0;
+  color: #111111;
+  line-height: 1.2;
+}
+
+/* ===== INFO CARDS (Players, Deck, Card Rank) ===== */
+
+.info-cards-container {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 16px !important;
+  margin-bottom: 32px !important;
+}
+
+.info-card {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 16px 12px;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.info-card-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #aaaaaa;
+  margin-bottom: 8px;
+}
+
+.info-card-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.4;
+}
+
+/* ===== POST CONTENT ===== */
+
+.cardgames-post-content-simple {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.cardgames-post-content-simple h2,
+.cardgames-post-content-simple h3 {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #111111;
+  margin-top: 52px;
+  margin-bottom: 20px;
+}
+
+.cardgames-post-content-simple h2 { font-size: 1.3rem; }
+.cardgames-post-content-simple h3 { font-size: 1.1rem; }
+
+.cardgames-post-content-simple p,
+.cardgames-post-content-simple li {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #1a1a1a;
+  text-align: justify;
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  text-indent: 2em;
+}
+
+/* No indent on first paragraph */
+.cardgames-post-content-simple p:first-of-type {
+  text-indent: 0;
+}
+
+.cardgames-post-content-simple ul,
+.cardgames-post-content-simple ol {
+  margin-left: 20px;
+  margin-bottom: 16px;
+}
+
+.cardgames-post-content-simple strong {
+  font-weight: 600;
+  color: #111111;
+}
+
+/* ===== RELATED GAMES SECTION ===== */
+
+.cardgames-navigation {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cardgames-navigation h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #111111;
+}
+
+.related-games-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.related-game-card {
+  display: block;
+  text-decoration: none;
+  color: #111111;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.related-game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+}
+
+.related-game-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  margin-bottom: 12px;
+  border-radius: 6px;
+}
+
+.related-game-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.related-game-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+
+@media (max-width: 1024px) {
+  .cardgames-grid-square {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .info-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .related-games-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cardgames-grid-square {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .info-cards-container {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .cardgames-hero-simple {
+    height: 300px;
+    margin-bottom: 30px;
+  }
+
+  .cardgames-post-header-simple h1 {
+    font-size: 1.8rem;
+  }
+
+  .game-card-title {
+    font-size: 14px;
+  }
+
+  .related-games-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardgames-filters select {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .cardgames-post-header-simple h1 {
+    font-size: 1.5rem;
+  }
+
+  .game-card-overlay {
+    padding: 16px;
+  }
+
+  .game-card-title {
+    font-size: 13px;
+  }
+
+  .info-card {
+    padding: 16px;
+  }
+
+  .info-card-label {
+    font-size: 10px;
+  }
+
+  .info-card-value {
+    font-size: 14px;
+  }
+}
+
+
+/* ===== CONCEPT BOX - SIDEBAR DESIGN (NO ICON) ===== */
+
+.concept-box {
+  display: flex;
+  gap: 0;
+  margin: 24px 0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Left sidebar - yellow background */
+.concept-sidebar {
+  background-color: #FFD700;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  flex-shrink: 0;
+}
+
+.concept-sidebar-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #111111 !important;
+  text-align: center !important;
+  line-height: 1.2 !important;
+}
+
+/* Right side - content area */
+.concept-content {
+  background-color: #f5f5f5;
+  padding: 24px;
+  flex: 1;
+}
+
+.concept-content p {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  color: #333333 !important;
+  margin: 0 0 8px 0 !important;
+  font-weight: 400 !important;
+}
+
+.concept-content p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.concept-content ol,
+.concept-content ul {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  color: #333333 !important;
+  margin: 8px 0 8px 20px !important;
+  padding: 0 !important;
+}
+
+.concept-content li {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.6 !important;
+  color: #333333 !important;
+  margin-bottom: 4px !important;
+  font-weight: 400 !important;
+}
+
+.concept-content li:last-child {
+  margin-bottom: 0 !important;
+}
+
+.concept-content strong {
+  font-weight: 600 !important;
+  color: #111111 !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .concept-box {
+    flex-direction: column;
+  }
+
+  .concept-sidebar {
+    min-width: auto;
+    padding: 16px;
+  }
+
+  .concept-sidebar-title {
+    text-align: center;
+  }
+
+  .concept-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .concept-sidebar {
+    padding: 12px 16px;
+  }
+
+  .concept-sidebar-title {
+    font-size: 12px;
+  }
+
+  .concept-content {
+    padding: 16px;
+  }
+
+  .concept-content p {
+    font-size: 13px;
+  }
+}
+
+/* ===== TABLES ===== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+thead {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #111111;
+}
+
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #111111;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+td {
+  padding: 12px 16px;
+  color: #333333;
+  border-bottom: 1px solid #e9ecef;
+}
+
+tbody tr:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+tbody tr:last-child td {
+  border-bottom: 1px solid #111111;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  table {
+    font-size: 13px;
+  }
+
+  th, td {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px 10px;
+  }
+}
+
+.highlight-rule {
+  padding: 12px 16px !important;
+  background-color: #f5f5f5 !important;
+  border-left: 3px solid #111111 !important;
+  margin: 16px 0 !important;
+}
+
+.highlight-rule strong {
+  font-weight: 600 !important;
+  color: #111111 !important;
+}
