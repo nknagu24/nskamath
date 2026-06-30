@@ -8,6 +8,9 @@
 <hr>
 
 <div class="postcard-content">
+  {{ with .Params.front_image }}{{ $img := resources.Get (strings.TrimPrefix "/" .) }}{{ if $img }}{{ $o := $img.Resize "900x webp q85" }}<img src="{{ $o.RelPermalink }}" alt="Front of the card">{{ end }}{{ end }}
+  {{ with .Params.back_image }}{{ $img := resources.Get (strings.TrimPrefix "/" .) }}{{ if $img }}{{ $o := $img.Resize "900x webp q85" }}<img src="{{ $o.RelPermalink }}" alt="Back of the card">{{ end }}{{ end }}
+
   {{ .Content }}
 </div>
 

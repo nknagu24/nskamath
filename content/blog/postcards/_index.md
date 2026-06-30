@@ -3,7 +3,7 @@ title = "Postcards"
 type = "postcards"
 +++
 <div class="subsection-tiles">
-  <a class="subsection-tile" href="/blog/postcards/stamps-and-stories/">
+  <a class="subsection-tile" href="/blog/postcards/what-is-deltiology/">
     <div class="subsection-tile-title">What is Deltiology?</div>
     <div class="subsection-tile-desc">An introduction to the hobby of postcard collecting.</div>
   </a>

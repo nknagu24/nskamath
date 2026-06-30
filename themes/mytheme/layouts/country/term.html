@@ -1,0 +1,23 @@
+{{ define "main" }}
+  {{ $cards := where .Pages "Type" "postcard" }}
+
+  <h1 class="country-page-title">Postcards from {{ .Title }}</h1>
+  <p class="section-desc" style="text-align:center;">{{ len $cards }} card{{ if ne (len $cards) 1 }}s{{ end }} in the collection</p>
+
+  <div class="postcard-grid">
+    {{ range $cards.ByDate.Reverse }}
+    {{ $card := . }}
+    <a class="postcard-thumb" href="{{ .RelPermalink }}">
+      {{ with .Params.front_image }}
+        {{ $img := resources.Get (strings.TrimPrefix "/" .) }}
+        {{ if $img }}
+          {{ $thumb := $img.Resize "500x webp q80" }}
+          <img src="{{ $thumb.RelPermalink }}" alt="{{ $card.Title }}">
+        {{ end }}
+      {{ end }}
+      <div class="postcard-thumb-title">{{ $card.Title }}</div>
+      {{ with $card.Params.city }}<div class="postcard-thumb-meta">{{ . }}</div>{{ end }}
+    </a>
+    {{ end }}
+  </div>
+{{ end }}

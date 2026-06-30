@@ -1,6 +1,9 @@
 +++
 title = "Stamps & Stories"
 type = "stamps-and-stories"
+
+[cascade]
+type = "postcard"
 +++
 
-A collection of postcards from around the world — each one a small story of a place, a person, and a moment in time.
+Each postcard in the collection, grouped by the country it came from. Pick a country to browse its cards.

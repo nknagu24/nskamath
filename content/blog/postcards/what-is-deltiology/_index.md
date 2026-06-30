@@ -19,10 +19,6 @@ Postcards first appeared in the late 19th century. The earliest known postcard d
 
 ## Getting Started
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
 
-## Useful Links
 
-- <a href="https://www.postcardsintl.com" target="_blank">Postcards International</a>
-- <a href="https://www.delcampe.net" target="_blank">Delcampe — Postcard Marketplace</a>
-- <a href="https://www.postcrossing.com" target="_blank">Postcrossing — Exchange Postcards Worldwide</a>
+

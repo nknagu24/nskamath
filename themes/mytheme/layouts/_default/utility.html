@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+<div class="utility-header">
+  <h1>{{ .Title }}</h1>
+  {{ with .Params.summary }}
+  <p class="section-desc">{{ . }}</p>
+  {{ end }}
+</div>
+
+<div class="utility-content">
+  {{ .Content }}
+
+  {{ with .Params.tool }}
+  <div class="tool-embed" data-tool="{{ . }}"><noscript>This interactive tool requires JavaScript to run.</noscript></div>
+  <script type="module" src="/tools/{{ . }}.js"></script>
+  {{ end }}
+</div>
+
+{{ end }}

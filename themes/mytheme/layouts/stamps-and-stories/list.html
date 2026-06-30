@@ -1,50 +1,34 @@
 {{ define "main" }}
 
   <h1>{{ .Title }}</h1>
-  <p class="section-desc">{{ .Content }}</p>
+  {{ .Content }}
 
-  <div class="sort-wrap">
-    <select class="sort-select" id="sortSelect" onchange="sortPosts()">
-      <option value="date-desc">Newest First</option>
-      <option value="date-asc">Oldest First</option>
-      <option value="alpha-asc">A → Z</option>
-      <option value="alpha-desc">Z → A</option>
-    </select>
-  </div>
+  <input type="text" id="countrySearch" class="country-search" placeholder="Search countries…" onkeyup="filterCountries()">
 
-  <div class="travel-grid" id="postList">
-    {{ range .RegularPages.ByDate.Reverse }}
-    <a class="travel-grid-card"
-       href="{{ .RelPermalink }}"
-       data-date="{{ .Date.Unix }}"
-       data-title="{{ .Title }}">
-
-      <div class="travel-grid-meta">{{ .Params.date | time.Format "Jan 2006" }} · {{ .Params.country }}</div>
-      <div class="travel-grid-title">{{ .Title }}</div>
-      <div class="travel-grid-sub">
-        {{ with .Params.city }}{{ . }}{{ end }}
-        {{ with .Params.sender }} · From {{ . }}{{ end }}
-      </div>
-      <div class="travel-grid-summary">{{ .Params.summary }}</div>
-
-    </a>
+  <ul class="country-index" id="countryList">
+    {{ $countries := site.GetPage "/country" }}
+    {{ with $countries }}
+      {{ range .Pages.ByTitle }}
+        {{ $cards := where .Pages "Type" "postcard" }}
+        {{ if gt (len $cards) 0 }}
+        <li class="country-row" data-name="{{ .Title | lower }}">
+          <a href="{{ .RelPermalink }}">
+            <span class="country-name">{{ .Title }}</span>
+            <span class="country-count">{{ len $cards }}</span>
+          </a>
+        </li>
+        {{ end }}
+      {{ end }}
     {{ end }}
-  </div>
+  </ul>
 
-<script>
-function sortPosts() {
-  const select = document.getElementById('sortSelect');
-  const list = document.getElementById('postList');
-  const cards = Array.from(list.querySelectorAll('.travel-grid-card'));
-  cards.sort((a, b) => {
-    const val = select.value;
-    if (val === 'date-desc') return b.dataset.date - a.dataset.date;
-    if (val === 'date-asc') return a.dataset.date - b.dataset.date;
-    if (val === 'alpha-asc') return a.dataset.title.localeCompare(b.dataset.title);
-    if (val === 'alpha-desc') return b.dataset.title.localeCompare(a.dataset.title);
-  });
-  cards.forEach(card => list.appendChild(card));
-}
-</script>
+  <script>
+    function filterCountries() {
+      var q = document.getElementById('countrySearch').value.toLowerCase();
+      document.querySelectorAll('#countryList .country-row').forEach(function (row) {
+        row.style.display = row.getAttribute('data-name').indexOf(q) > -1 ? '' : 'none';
+      });
+    }
+  </script>
 
 {{ end }}

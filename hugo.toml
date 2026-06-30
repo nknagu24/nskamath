@@ -33,6 +33,12 @@ theme = "mytheme"
     url = "/blog/"
     weight = 4
 
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  countryname = "country"
+
 # This makes external links open in a new tab
 [markup]
   [markup.goldmark]
