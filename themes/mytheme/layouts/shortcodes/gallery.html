@@ -1,0 +1,25 @@
+<div class="gallery">
+    <div class="gallery-main">
+        <button type="button" class="gallery-arrow gallery-prev" aria-label="Previous image">&#8249;</button>
+        {{ range $i, $p := .Params }}
+        {{ $img := resources.Get $p }}
+        {{ if $img }}
+        {{ $img = $img.Filter images.AutoOrient }}
+        {{ $big := $img.Fit "1400x1000 webp q85" }}
+        <img class="gallery-slide{{ if eq $i 0 }} active{{ end }}" src="{{ $big.RelPermalink }}" alt="" loading="lazy">
+        {{ end }}
+        {{ end }}
+        <button type="button" class="gallery-arrow gallery-next" aria-label="Next image">&#8250;</button>
+    </div>
+    <div class="gallery-thumbs">
+        {{ range $i, $p := .Params }}
+        {{ $img := resources.Get $p }}
+        {{ if $img }}
+        {{ $img = $img.Filter images.AutoOrient }}
+        {{ $thumb := $img.Fit "200x200 webp q80" }}
+        <button type="button" class="gallery-thumb{{ if eq $i 0 }} active{{ end }}"><img src="{{ $thumb.RelPermalink }}"
+                alt="" loading="lazy"></button>
+        {{ end }}
+        {{ end }}
+    </div>
+</div>

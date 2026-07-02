@@ -43,7 +43,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 </head>
 
-<body>
+<body class="{{ if eq .Section " blog" }}{{ $p :=split .RelPermalink "/" }}{{ if ge (len $p) 3 }}accent-{{ index $p 2
+  }}{{ end }}{{ end }}">
 
 
   <div class="topbar" id="topbar">
@@ -108,25 +109,27 @@
         <div class="pref-group">
           <span class="pref-name">Alignment</span>
           <div class="pref-btns">
-            <button type="button" class="pref-btn is-selected" onclick="setReaderAlign('left', this)"
+            <button type="button" class="pref-btn is-selected" data-align="left" onclick="setReaderAlign('left', this)"
               title="Left aligned" aria-label="Left aligned"><i class="fas fa-align-left"></i></button>
-            <button type="button" class="pref-btn" onclick="setReaderAlign('justify', this)" title="Justified"
-              aria-label="Justified"><i class="fas fa-align-justify"></i></button>
+            <button type="button" class="pref-btn" data-align="justify" onclick="setReaderAlign('justify', this)"
+              title="Justified" aria-label="Justified"><i class="fas fa-align-justify"></i></button>
           </div>
         </div>
 
         <div class="pref-group">
           <span class="pref-name">Spacing</span>
           <div class="pref-btns">
-            <button type="button" class="pref-btn" onclick="setReaderLeading('1.5', this)" title="Tight">Tight</button>
-            <button type="button" class="pref-btn is-selected" onclick="setReaderLeading('1.75', this)"
-              title="Normal">Normal</button>
-            <button type="button" class="pref-btn" onclick="setReaderLeading('2.1', this)"
+            <button type="button" class="pref-btn" data-leading="1.5" onclick="setReaderLeading('1.5', this)"
+              title="Tight">Tight</button>
+            <button type="button" class="pref-btn is-selected" data-leading="1.75"
+              onclick="setReaderLeading('1.75', this)" title="Normal">Normal</button>
+            <button type="button" class="pref-btn" data-leading="2.1" onclick="setReaderLeading('2.1', this)"
               title="Relaxed">Relaxed</button>
           </div>
         </div>
-        <p class="pref-sample">The quick brown fox jumps over the lazy dog. The quick brown dog jumps over the lazy fox.
-        </p>
+        <p class="pref-sample">Betty Botter bought some butter; But she said the butter’s bitter; If I put it in my
+          batter, it will make my batter bitter; But a bit of better butter will make my batter better; So ‘twas better
+          Betty Botter bought a bit of better butter. </p>
       </div>
     </div>
     {{ end }}
@@ -230,48 +233,87 @@
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
 
-    // --- Reading preferences: text size ---
+    // Reading preferences — text size
     var readerScale = 1;
     function setReaderSize(dir) {
-      if (dir === 0) {
-        readerScale = 1;                                                     // "A" resets to default
-      } else {
-        readerScale = Math.min(1.4, Math.max(0.8, readerScale + dir * 0.1)); // A+ / A− step by 0.1
-      }
+      if (dir === 0) { readerScale = 1; }
+      else { readerScale = Math.min(1.4, Math.max(0.8, readerScale + dir * 0.1)); }
       document.documentElement.style.setProperty('--reader-scale', readerScale);
+      localStorage.setItem('readerScale', readerScale);      // remember it
     }
+
     // Reading preferences — alignment & line spacing
     function setReaderAlign(val, btn) {
       document.documentElement.style.setProperty('--reader-align', val);
-      markSelected(btn);
+      if (btn) markSelected(btn);
+      localStorage.setItem('readerAlign', val);              // remember it
     }
     function setReaderLeading(val, btn) {
       document.documentElement.style.setProperty('--reader-leading', val);
-      markSelected(btn);
+      if (btn) markSelected(btn);
+      localStorage.setItem('readerLeading', val);            // remember it
     }
-    // highlight the chosen button within its own group
     function markSelected(btn) {
-      btn.parentElement.querySelectorAll('.pref-btn').forEach(function (b) {
-        b.classList.remove('is-selected');
-      });
+      btn.parentElement.querySelectorAll('.pref-btn').forEach(function (b) { b.classList.remove('is-selected'); });
       btn.classList.add('is-selected');
     }
-    // Open / close the preferences bar — and keep the top bar visible when we do
-    // Open / close the preferences bar — keep top bar visible, sync the button's "on" look
-    function togglePrefs() {
-      var bar = document.getElementById('prefsBar');
-      var btn = document.querySelector('.prefs-btn');
-      var open = bar.classList.toggle('open');
-      btn.classList.toggle('is-active', open);   // gold while open, normal while closed
-      document.getElementById('topbar').classList.remove('header-hidden');
-      lastScroll = window.scrollY;
+
+    // On every page load, re-apply whatever the visitor chose last time
+    function restoreReaderPrefs() {
+      var scale = localStorage.getItem('readerScale');
+      var align = localStorage.getItem('readerAlign');
+      var leading = localStorage.getItem('readerLeading');
+
+      if (scale) {
+        readerScale = parseFloat(scale);
+        document.documentElement.style.setProperty('--reader-scale', readerScale);
+      }
+      if (align) {
+        document.documentElement.style.setProperty('--reader-align', align);
+        var ab = document.querySelector('.pref-btn[data-align="' + align + '"]');
+        if (ab) markSelected(ab);
+      }
+      if (leading) {
+        document.documentElement.style.setProperty('--reader-leading', leading);
+        var lb = document.querySelector('.pref-btn[data-leading="' + leading + '"]');
+        if (lb) markSelected(lb);
+      }
     }
+    restoreReaderPrefs();
 
     // --- Hamburger side tray ---
     function toggleMenu() {
       document.getElementById('menuTray').classList.toggle('open');
       document.getElementById('menuOverlay').classList.toggle('open');
     }
+
+    // Open / close the preferences bar — keep top bar visible, sync the button's "on" look
+    function togglePrefs() {
+      var bar = document.getElementById('prefsBar');
+      var btn = document.querySelector('.prefs-btn');
+      var open = bar.classList.toggle('open');
+      btn.classList.toggle('is-active', open);
+      document.getElementById('topbar').classList.remove('header-hidden');
+      lastScroll = window.scrollY;
+    }
+
+    // Image galleries — main image + thumbnails + arrows
+    function initGalleries() {
+      document.querySelectorAll('.gallery').forEach(function (g) {
+        var slides = g.querySelectorAll('.gallery-slide');
+        var thumbs = g.querySelectorAll('.gallery-thumb');
+        var idx = 0;
+        function show(n) {
+          idx = (n + slides.length) % slides.length;   // wrap around at the ends
+          slides.forEach(function (s, i) { s.classList.toggle('active', i === idx); });
+          thumbs.forEach(function (t, i) { t.classList.toggle('active', i === idx); });
+        }
+        g.querySelector('.gallery-prev').addEventListener('click', function () { show(idx - 1); });
+        g.querySelector('.gallery-next').addEventListener('click', function () { show(idx + 1); });
+        thumbs.forEach(function (t, i) { t.addEventListener('click', function () { show(i); }); });
+      });
+    }
+    initGalleries();
 
     // --- Image lightbox ---
     const lightbox = GLightbox({ selector: '.glightbox' });

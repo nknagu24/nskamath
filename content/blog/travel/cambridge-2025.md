@@ -24,21 +24,29 @@ The tarmac roads changed to cobblestone-paved footpaths as we approached the cit
 “I am looking forward very much to getting back to Cambridge, and being able to say what I think and not to mean what I say.”- Bertrand Russell
 </div>
 
-{{< img src="images/travel/cambridge-2025/cam-kingscollege-1.jpg" alt="Kings college, Cambridge" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-kingscollege-1.jpg" alt="Kings college 1, Cambridge" caption="" >}}
 
 This view took our breath away. We were tired from the journey, tired from the walking, but our hearts sighed with an inexplicable emotion. We were looking at one of the great places of learning, of discoveries, of people working hard and achieving great milestones in academic education. We looked at students on bikes around us, some gathered in deep discussion, some tourists clicking pictures. As people in academia, we could feel the significance of what we saw in front of us, and it felt heavy.
+
+<div class="img-row-2">
+{{< img src="images/travel/cambridge-2025/cam-street-2.jpg" alt="Cambridge Street" >}}
+{{< img src="images/travel/cambridge-2025/cam-street-1.jpg" alt="Kings college 2, Cambridge" >}}
+</div>
 
 We stopped at the Caffe Nero in front of this building, and sipped on coffee and matcha, casually talking, taking this all in. There was going to be a conference held here, with dinner organized in the famous hall inside this building. We bustled even more with anticipation.
 
 
 Keeping with the theme of getting overwhelmed visiting places with immense history, we then decided to have a late lunch at The Eagle: famous for being the pub in which Watson and Crick publicly declared that they figured out the structure of DNA.
 
-{{< imgrow >}}
-{{< img src="images/travel/cambridge-2025/cam-theeagle-1.jpg" alt="The Eagle - Cambridge 1" caption="" >}}
-{{< img src="images/travel/cambridge-2025/cam-theeagle-2.jpg" alt="The Eagle - Cambridge" caption="" >}}
-{{< img src="images/travel/cambridge-2025/cam-theeagle-4.jpg" alt="The Eagle - Cambridge 4" caption="" >}}
-{{< /imgrow >}}
 
+
+{{< gallery
+  "images/travel/cambridge-2025/cam-theeagle-1.jpg"
+  "images/travel/cambridge-2025/cam-theeagle-2.jpg"
+  "images/travel/cambridge-2025/cam-theeagle-3.jpg"
+  "images/travel/cambridge-2025/cam-theeagle-4.jpg"
+  "images/travel/cambridge-2025/cam-theeagle-3.jpg"
+>}}
 
 
 {{< travel-comment >}}
@@ -51,9 +59,27 @@ After a quick stroll around the place, buying groceries and essentials, we retur
 
 The next day, one of us attended the conference. The gala dinner was held in the banquet hall of King's College Cambridge, with a beautifully arranged meal course. It felt like right out of a scene in Hogwarts.
 
+{{< imgrow >}}
+{{< img src="images/travel/cambridge-2025/cam-banquet-1.jpg" alt="Kings College Banquet Hall 1" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-banquet-2.jpg" alt="Kings College Banquet Hall 2" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-banquet-3.jpg" alt="Kings College Banquet Hall 3" caption="" >}}
+{{< /imgrow >}}
+
+{{< imgrow >}}
+{{< img src="images/travel/cambridge-2025/cam-banquetfod-1.jpg" alt="Kings College Banquet Dinner 1" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-banquetfod-2.jpg" alt="Kings College Banquet Dinner 2" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-banquetfod-3.jpg" alt="Kings College Banquet Dinner 3" caption="" >}}
+{{< /imgrow >}}
+
 After a few days of this conference, we got the last two days to roam around in Cambridge. We had a list: the Fitzwilliam Museum, the Backs, punting on the River Cam, Jack's Gelato, and to just saunter along the roads of the town.
 
 We started with the Fitzwilliam Museum, a long walk from our lodging.
+
+{{< imgrow >}}
+{{< img src="images/travel/cambridge-2025/cam-fitzwilliam-1.jpg" alt="Fitzwilliam Museum, Cambridge-1" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-fitzwilliam-2.jpg" alt="Fitzwilliam Museum, Cambridge-2" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-fitzwilliam-3.jpg" alt="Fitzwilliam Museum, Cambridge-3" caption="" >}}
+{{< /imgrow >}}
 
 The museum was quaint, but had everything. The collection was well-curated, beautifully arranged and had quiet pieces of history everywhere. It was wonderful, we never got bored, and every piece had information about the journey it took to reach the museum. We saw old paintings, and the famous Egyptian sarcophagi. There was a ceramics section that made one of us squeal with delight: it looked like it belonged in a doll house.
 
