@@ -16,7 +16,7 @@ Jaipur,also known as the 'pink city' is a metropolitan city in the state of Raja
 The 29th Kachwaha ruler Sawai Jai Singh II build the present day pink city in 1727. It was announced as a UNESCO World Heritage City in 2019.
 The city has many popular tourist attractions but if planned in advance all the major places can be covered in 2 days.
 
-{{< img src="images/travel/jaipur-2023-travel/hawamahal1.jpg" alt="Description" >}}
+
 <div class="pullquote">
  Draped in a veil of elegance, the Jharokas of Hawa Mahal mesmerise the observer.
 </div>

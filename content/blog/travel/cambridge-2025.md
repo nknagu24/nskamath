@@ -14,23 +14,36 @@ type = "travel"
 +++
 
 
+From the grey, skyscraper-filled London; a three hour bus ride on the reliable National Expressway took us through the meadows of the countryside to Cambridge. We had no clue what to expect; what could top the glitter of London?
+
+We got down at the bus-stop- the iconic white Ferris wheel greeting us, and we hopped onto the local bus which took us to our Airbnb. After a brief respite, we set off to explore the heart of Cambridge.
+
+The tarmac roads changed to cobblestone-paved footpaths as we approached the city centre. What greeted us was a sight to behold.
 
 <div class="pullquote">
 “I am looking forward very much to getting back to Cambridge, and being able to say what I think and not to mean what I say.”- Bertrand Russell
 </div>
 
-
-From the grey, skyscraper-filled London; a three hour bus ride on the reliable National Expressway took us through the meadows of the countryside to Cambridge. We had no clue what to expect; what could top the glitter of London?
-
-We got down at the bus-stop- the iconic white Ferris wheel greeting us, and we hopped onto the local bus which took us to our AirBnB. After a brief respite, we set off to explore the heart of Cambridge.
-
-The tarmac roads changed to cobblestone-paved footpaths as we approached the city centre. What greeted us was a sight to behold.
+{{< img src="images/travel/cambridge-2025/cam-kingscollege-1.jpg" alt="Kings college, Cambridge" caption="" >}}
 
 This view took our breath away. We were tired from the journey, tired from the walking, but our hearts sighed with an inexplicable emotion. We were looking at one of the great places of learning, of discoveries, of people working hard and achieving great milestones in academic education. We looked at students on bikes around us, some gathered in deep discussion, some tourists clicking pictures. As people in academia, we could feel the significance of what we saw in front of us, and it felt heavy.
 
 We stopped at the Caffe Nero in front of this building, and sipped on coffee and matcha, casually talking, taking this all in. There was going to be a conference held here, with dinner organized in the famous hall inside this building. We bustled even more with anticipation.
 
+
 Keeping with the theme of getting overwhelmed visiting places with immense history, we then decided to have a late lunch at The Eagle: famous for being the pub in which Watson and Crick publicly declared that they figured out the structure of DNA.
+
+{{< imgrow >}}
+{{< img src="images/travel/cambridge-2025/cam-theeagle-1.jpg" alt="The Eagle - Cambridge 1" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-theeagle-2.jpg" alt="The Eagle - Cambridge" caption="" >}}
+{{< img src="images/travel/cambridge-2025/cam-theeagle-4.jpg" alt="The Eagle - Cambridge 4" caption="" >}}
+{{< /imgrow >}}
+
+
+
+{{< travel-comment >}}
+The Eagle (formerly known as the Eagle and Child) is a Grade II listed public house in Cambridge, England, which opened in 1667 as a coaching inn. It is the second oldest pub in Cambridge, after the Pickerel Innon Magdalene Street. [Visit the source](https://en.wikipedia.org/wiki/The_Eagle,_Cambridge) to find out more.
+{{< /travel-comment >}}
 
 We ordered dishes that sounded familiar, and pints of Guinness and lager, and talked about science, history and our feelings about the whole experience. We noticed many academicians and scientists have casual lunches here, and we definitely felt a thrill.
 

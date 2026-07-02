@@ -46,7 +46,7 @@ The village is so beautiful and calm. Rajasthani women were singing and dancing,
 The dishes were delicious. They served white butter, bajre ka churma, gehu ka churma, kachori, sarson ka saag, Chole ki Chaat, Gatte ki Sabzi, Ker Sangdi, Alu Pyaz, Hari Mirch ka achaar, dal and baati, bajre ki roti, and khadi. The sweets were also amazing. Ker Sangdi piqued my interest a lot, because it was made of a scrub type of herb which grows natively in Rajasthan. I got more interested and realized that Ker Sangdi was made because of the lack of availability of crops. 
 
 {{< travel-comment >}}
-This essay was written for the May 2025 edition of the IndieWeb Carnival. [Visit the source](https://example.com) to find out more.
+This essay has contents about the local fauna researched using the internet. [Visit the source](https://en.wikipedia.org/wiki/Capparis_decidua) to find out more.
 {{< /travel-comment >}}
 
 The story was that during the great famine in India, when almost all vegetation had died off, there were certain small berries and long beans that surprisingly grew in abundance. When the locals cooked it, they loved its tangy and aromatic taste. Ker sangri is an assortment of five plant products — ker, sangri, babul fali (kumatiya), gunda and aamchur. It is also known as panchkuta because of this unique mix of five ingredients. Ker is a caper-like desert fruit, a berry that grows on a thorny shrub. It is tangy in taste, which also makes it a perfect ingredient for pickles. Sangri, on the other hand, are bean-like pods of the khejri tree below which the ker grew. Babul fali are the flat seeds of babul or acacia tree.
