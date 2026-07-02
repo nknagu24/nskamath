@@ -1012,15 +1012,56 @@ footer {
   border-color: rgba(122, 90, 154, 0.48);
 }
 
+
+/* ===== BLOG INDEX HERO ===== */
+.blog-hero {
+  text-align: center;
+  max-width: 720px;
+  margin: 10px auto 46px;
+}
+
+.blog-hero-title {
+  font-family: 'Bonheur Royale', cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4.5rem;
+  color: #1a1a1a;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  margin-bottom: 18px;
+}
+
+.blog-hero-sub {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0 auto;
+}
+
 /* ===== SECTION TILES MOBILE ===== */
-@media (max-width: 400px) {
-  .section-tiles {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .blog-hero-title {
+    font-size: 2.1rem;
   }
 
+  .blog-hero-sub {
+    font-size: 1.1rem;
+  }
+}
+
+/* Blog cards: one per row on phones */
+@media (max-width: 640px) {
   .blog-tiles {
     grid-template-columns: 1fr;
     max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .section-tiles {
+    grid-template-columns: 1fr;
   }
 
   .blog-tiles .section-tile {

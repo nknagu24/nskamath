@@ -1,7 +1,12 @@
 {{ define "main" }}
 
-  <!-- Page title and description -->
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
+<div class="blog-hero">
+  <h1 class="blog-hero-title">{{ .Title }}</h1>
+  {{ with .Params.subtitle }}
+  <p class="blog-hero-sub">{{ . }}</p>
+  {{ end }}
+</div>
+
+{{ .Content }}
 
 {{ end }}
