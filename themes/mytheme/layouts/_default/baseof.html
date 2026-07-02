@@ -1,151 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- ============================================================
+     HEAD  —  page title, social preview tags, fonts, stylesheets
+     (You rarely need to touch this except the fonts line.)
+     ============================================================ -->
+
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ .Title }} | {{ .Site.Title }}</title>
-  <!-- Open Graph Meta Tags -->
-<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
-<meta property="og:description" content="{{ if .Params.summary }}{{ .Params.summary }}{{ else }}PhD Scholar in Physics at IIT Mandi working on ultrafast spectroscopy of 2D materials.{{ end }}">
-<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-<meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:site_name" content="{{ .Site.Title }}">
-{{ with .Params.cover_image }}
-<meta property="og:image" content="{{ $.Site.BaseURL }}{{ . }}">
-{{ end }}
 
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@theNaguKamath">
-<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
-<meta name="twitter:description" content="{{ if .Params.summary }}{{ .Params.summary }}{{ else }}PhD Scholar in Physics at IIT Mandi working on ultrafast spectroscopy of 2D materials.{{ end }}">
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Bonheur+Royale&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Social preview (Open Graph) — controls how links look when shared -->
+  <meta property="og:title"
+    content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+  <meta property="og:description"
+    content="{{ if .Params.summary }}{{ .Params.summary }}{{ else }}PhD Scholar in Physics at IIT Mandi working on ultrafast spectroscopy of 2D materials.{{ end }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  {{ with .Params.cover_image }}
+  <meta property="og:image" content="{{ $.Site.BaseURL }}{{ . }}">
+  {{ end }}
+
+  <!-- Twitter / X preview -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@theNaguKamath">
+  <meta name="twitter:title"
+    content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}">
+  <meta name="twitter:description"
+    content="{{ if .Params.summary }}{{ .Params.summary }}{{ else }}PhD Scholar in Physics at IIT Mandi working on ultrafast spectroscopy of 2D materials.{{ end }}">
+
+  <!-- Fonts (add or remove font families here) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&family=Bonheur+Royale&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 </head>
 
 <body>
 
-  <header>
-    <a href="/" class="site-title">{{ .Site.Title }}</a>
-   <nav>
-  <a href="/">Home</a>
 
-  <a href="/about/">About</a>
+  <div class="topbar" id="topbar">
 
-  <div class="nav-dropdown">
-    <a href="/academics/">Academics</a>
-    <div class="nav-dropdown-menu">
-      <a href="/academics/education/">Education</a>
-      <a href="/academics/publications/">Publications</a>
-      <a href="/academics/awards/">Awards</a>
-      <a href="/academics/conferences/">Conferences</a>
-      <a href="/academics/skills/">Skills</a>
-      <a href="/CV-Nagendra.pdf" target="_blank">Curriculum Vitae</a>
-    </div>
-  </div>
-<div class="nav-dropdown">
-  <a href="/blog/">Blog</a>
-  <div class="nav-dropdown-menu">
-    <a href="/blog/travel/">Travel</a>
-    <a href="/blog/postcards/">Postcards</a>
-    <a href="/blog/history/">History</a>
-    <a href="/blog/photography/">Photography</a>
-    <a href="/blog/physics/">Physics</a>
-    <a href="/blog/miscellaneous/">Miscellaneous</a>
-  </div>
-</div>
- </div>
-</nav>
- <div class="header-icons">
-  <a href="/search/" class="search-btn" title="Search"><i class="fas fa-search"></i></a>
-  <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
-</div>
-  </header>
+    <header>
 
-<div class="menu-tray" id="menuTray">
-  <button class="menu-close" onclick="toggleMenu()">&#10005;</button>
+      <a href="/" class="site-title">{{ .Site.Title }}</a>
 
-  <div class="tray-section">
-    <p class="tray-label">Academic</p>
-    <a href="/academics/education/">Education</a>
-    <a href="/academics/publications/">Publications</a>
-    <a href="/CV-Nagendra.pdf" target="_blank">Curriculum Vitae</a>
-  </div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
 
-  <div class="tray-section">
-    <p class="tray-label">Personal</p>
-    <a href="/blog/travel/">Travel</a>
-    <a href="/blog/photography/">Photography</a>
-  </div>
+        <!-- Academics dropdown -->
+        <div class="nav-dropdown">
+          <a href="/academics/">Academics</a>
+          <div class="nav-dropdown-menu">
+            <a href="/academics/education/">Education</a>
+            <a href="/academics/publications/">Publications</a>
+            <a href="/academics/awards/">Awards</a>
+            <a href="/academics/conferences/">Conferences</a>
+            <a href="/academics/skills/">Skills</a>
+            <a href="/CV-Nagendra.pdf" target="_blank">Curriculum Vitae</a>
+          </div>
+        </div>
 
-  <div class="tray-section">
-    <p class="tray-label">About</p>
-    <a href="/about/">About Me</a>
-  </div>
+        <!-- Blog dropdown -->
+        <div class="nav-dropdown">
+          <a href="/blog/">Blog</a>
+          <div class="nav-dropdown-menu">
+            <a href="/blog/travel/">Travel</a>
+            <a href="/blog/postcards/">Postcards</a>
+            <a href="/blog/photography/">Photography</a>
+            <a href="/blog/physics/">Physics</a>
+          </div>
+        </div>
+      </nav>
 
-</div>
+      <!-- Header icons: search, reading-preferences (blog only), hamburger -->
+      <div class="header-icons">
+        <a href="/search/" class="search-btn" title="Search"><i class="fas fa-search"></i></a>
+        {{ if eq .Section "blog" }}
+        <button class="prefs-btn" onclick="togglePrefs()" title="Reading preferences"
+          aria-label="Reading preferences"><i class="fas fa-sliders"></i></button>
+        {{ end }}
+        <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
+      </div>
+    </header>
 
-  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+    {{ if eq .Section "blog" }}
+    <div class="prefs-bar" id="prefsBar">
+      <div class="prefs-bar-inner">
+        <div class="pref-group">
+          <span class="pref-name">Text size</span>
+          <div class="pref-btns">
+            <button type="button" class="pref-btn" onclick="setReaderSize(-1)"
+              aria-label="Decrease text size">A&minus;</button>
+            <button type="button" class="pref-btn" onclick="setReaderSize(0)" aria-label="Default text size">A</button>
+            <button type="button" class="pref-btn" onclick="setReaderSize(1)"
+              aria-label="Increase text size">A+</button>
+          </div>
+        </div>
+        <div class="pref-group">
+          <span class="pref-name">Alignment</span>
+          <div class="pref-btns">
+            <button type="button" class="pref-btn is-selected" onclick="setReaderAlign('left', this)"
+              title="Left aligned" aria-label="Left aligned"><i class="fas fa-align-left"></i></button>
+            <button type="button" class="pref-btn" onclick="setReaderAlign('justify', this)" title="Justified"
+              aria-label="Justified"><i class="fas fa-align-justify"></i></button>
+          </div>
+        </div>
 
-<main>
-{{ if not .IsHome }}
-<div class="back-btn-wrap">
-  {{ if .Parent }}
-    <a href="{{ .Parent.RelPermalink }}" class="back-btn">← {{ .Parent.Title }}</a>
-  {{ else }}
-    <a href="javascript:history.back()" class="back-btn">← Back</a>
-  {{ end }}
-</div>
-{{ end }} 
-  {{ block "main" . }}{{ end }}
-</main>
-<footer>
-  <div class="footer-content">
-
-    <!-- Left — 30% — Top button and copyright -->
-    <div class="footer-left">
-      <a href="#" class="footer-top-btn">↑ Top</a>
-      <p class="footer-copy">© {{ now.Year }} {{ .Site.Title }}</p>
-    </div>
-
-    <!-- Middle — 40% — Quote -->
-    <div class="footer-middle">
-      <div class="footer-quote">"The most incomprehensible thing about the universe is that it is comprehensible."</div>
-      <div class="footer-quote-author">— Albert Einstein</div>
-    </div>
-
-    <!-- Right — 30% — Tagline and social icons -->
-    <div class="footer-right">
-      <div class="footer-tagline">Let there be light.</div>
-      <div class="footer-links">
-        <a href="mailto:nknagu24@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-        <a href="https://scholar.google.com/citations?user=JpwAWNwAAAAJ&hl=en" target="_blank" title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
-        <a href="https://www.linkedin.com/in/nagendra-kamath-3b955677/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://orcid.org/0000-0001-9854-4054" target="_blank" title="ORCID"><i class="fab fa-orcid"></i></a>
-        <a href="https://www.instagram.com/nagukamath" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.x.com/theNaguKamath" target="_blank" title="X / Twitter"><i class="fab fa-x-twitter"></i></a>
+        <div class="pref-group">
+          <span class="pref-name">Spacing</span>
+          <div class="pref-btns">
+            <button type="button" class="pref-btn" onclick="setReaderLeading('1.5', this)" title="Tight">Tight</button>
+            <button type="button" class="pref-btn is-selected" onclick="setReaderLeading('1.75', this)"
+              title="Normal">Normal</button>
+            <button type="button" class="pref-btn" onclick="setReaderLeading('2.1', this)"
+              title="Relaxed">Relaxed</button>
+          </div>
+        </div>
+        <p class="pref-sample">The quick brown fox jumps over the lazy dog. The quick brown dog jumps over the lazy fox.
+        </p>
       </div>
     </div>
+    {{ end }}
 
   </div>
-</footer>
+
+  <!-- ============================================================
+       READING PREFERENCES BAR  —  slides down under the header,
+       only on blog pages. Opened by the sliders icon above.
+       ============================================================ -->
 
 
+  <!-- ============================================================
+       SIDE TRAY  —  slide-in menu opened by the hamburger button
+       (Edit the tray link groups here.)
+       ============================================================ -->
+  <div class="menu-tray" id="menuTray">
+    <button class="menu-close" onclick="toggleMenu()">&#10005;</button>
+
+    <div class="tray-section">
+      <p class="tray-label">Academic</p>
+      <a href="/academics/education/">Education</a>
+      <a href="/academics/publications/">Publications</a>
+      <a href="/CV-Nagendra.pdf" target="_blank">Curriculum Vitae</a>
+    </div>
+
+    <div class="tray-section">
+      <p class="tray-label">Personal</p>
+      <a href="/blog/travel/">Travel</a>
+      <a href="/blog/photography/">Photography</a>
+    </div>
+
+    <div class="tray-section">
+      <p class="tray-label">About</p>
+      <a href="/about/">About Me</a>
+    </div>
+  </div>
+
+  <!-- Dark overlay behind the tray -->
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+  <!-- ============================================================
+       MAIN  —  back button + the actual page content
+       ============================================================ -->
+  <main>
+    {{ if not .IsHome }}
+    <div class="back-btn-wrap">
+      {{ if .Parent }}
+      <a href="{{ .Parent.RelPermalink }}" class="back-btn">← {{ .Parent.Title }}</a>
+      {{ else }}
+      <a href="javascript:history.back()" class="back-btn">← Back</a>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <!-- ============================================================
+       FOOTER  —  top button, copyright, quote, tagline, socials
+       (Edit the quote and social links here.)
+       ============================================================ -->
+  <footer>
+    <div class="footer-content">
+
+      <!-- Left — top button and copyright -->
+      <div class="footer-left">
+        <a href="#" class="footer-top-btn">↑ Top</a>
+        <p class="footer-copy">© {{ now.Year }} {{ .Site.Title }}</p>
+      </div>
+
+      <!-- Middle — quote -->
+      <div class="footer-middle">
+        <div class="footer-quote">"The most incomprehensible thing about the universe is that it is comprehensible."
+        </div>
+        <div class="footer-quote-author">— Albert Einstein</div>
+      </div>
+
+      <!-- Right — tagline and social icons -->
+      <div class="footer-right">
+        <div class="footer-tagline">Let there be light.</div>
+        <div class="footer-links">
+          <a href="mailto:nknagu24@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+          <a href="https://scholar.google.com/citations?user=JpwAWNwAAAAJ&hl=en" target="_blank"
+            title="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+          <a href="https://www.linkedin.com/in/nagendra-kamath-3b955677/" target="_blank" title="LinkedIn"><i
+              class="fab fa-linkedin"></i></a>
+          <a href="https://orcid.org/0000-0001-9854-4054" target="_blank" title="ORCID"><i class="fab fa-orcid"></i></a>
+          <a href="https://www.instagram.com/nagukamath" target="_blank" title="Instagram"><i
+              class="fab fa-instagram"></i></a>
+          <a href="https://www.x.com/theNaguKamath" target="_blank" title="X / Twitter"><i
+              class="fab fa-x-twitter"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS  —  lightbox + small interactive functions
+       ============================================================ -->
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
   <script>
-    // Hamburger menu
+
+    // --- Reading preferences: text size ---
+    var readerScale = 1;
+    function setReaderSize(dir) {
+      if (dir === 0) {
+        readerScale = 1;                                                     // "A" resets to default
+      } else {
+        readerScale = Math.min(1.4, Math.max(0.8, readerScale + dir * 0.1)); // A+ / A− step by 0.1
+      }
+      document.documentElement.style.setProperty('--reader-scale', readerScale);
+    }
+    // Reading preferences — alignment & line spacing
+    function setReaderAlign(val, btn) {
+      document.documentElement.style.setProperty('--reader-align', val);
+      markSelected(btn);
+    }
+    function setReaderLeading(val, btn) {
+      document.documentElement.style.setProperty('--reader-leading', val);
+      markSelected(btn);
+    }
+    // highlight the chosen button within its own group
+    function markSelected(btn) {
+      btn.parentElement.querySelectorAll('.pref-btn').forEach(function (b) {
+        b.classList.remove('is-selected');
+      });
+      btn.classList.add('is-selected');
+    }
+    // Open / close the preferences bar — and keep the top bar visible when we do
+    // Open / close the preferences bar — keep top bar visible, sync the button's "on" look
+    function togglePrefs() {
+      var bar = document.getElementById('prefsBar');
+      var btn = document.querySelector('.prefs-btn');
+      var open = bar.classList.toggle('open');
+      btn.classList.toggle('is-active', open);   // gold while open, normal while closed
+      document.getElementById('topbar').classList.remove('header-hidden');
+      lastScroll = window.scrollY;
+    }
+
+    // --- Hamburger side tray ---
     function toggleMenu() {
       document.getElementById('menuTray').classList.toggle('open');
       document.getElementById('menuOverlay').classList.toggle('open');
     }
 
-    // GLightbox initialization
+    // --- Image lightbox ---
     const lightbox = GLightbox({ selector: '.glightbox' });
+
+    // Hide the whole top bar on scroll down, show on scroll up
+    var lastScroll = 0;
+    var topbar = document.getElementById('topbar');
+    window.addEventListener('scroll', function () {
+      var current = window.scrollY;
+      var bar = document.getElementById('prefsBar');
+      var prefsOpen = bar && bar.classList.contains('open');   // is the preferences bar open?
+      if (current > lastScroll && current > 100 && !prefsOpen) {
+        topbar.classList.add('header-hidden');     // scrolling down (and prefs closed) → hide
+      } else {
+        topbar.classList.remove('header-hidden');  // scrolling up, or prefs open → show
+      }
+      lastScroll = current;
+    });
+
   </script>
 
 </body>
+
 </html>

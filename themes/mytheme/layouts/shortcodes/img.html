@@ -2,14 +2,15 @@
 {{ $alt := .Get "alt" | default "" }}
 {{ $caption := .Get "caption" | default "" }}
 {{ $image := resources.Get $src }}
+{{ if $image }}
+{{ $optimized := $image.Resize "1200x webp q85" }}{{/* thumbnail shown in the row */}}
+{{ $full := $image.Resize "2000x webp q90" }}{{/* full version the lightbox opens */}}
 <figure class="img-figure">
-  {{ if $image }}
-    {{ $optimized := $image.Resize "1200x webp q85" }}
+  <a href="{{ $full.RelPermalink }}" class="glightbox" {{ with $caption }}data-title="{{ . }}" {{ end }}>
     <img src="{{ $optimized.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
-  {{ else }}
-    <img src="{{ $src }}" alt="{{ $alt }}" loading="lazy">
-  {{ end }}
-  {{ if $caption }}
-    <figcaption>{{ $caption }}</figcaption>
-  {{ end }}
+  </a>
+  {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
 </figure>
+{{ else }}
+<img src="{{ $src }}" alt="{{ $alt }}" loading="lazy">
+{{ end }}

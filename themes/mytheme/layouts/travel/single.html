@@ -2,24 +2,23 @@
 
 <!-- Cover image — optimized -->
 {{ with .Params.cover_image }}
-  {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
-  {{ if $image }}
-    {{ $optimized := $image.Resize "1400x webp q85" }}
-    <div class="travel-post-cover">
-      <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
-    </div>
-  {{ end }}
+{{ $image := resources.Get (strings.TrimPrefix "/" .) }}
+{{ if $image }}
+{{ $optimized := $image.Resize "1400x webp q85" }}
+<div class="travel-post-cover">
+  <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
+</div>
+{{ end }}
 {{ end }}
 
 <!-- Post header -->
 <div class="travel-post-header">
   <div class="travel-post-meta">
-    {{ .Params.city }}, {{ .Params.country }}
+    {{ .Params.date | time.Format "January 2006" }} · {{ .Params.city }}, {{ .Params.country }}
     {{ with .Params.trip_type }} · {{ . }}{{ end }}
     {{ with .Params.duration }} · {{ . }}{{ end }}
   </div>
   <h1 class="travel-post-title">{{ .Title }}</h1>
-  <div class="travel-post-date">{{ .Params.date | time.Format "January 2006" }}</div>
 </div>
 
 <hr>

@@ -1,53 +1,75 @@
 {{ define "main" }}
 
-  <h1>{{ .Title }}</h1>
-  <p class="section-desc">{{ .Content }}</p>
+<h1>{{ .Title }}</h1>
+<p class="section-desc">{{ .Content }}</p>
 
-  <div class="sort-wrap">
-    <select class="sort-select" id="sortSelect" onchange="sortPosts()">
-      <option value="date-desc">Newest First</option>
-      <option value="date-asc">Oldest First</option>
-      <option value="alpha-asc">A → Z</option>
-      <option value="alpha-desc">Z → A</option>
-    </select>
+<div class="sort-wrap">
+  <div class="sort-dropdown" id="sortDropdown">
+    <button type="button" class="sort-toggle" id="sortToggle" aria-haspopup="listbox" aria-expanded="false">
+      <span id="sortLabel">Newest First</span>
+    </button>
+    <ul class="sort-menu" id="sortMenu" role="listbox">
+      <li role="option" data-value="date-desc" class="is-selected">Newest First</li>
+      <li role="option" data-value="date-asc">Oldest First</li>
+      <li role="option" data-value="alpha-asc">A → Z</li>
+      <li role="option" data-value="alpha-desc">Z → A</li>
+    </ul>
   </div>
+</div>
 
-  <div class="travel-grid" id="postList">
-    {{ range .RegularPages.ByDate.Reverse }}
-    <a class="travel-grid-card"
-       href="{{ .RelPermalink }}"
-       data-date="{{ .Date.Unix }}"
-       data-title="{{ .Title }}">
+<div class="travel-grid" id="postList">
+  {{ range .RegularPages.ByDate.Reverse }}
+  <a class="travel-grid-card" href="{{ .RelPermalink }}" data-date="{{ .Date.Unix }}" data-title="{{ .Title }}">
 
-      <div class="travel-grid-meta">{{ .Params.date | time.Format "Jan 2006" }} · {{ .Params.country }}</div>
-      <div class="travel-grid-title">{{ .Title }}</div>
-      <div class="travel-grid-sub">
-        {{ with .Params.city }}{{ . }}{{ end }}
-        {{ with .Params.trip_type }} · {{ . }}{{ end }}
-        {{ with .Params.duration }} · {{ . }}{{ end }}
-      </div>
-      <div class="travel-grid-summary">{{ .Params.summary }}</div>
+    <div class="travel-grid-meta">{{ .Params.date | time.Format "Jan 2006" }} · {{ with .Params.city }}{{ . }}, {{ end
+      }}{{ .Params.country }}</div>
+    <div class="travel-grid-title">{{ .Title }}</div>
 
-    </a>
-    {{ end }}
-  </div>
+  </a>
+  {{ end }}
+</div>
 
 <script>
-function sortPosts() {
-  const select = document.getElementById('sortSelect');
-  const list = document.getElementById('postList');
-  const cards = Array.from(list.querySelectorAll('.travel-grid-card'));
+  (function () {
+    var dropdown = document.getElementById('sortDropdown');
+    var toggle = document.getElementById('sortToggle');
+    var menu = document.getElementById('sortMenu');
+    var label = document.getElementById('sortLabel');
+    var list = document.getElementById('postList');
 
-  cards.sort((a, b) => {
-    const val = select.value;
-    if (val === 'date-desc') return b.dataset.date - a.dataset.date;
-    if (val === 'date-asc') return a.dataset.date - b.dataset.date;
-    if (val === 'alpha-asc') return a.dataset.title.localeCompare(b.dataset.title);
-    if (val === 'alpha-desc') return b.dataset.title.localeCompare(a.dataset.title);
-  });
+    function sortPosts(val) {
+      var cards = Array.from(list.querySelectorAll('.travel-grid-card'));
+      cards.sort(function (a, b) {
+        if (val === 'date-desc') return b.dataset.date - a.dataset.date;
+        if (val === 'date-asc') return a.dataset.date - b.dataset.date;
+        if (val === 'alpha-asc') return a.dataset.title.localeCompare(b.dataset.title);
+        if (val === 'alpha-desc') return b.dataset.title.localeCompare(a.dataset.title);
+      });
+      cards.forEach(function (card) { list.appendChild(card); });
+    }
 
-  cards.forEach(card => list.appendChild(card));
-}
+    toggle.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = dropdown.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    menu.querySelectorAll('li').forEach(function (item) {
+      item.addEventListener('click', function () {
+        menu.querySelectorAll('li').forEach(function (li) { li.classList.remove('is-selected'); });
+        item.classList.add('is-selected');
+        label.textContent = item.textContent;
+        dropdown.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        sortPosts(item.getAttribute('data-value'));
+      });
+    });
+
+    document.addEventListener('click', function () {
+      dropdown.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  })();
 </script>
 
 {{ end }}
