@@ -34,7 +34,7 @@ The village is so beautiful and calm. Rajasthani women were singing and dancing,
 
 <div class="img-center">
 {{< imgrow >}}
-{{< img src="images/travel/chokidhani/chokidhani4.jpg" alt="chokidhani4" caption="" >}}
+{{< img src="images/travel/chokidhani/chokidhani4.webp" alt="chokidhani4" caption="" >}}
 {{< /imgrow >}}
 </div>
 

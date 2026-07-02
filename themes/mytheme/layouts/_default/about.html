@@ -1,10 +1,10 @@
 {{ define "main" }}
 
 <div class="about-intro">
-  {{ $image := resources.Get "images/profile.jpg" }}
+  {{ $image := resources.Get "images/profile.webp" }}
   {{ if $image }}
-    {{ $optimized := $image.Resize "400x webp q85" }}
-    <img src="{{ $optimized.RelPermalink }}" alt="Nagendra S Kamath" class="about-photo">
+  {{ $optimized := $image.Resize "400x webp q85" }}
+  <img src="{{ $optimized.RelPermalink }}" alt="Nagendra S Kamath" class="about-photo">
   {{ end }}
 
   <div class="about-text">

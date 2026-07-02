@@ -8,7 +8,7 @@ trip_type = "Tour"
 duration = "2 days"
 year = "2023"
 month = "December"
-cover_image = "images/travel/Jaipur/hawamahal.jpg"
+cover_image = "images/travel/Jaipur/hawamahal.webp"
 summary = "A city steeped in Rajputana heritage"
 type = "travel"
 +++
@@ -23,9 +23,9 @@ The city has many popular tourist attractions but if planned in advance all the 
 
 
 {{< imgrow >}}
-{{< img src="images/travel/jaipur-2023-travel/hawamahal4.jpg" alt="Hawa mahal 4" caption="" >}}
-{{< img src="images/travel/jaipur-2023-travel/hawamahal2.jpg" alt="Hawa mahal 2" caption="Hawa Mahal" >}}
-{{< img src="images/travel/jaipur-2023-travel/hawamahal3.jpg" alt="Hawa mahal 3" caption="" >}}
+{{< img src="images/travel/jaipur-2023-travel/hawamahal4.webp" alt="Hawa mahal 4" caption="" >}}
+{{< img src="images/travel/jaipur-2023-travel/hawamahal2.webp" alt="Hawa mahal 2" caption="Hawa Mahal" >}}
+{{< img src="images/travel/jaipur-2023-travel/hawamahal3.webp" alt="Hawa mahal 3" caption="" >}}
 {{< /imgrow >}}
 
 
@@ -33,8 +33,8 @@ The city has many popular tourist attractions but if planned in advance all the 
 
 
 <div class="img-row-2">
-{{< img src="images/travel/jaipur-2023-travel/hawamahal3.jpg" alt="Jaipur 1" >}}
-{{< img src="images/travel/jaipur-2023-travel/hawamahal4.jpg" >}}
+{{< img src="images/travel/jaipur-2023-travel/hawamahal3.webp" alt="Jaipur 1" >}}
+{{< img src="images/travel/jaipur-2023-travel/hawamahal4.webp" >}}
 </div>
 
 

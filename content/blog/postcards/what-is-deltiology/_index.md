@@ -2,8 +2,6 @@
 title = "What is Deltiology?"
 +++
 
-## What is Deltiology?
-
 Deltiology is the study and collection of postcards. It is one of the most popular collecting hobbies in the world, alongside philately (stamp collecting) and numismatics (coin collecting). The word comes from the Greek word *deltion*, meaning small writing tablet.
 
 ## A Brief History

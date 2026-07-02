@@ -689,7 +689,7 @@ footer {
 /* ===== HERO SECTION ===== */
 .hero {
   background-color: rgba(0, 0, 0, 0.5);
-  background-image: url('/images/laser-bg.JPG');
+  background-image: url('/images/laser-bg.webp');
   background-size: cover;
   background-position: center;
   background-blend-mode: overlay;
