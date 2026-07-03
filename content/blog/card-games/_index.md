@@ -1,9 +1,7 @@
 +++
 title = "Card Games"
+subtitle = "Explorations of card game thistory, and mechanics. I write about the games I play, the strategies behind them. Maybe later if I get enough time I may add the mathematical logic behind each game and their philosophy."
 type = "card-games"
 +++
 
-Explorations of card game theory, strategy, history, and mechanics. 
-From bridge and poker to magic and collectible card games — I write 
-about the games I play, the strategies behind them, and what makes 
-them fascinating from a mathematical and psychological perspective.
+

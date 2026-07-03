@@ -1,32 +1,32 @@
 {{ define "main" }}
 
-  <h1>{{ .Title }}</h1>
-  <p class="section-desc">{{ .Content }}</p>
+<div class="section-hero">
+  <h1 class="section-hero-title">{{ .Title }}</h1>
+  {{ with .Params.subtitle }}<p class="section-hero-sub">{{ . }}</p>{{ end }}
+</div>
 
-  <div class="photo-albums">
-    {{ range .RegularPages.ByDate.Reverse }}
-    <a class="photo-album" href="{{ .RelPermalink }}">
+<div class="photo-albums">
+  {{ range .RegularPages.ByDate.Reverse }}
+  <a class="photo-album" href="{{ .RelPermalink }}">
+    <div class="photo-album-cover">
+      {{ with .Params.cover_image }}
+      {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
+      {{ if $image }}
+      {{ $image = $image.Filter images.AutoOrient }}
+      {{ $optimized := $image.Resize "800x webp q85" }}
+      <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
+      {{ end }}
+      {{ else }}
+      <div class="photo-album-placeholder"></div>
+      {{ end }}
 
-      <div class="photo-album-cover">
-        {{ with .Params.cover_image }}
-          {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
-          {{ if $image }}
-            {{ $optimized := $image.Resize "600x webp q85" }}
-            <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
-          {{ end }}
-        {{ else }}
-          <div class="photo-album-placeholder"></div>
-        {{ end }}
-
-        <div class="photo-album-overlay">
-          <div class="photo-album-title">{{ .Title }}</div>
-          <div class="photo-album-meta">{{ .Params.location }}</div>
-        </div>
-
+      <div class="photo-album-overlay">
+        <div class="photo-album-title">{{ .Title }}</div>
+        <div class="photo-album-meta">{{ .Params.location }}</div>
       </div>
-
-    </a>
-    {{ end }}
-  </div>
+    </div>
+  </a>
+  {{ end }}
+</div>
 
 {{ end }}

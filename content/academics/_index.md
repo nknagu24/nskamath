@@ -1,5 +1,6 @@
 +++
 title = "Academics"
+subtitle = "An overview of my educational background, published research, and key academic milestones."
 +++
 
 <div class="section-tiles">

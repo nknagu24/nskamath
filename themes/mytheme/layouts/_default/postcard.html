@@ -1,17 +1,75 @@
 {{ define "main" }}
+<div class="postcard-layout">
 
-<div class="postcard-header">
-  <div class="postcard-meta">{{ .Params.city }}, {{ .Params.country }} · {{ .Params.date | time.Format "January 2006" }}</div>
-  <h1 class="postcard-title">{{ .Title }}</h1>
+  <div class="postcard-main">
+
+    <div class="postcard-header">
+      <h1 class="postcard-title">{{ .Title }}</h1>
+      <div class="postcard-meta">
+        {{- with .Params.city }}{{ . }}{{ end }}{{ with .Params.country }}, {{ . }}{{ end }}
+        {{- with .Params.year_sent }} &middot; {{ . }}{{ end }}
+        {{- with .Params.sender }}{{ if ne . "Self" }} &middot; From {{ . }}{{ end }}{{ end }}
+      </div>
+    </div>
+
+    {{ with .Params.front_image }}
+    {{ $img := resources.Get (strings.TrimPrefix "/" .) }}
+    {{ if $img }}
+    {{ $img = $img.Filter images.AutoOrient }}
+    {{ $o := $img.Fit "1200x1200 webp q85" }}
+    <div class="postcard-front"><img src="{{ $o.RelPermalink }}" alt="{{ $.Title }}"></div>
+    {{ end }}
+    {{ end }}
+
+    <div class="postcard-content">
+      {{ with .Params.stamp_image }}
+      {{ $img := resources.Get (strings.TrimPrefix "/" .) }}
+      {{ if $img }}
+      {{ $img = $img.Filter images.AutoOrient }}
+      {{ $s := $img.Fit "320x320 webp q85" }}
+      <img class="postcard-stamp" src="{{ $s.RelPermalink }}" alt="Stamp">
+      {{ end }}
+      {{ end }}
+      {{ .Content }}
+    </div>
+
+  </div>
+
+  <aside class="postcard-sidebar">
+    <input type="text" class="country-search sidebar-search" placeholder="Search countries…"
+      onkeyup="filterSidebar(this)">
+
+    <div class="postcard-sidebar-title">Countries (A-Z)</div>
+    <ul class="country-index postcard-sidebar-list">
+      {{ $countries := site.GetPage "/country" }}
+      {{ with $countries }}
+      {{ range .Pages.ByTitle }}
+      {{ $cards := where .Pages "Type" "postcard" }}
+      {{ if gt (len $cards) 0 }}
+      <li class="country-row{{ if eq .Title $.Params.country }} is-current{{ end }}">
+        <a href="{{ .RelPermalink }}">
+          <span class="country-name">{{ .Title }}</span>
+          <span class="country-count">{{ len $cards }}</span>
+        </a>
+      </li>
+      {{ end }}
+      {{ end }}
+      {{ end }}
+    </ul>
+  </aside>
+
+  <script>
+    function filterSidebar(input) {
+      var q = input.value.toLowerCase();
+      input.closest('.postcard-sidebar').querySelectorAll('.country-row').forEach(function (row) {
+        var name = row.querySelector('.country-name').textContent.toLowerCase();
+        row.style.display = name.indexOf(q) > -1 ? '' : 'none';
+      });
+    }
+  </script>
+
 </div>
 
-<hr>
 
-<div class="postcard-content">
-  {{ with .Params.front_image }}{{ $img := resources.Get (strings.TrimPrefix "/" .) }}{{ if $img }}{{ $o := $img.Resize "900x webp q85" }}<img src="{{ $o.RelPermalink }}" alt="Front of the card">{{ end }}{{ end }}
-  {{ with .Params.back_image }}{{ $img := resources.Get (strings.TrimPrefix "/" .) }}{{ if $img }}{{ $o := $img.Resize "900x webp q85" }}<img src="{{ $o.RelPermalink }}" alt="Back of the card">{{ end }}{{ end }}
-
-  {{ .Content }}
-</div>
 
 {{ end }}

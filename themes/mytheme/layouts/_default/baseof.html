@@ -37,7 +37,9 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bangers&family=Bonheur+Royale&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
-
+  <link
+    href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700&display=swap"
+    rel="stylesheet">
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
@@ -177,7 +179,9 @@
   <main>
     {{ if not .IsHome }}
     <div class="back-btn-wrap">
-      {{ if .Parent }}
+      {{ if eq .Section "country" }}
+      <a href="/blog/postcards/stamps-and-stories/" class="back-btn">← Stamps &amp; Stories</a>
+      {{ else if .Parent }}
       <a href="{{ .Parent.RelPermalink }}" class="back-btn">← {{ .Parent.Title }}</a>
       {{ else }}
       <a href="javascript:history.back()" class="back-btn">← Back</a>

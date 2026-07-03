@@ -891,24 +891,42 @@ footer {
   margin-top: 30px;
 }
 
+/* ===== ACADEMICS TILES — neutral frosted glass ===== */
 .section-tile {
   display: block;
-  padding: 32px 28px;
+  padding: 30px 28px;
   text-decoration: none;
-  color: #111111;
-  background-color: #fafafa;
-  border-bottom: 3px solid transparent;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  color: #1a1a1a;
+  border-radius: 16px;
+
+  /* neutral frosted glass — no color tint */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(248, 248, 250, 0.35));
+  border: 1px solid rgba(220, 220, 226, 0.9);
+  box-shadow:
+    0 6px 22px rgba(30, 30, 40, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .section-tile:hover {
-  background-color: #f0f0f0;
-  border-bottom: 3px solid #111111;
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: #1a1a1a;
+  border-color: rgba(190, 190, 198, 1);
+  box-shadow:
+    0 12px 30px rgba(30, 30, 40, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   text-decoration: none;
+}
+
+.section-tile:hover .tile-title {
   color: #111111;
+}
+
+.section-tile:hover .tile-desc {
+  color: #555555;
 }
 
 .tile-title {
@@ -928,13 +946,7 @@ footer {
   line-height: 1.5;
 }
 
-.section-tile:hover .tile-title {
-  color: #111111;
-}
 
-.section-tile:hover .tile-desc {
-  color: #555555;
-}
 
 /* ===== BLOG INDEX TILES — frosted glass, per-section colors ===== */
 .blog-tiles {
@@ -1051,19 +1063,18 @@ footer {
   }
 }
 
-/* Blog cards: one per row on phones */
+/* Cards stack one below another on phones */
 @media (max-width: 640px) {
-  .blog-tiles {
+
+  .blog-tiles,
+  .section-tiles,
+  .subsection-tiles {
     grid-template-columns: 1fr;
     max-width: 100%;
   }
 }
 
 @media (max-width: 400px) {
-  .section-tiles {
-    grid-template-columns: 1fr;
-  }
-
   .blog-tiles .section-tile {
     min-height: 84px;
   }
@@ -1075,16 +1086,6 @@ footer {
   .tile-icon {
     width: 30px;
     height: 30px;
-  }
-}
-
-@media (max-width: 400px) {
-  .section-tiles {
-    grid-template-columns: 1fr;
-  }
-
-  .blog-tiles {
-    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -1329,6 +1330,41 @@ footer {
 }
 
 
+/* ===== SECTION HERO (postcards + future section landings) ===== */
+.section-hero {
+  text-align: center;
+  max-width: 720px;
+  margin: 10px auto 46px;
+}
+
+.section-hero-title {
+  font-family: 'Bonheur Royale', cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 4.5rem;
+  color: #1a1a1a;
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.section-hero-sub {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: #666666;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .section-hero-title {
+    font-size: 1.9rem;
+  }
+
+  .section-hero-sub {
+    font-size: 1.05rem;
+  }
+}
 
 /* ===== TRAVEL GRID (listing pages) ===== */
 .section-desc {
@@ -1851,6 +1887,17 @@ footer {
   aspect-ratio: 4/3;
   overflow: hidden;
   background-color: #111111;
+  border-radius: 12px;
+  /* add */
+  box-shadow: 0 6px 22px rgba(60, 50, 30, 0.14);
+  /* add */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* add */
+}
+
+.photo-album:hover .photo-album-cover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(60, 50, 30, 0.22);
 }
 
 .photo-album-cover img {
@@ -1992,92 +2039,182 @@ footer {
   }
 }
 
-/* ===== POSTCARD POST ===== */
+/* ===== POSTCARD PAGE ===== */
 .postcard-header {
-  margin-bottom: 30px;
+  margin-bottom: 4px;
+}
+
+.postcard-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 2.2rem;
+  line-height: 1.2;
+  color: #b2553a;
+  /* terracotta — the postcards accent */
+  margin-bottom: 10px;
 }
 
 .postcard-meta {
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #aaaaaa;
-  margin-bottom: 12px;
+  color: #a07a6a;
 }
 
-.postcard-title {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1.2;
+/* Big front image (the picture side) */
+.postcard-front {
+  margin: 24px 0 34px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(178, 85, 58, 0.22);
+  box-shadow: 0 8px 26px rgba(60, 40, 30, 0.16);
 }
 
+.postcard-front img {
+  width: 100%;
+  display: block;
+}
+
+/* Text area with the stamp floated to the right */
 .postcard-content {
+  display: flow-root;
+  /* neatly contains the floated stamp */
   max-width: 780px;
-  margin-top: 20px;
+  margin-top: 0;
 }
 
 .postcard-content img {
-  max-width: 48%;
-  display: inline-block;
-  margin-right: 2%;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  vertical-align: top;
+  max-width: 100%;
+  height: auto;
 }
 
-.postcard-content h2,
-.postcard-content h3 {
-  font-family: 'Libre Baskerville', Georgia, serif;
-  font-style: italic;
-  font-weight: 400;
-  color: #111111;
+.postcard-content .postcard-stamp {
+  float: right;
+  width: 230px;
+  max-width: 42%;
+  margin: 4px 0 16px 30px;
+  /* gap so the text doesn't touch it */
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.20);
+  transform: rotate(2deg);
+  /* slight tilt, like a stamp stuck on */
 }
 
+/* Small terracotta labels for the two sections */
 .postcard-content h2 {
-  font-size: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #aaaaaa;
-  margin-top: 40px;
-  margin-bottom: 16px;
+  color: #b2553a;
+  margin-top: 36px;
+  margin-bottom: 14px;
 }
 
+/* The card's message — an elegant terracotta quote */
 .postcard-content blockquote,
 .postcard-content blockquote p {
-  font-family: 'EB Garamond', Georgia, serif !important;
-  font-size: 1.3rem !important;
-  font-style: italic !important;
-  color: #444444;
-  line-height: 1.9;
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 1.35rem;
+  font-style: italic;
+  color: #4a3a34;
+  line-height: 1.7;
 }
 
 .postcard-content blockquote {
-  border-left: 3px solid #111111;
-  padding: 16px 24px;
-  margin: 0 0 24px 0;
+  border-left: 3px solid #b2553a;
+  padding: 4px 0 4px 22px;
+  margin: 0 0 8px 0;
 }
 
-.postcard-content p,
-.postcard-content li {
+/* Your write-up — warm serif reading prose */
+.postcard-content p {
   font-family: 'Crimson Pro', Georgia, serif;
-  font-size: calc((1.2rem + 2pt) * var(--reader-scale));
+  font-size: 1.15rem;
   line-height: 1.8;
-  color: #333333;
-  margin-bottom: 0;
-  text-indent: 2em;
+  color: #2a2320;
+  text-indent: 0;
+  margin-bottom: 1.3rem;
 }
 
-/* ===== POSTCARD MOBILE ===== */
+/* ===== POSTCARD PAGE — two columns: card + country sidebar ===== */
+.postcard-layout {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1120px, 92vw);
+  /* breaks out wider than the 860 column for room */
+  display: flex;
+  gap: 44px;
+  align-items: flex-start;
+}
+
+.postcard-main {
+  flex: 1;
+  min-width: 0;
+  /* lets the card column shrink instead of overflowing */
+}
+
+.postcard-sidebar {
+  flex: 0 0 240px;
+  width: 240px;
+}
+
+.postcard-sidebar-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b32a00;
+  margin-bottom: 14px;
+}
+
+/* the list is a single compact column in the sidebar */
+.postcard-sidebar-list {
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.postcard-sidebar-list .country-row a {
+  padding: 12px 14px;
+}
+
+/* highlight the country this card belongs to */
+.postcard-sidebar-list .country-row.is-current a {
+  background-color: #b32a00;
+}
+
+.postcard-sidebar-list .country-row.is-current .country-name {
+  color: #ffffff;
+}
+
+.postcard-sidebar-list .country-row.is-current .country-count {
+  background-color: #ffffff;
+  color: #b32a00;
+}
+
 @media (max-width: 768px) {
-  .postcard-content img {
-    max-width: 100%;
-    display: block;
-    margin-right: 0;
-    margin-bottom: 16px;
+  .postcard-layout {
+    flex-direction: column;
+    width: 100%;
+    left: 0;
+    transform: none;
   }
+
+  .postcard-sidebar {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+.sidebar-search {
+  margin-top: 14px;
 }
 
 /* ===== IMAGE ROW ===== */
@@ -2348,19 +2485,8 @@ figcaption {
   align-items: center;
 }
 
-.cardgames-filters select {
-  padding: 8px 12px;
-  font-size: 13px;
-  border: 0.5px solid #ddd;
-  border-radius: 4px;
-  background-color: #ffffff;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
 
-.cardgames-filters select:hover {
-  border-color: #999;
-}
+
 
 /* Featured post section */
 .cardgames-featured {
@@ -2543,6 +2669,9 @@ figcaption {
   flex-wrap: wrap;
   align-items: center;
 }
+
+
+
 
 .cardgames-filters select {
   padding: 10px 14px;
@@ -3383,4 +3512,170 @@ tbody tr:last-child td {
   transform: translateX(-50%);
   width: min(1200px, 92vw);
   margin-top: 30px;
+}
+
+/* ===== READING TEXT — one shared size, driven by the preferences bar ===== */
+:root {
+  --reader-base: 1.35rem;
+}
+
+/* the single reading size (≈ old 1.2rem + 2pt) */
+@media (max-width: 768px) {
+  :root {
+    --reader-base: 1.15rem;
+  }
+}
+
+/* a bit smaller on phones */
+
+/* Every blog section's body text now responds to size, spacing AND alignment */
+.travel-post-content p,
+.travel-post-content li,
+.postcard-content p,
+.postcard-content li,
+.cardgames-post-content-simple p,
+.cardgames-post-content-simple li {
+  font-size: calc(var(--reader-base) * var(--reader-scale));
+  line-height: var(--reader-leading, 1.75);
+  text-align: var(--reader-align, left);
+}
+
+/* The sample uses the exact same base, so it now matches the real text */
+.prefs-bar .pref-sample {
+  font-size: calc(var(--reader-base) * var(--reader-scale));
+  line-height: var(--reader-leading, 1.75);
+  text-align: var(--reader-align, left);
+}
+
+/* ===== PHYSICS SUBSECTION CARDS — "instrument readout" ===== */
+.physics-tiles {
+  counter-reset: pcard;
+  /* start numbering the cards */
+}
+
+.physics-tiles .subsection-tile {
+  counter-increment: pcard;
+  position: relative;
+  overflow: hidden;
+  padding: 26px;
+  border-radius: 10px;
+  color: #e8e4f0;
+  background-color: #17151f;
+  /* deep indigo-charcoal */
+  background-image:
+    linear-gradient(rgba(150, 120, 210, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(150, 120, 210, 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+  /* the graph-paper grid */
+  border: 1px solid rgba(150, 120, 220, 0.35);
+  box-shadow:
+    0 6px 24px rgba(60, 40, 90, 0.28),
+    inset 0 0 34px rgba(122, 90, 180, 0.07);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.physics-tiles .subsection-tile:hover {
+  transform: translateY(-4px);
+  color: #e8e4f0;
+  border-color: rgba(165, 125, 235, 0.7);
+  box-shadow:
+    0 12px 34px rgba(80, 50, 130, 0.42),
+    inset 0 0 42px rgba(122, 90, 180, 0.13);
+}
+
+/* pixel-font index number (01, 02, …) in the corner */
+.physics-tiles .subsection-tile::before {
+  content: counter(pcard, decimal-leading-zero);
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 0.6rem;
+  color: #8a6ac0;
+  letter-spacing: 0.05em;
+}
+
+/* dispersed-spectrum line along the bottom edge */
+.physics-tiles .subsection-tile::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #e0457a, #e08b2a, #d8c31f, #3fae5a, #3f8bd8, #7a5ad0);
+  opacity: 0.85;
+}
+
+/* title — monospace with a Silkscreen ">" prompt */
+.physics-tiles .subsection-tile-title {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 1.12rem;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+
+.physics-tiles .subsection-tile-title::before {
+  content: "> ";
+  font-family: 'Silkscreen', monospace;
+  color: #b58bf0;
+}
+
+.physics-tiles .subsection-tile-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  color: #b3a3d0;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.55;
+}
+
+
+/* ===== PHYSICS SECTION HERO ===== */
+.physics-hero {
+  text-align: center;
+  max-width: 720px;
+  margin: 10px auto 46px;
+}
+
+.physics-hero-title {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: #2a2436;
+  letter-spacing: 0.02em;
+  margin-bottom: 0;
+}
+
+.physics-hero-title::after {
+  /* the spectrum line, echoing the cards */
+  content: "";
+  display: block;
+  width: 90px;
+  height: 3px;
+  margin: 18px auto 20px;
+  background: linear-gradient(90deg, #e0457a, #e08b2a, #d8c31f, #3fae5a, #3f8bd8, #7a5ad0);
+  opacity: 0.85;
+}
+
+.physics-hero-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #6a5a80;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .physics-hero-title {
+    font-size: 1.8rem;
+  }
+
+  .physics-hero-sub {
+    font-size: 0.9rem;
+  }
 }

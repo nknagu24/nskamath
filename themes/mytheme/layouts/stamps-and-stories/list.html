@@ -1,34 +1,37 @@
 {{ define "main" }}
 
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
+<div class="section-hero">
+  <h1 class="section-hero-title">{{ .Title }}</h1>
+  {{ with .Params.subtitle }}<p class="section-hero-sub">{{ . }}</p>{{ end }}
+</div>
 
-  <input type="text" id="countrySearch" class="country-search" placeholder="Search countries…" onkeyup="filterCountries()">
+<input type="text" id="countrySearch" class="country-search" placeholder="Search countries…"
+  onkeyup="filterCountries()">
 
-  <ul class="country-index" id="countryList">
-    {{ $countries := site.GetPage "/country" }}
-    {{ with $countries }}
-      {{ range .Pages.ByTitle }}
-        {{ $cards := where .Pages "Type" "postcard" }}
-        {{ if gt (len $cards) 0 }}
-        <li class="country-row" data-name="{{ .Title | lower }}">
-          <a href="{{ .RelPermalink }}">
-            <span class="country-name">{{ .Title }}</span>
-            <span class="country-count">{{ len $cards }}</span>
-          </a>
-        </li>
-        {{ end }}
-      {{ end }}
-    {{ end }}
-  </ul>
+<ul class="country-index" id="countryList">
+  {{ $countries := site.GetPage "/country" }}
+  {{ with $countries }}
+  {{ range .Pages.ByTitle }}
+  {{ $cards := where .Pages "Type" "postcard" }}
+  {{ if gt (len $cards) 0 }}
+  <li class="country-row" data-name="{{ .Title | lower }}">
+    <a href="{{ .RelPermalink }}">
+      <span class="country-name">{{ .Title }}</span>
+      <span class="country-count">{{ len $cards }}</span>
+    </a>
+  </li>
+  {{ end }}
+  {{ end }}
+  {{ end }}
+</ul>
 
-  <script>
-    function filterCountries() {
-      var q = document.getElementById('countrySearch').value.toLowerCase();
-      document.querySelectorAll('#countryList .country-row').forEach(function (row) {
-        row.style.display = row.getAttribute('data-name').indexOf(q) > -1 ? '' : 'none';
-      });
-    }
-  </script>
+<script>
+  function filterCountries() {
+    var q = document.getElementById('countrySearch').value.toLowerCase();
+    document.querySelectorAll('#countryList .country-row').forEach(function (row) {
+      row.style.display = row.getAttribute('data-name').indexOf(q) > -1 ? '' : 'none';
+    });
+  }
+</script>
 
 {{ end }}

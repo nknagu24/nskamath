@@ -64,5 +64,5 @@ weight = 20
   <div class="ac-head">
     <span class="ac-title">Interests</span>
   </div>
-  <div class="ac-detail">Deltiology, Chess, Arsenal FC, Language Learning.</div>
+  <div class="ac-detail">Deltiology, playing chess, watching football, learning a new language.</div>
 </div>
