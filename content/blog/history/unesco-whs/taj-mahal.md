@@ -1,14 +1,13 @@
 +++
 title = "Taj Mahal"
-date = "2025-08-01"
-
-# This is the taxonomy field — it groups the site under India
+date = "2026-07-06"
 whscountry = "India"
-
 location = "Agra, Uttar Pradesh"
 year_inscribed = "1983"
 summary = "An immense mausoleum of white marble, built between 1631 and 1648."
-cover_image = "images/history/taj-mahal.jpg"
+
+card_image = "images/history/taj-mahal.webp"   # shown on the country-page grid card
+cover_image = "images/history/taj-mahal.webp"  # the wide banner on the full article
 +++
 
 ## The Site

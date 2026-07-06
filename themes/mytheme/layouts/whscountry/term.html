@@ -6,7 +6,11 @@
     {{ range .Pages.ByTitle }}
     <a class="whs-thumb" href="{{ .RelPermalink }}">
 
-        {{ with .Params.cover_image }}
+        <!-- Card picture: prefer a dedicated card_image (like a postcard front);
+     if none is set, fall back to the post's cover_image so the card
+     always has something to show. -->
+        {{ $pic := or .Params.card_image .Params.cover_image }}
+        {{ with $pic }}
         {{ $img := resources.Get (strings.TrimPrefix "/" .) }}
         {{ if $img }}
         {{ $img = $img.Filter images.AutoOrient }}

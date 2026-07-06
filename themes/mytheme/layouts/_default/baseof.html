@@ -61,6 +61,10 @@ this is formatter-proof, unlike cramming it inside the class attribute. */}}
 {{ $accent = "accent-history" }}
 {{ end }}
 
+{{/* Should the reading-preferences bar show on this page?
+True on any blog page, and on the About page. To add another
+page later, add its condition here with "or". */}}
+{{ $showPrefs := or (eq .Section "blog") (eq .RelPermalink "/about/") }}
 
 <body class="{{ $accent }}">
 
@@ -93,9 +97,10 @@ this is formatter-proof, unlike cramming it inside the class attribute. */}}
           <a href="/blog/">Blog</a>
           <div class="nav-dropdown-menu">
             <a href="/blog/travel/">Travel</a>
+            <a href="/blog/physics/">Physics</a>
             <a href="/blog/postcards/">Postcards</a>
             <a href="/blog/photography/">Photography</a>
-            <a href="/blog/physics/">Physics</a>
+            <a href="/blog/history/">History</a>
           </div>
         </div>
       </nav>
@@ -103,7 +108,7 @@ this is formatter-proof, unlike cramming it inside the class attribute. */}}
       <!-- Header icons: search, reading-preferences (blog only), hamburger -->
       <div class="header-icons">
         <a href="/search/" class="search-btn" title="Search"><i class="fas fa-search"></i></a>
-        {{ if eq .Section "blog" }}
+        {{ if $showPrefs }}
         <button class="prefs-btn" onclick="togglePrefs()" title="Reading preferences"
           aria-label="Reading preferences"><i class="fas fa-sliders"></i></button>
         {{ end }}
@@ -111,7 +116,7 @@ this is formatter-proof, unlike cramming it inside the class attribute. */}}
       </div>
     </header>
 
-    {{ if eq .Section "blog" }}
+    {{ if $showPrefs }}
     <div class="prefs-bar" id="prefsBar">
       <div class="prefs-bar-inner">
         <div class="pref-group">

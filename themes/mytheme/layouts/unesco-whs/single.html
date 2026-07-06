@@ -1,32 +1,86 @@
 {{ define "main" }}
 
-<!-- Cover image — auto-oriented and optimized, like everywhere else -->
-{{ with .Params.cover_image }}
-{{ $img := resources.Get (strings.TrimPrefix "/" .) }}
-{{ if $img }}
-{{ $img = $img.Filter images.AutoOrient }}
-{{ $o := $img.Resize "1400x webp q85" }}
-<div class="history-post-cover">
-    <img src="{{ $o.RelPermalink }}" alt="{{ $.Title }}">
-</div>
-{{ end }}
-{{ end }}
+<!-- Two columns: article on the left, sidebar on the right.
+     The .whs-layout wrapper is the only new structural piece;
+     everything inside .whs-main is your existing page, unchanged. -->
+<div class="whs-layout">
 
-<!-- Header: burgundy meta line, italic serif title, quiet date -->
-<div class="history-post-header">
-    <div class="history-post-meta">
-        {{ .Params.whscountry }}
-        {{ with .Params.location }} · {{ . }}{{ end }}
-        {{ with .Params.year_inscribed }} · Inscribed {{ . }}{{ end }}
+    <!-- ===== LEFT COLUMN: the article (your existing code) ===== -->
+    <div class="whs-main">
+
+        <!-- Cover image — auto-oriented and optimized, like everywhere else -->
+        {{ with .Params.cover_image }}
+        {{ $img := resources.Get (strings.TrimPrefix "/" .) }}
+        {{ if $img }}
+        {{ $img = $img.Filter images.AutoOrient }}
+        {{ $o := $img.Resize "1400x webp q85" }}
+        <div class="history-post-cover">
+            <img src="{{ $o.RelPermalink }}" alt="{{ $.Title }}">
+        </div>
+        {{ end }}
+        {{ end }}
+
+        <!-- Header: burgundy meta line, italic serif title, quiet date -->
+        <div class="history-post-header">
+            <div class="history-post-meta">
+                {{ .Params.whscountry }}
+                {{ with .Params.location }} · {{ . }}{{ end }}
+                {{ with .Params.year_inscribed }} · Inscribed {{ . }}{{ end }}
+            </div>
+            <h1 class="history-post-title">{{ .Title }}</h1>
+            <div class="history-post-date">{{ .Params.date | time.Format "January 2006" }}</div>
+        </div>
+
+        <hr>
+
+        <div class="history-post-content">
+            {{ .Content }}
+        </div>
+
     </div>
-    <h1 class="history-post-title">{{ .Title }}</h1>
-    <div class="history-post-date">{{ .Params.date | time.Format "January 2006" }}</div>
+    <!-- ===== END LEFT COLUMN ===== -->
+
+    <!-- ===== RIGHT COLUMN: the sidebar ===== -->
+    <aside class="whs-sidebar">
+
+        {{ $country := .Params.whscountry }}
+        <div class="whs-sidebar-title">More in {{ $country }}</div>
+
+        <!-- Build the path to this site's country page (e.g. "India" → /whscountry/india/),
+       then list the OTHER sites in that country. -->
+        {{ $term := site.GetPage (printf "/whscountry/%s" (urlize $country)) }}
+        {{ with $term }}
+        <ul class="whs-sidebar-list">
+            {{ range .Pages.ByTitle }}
+            <!-- Skip the page we're currently reading -->
+            {{ if ne .RelPermalink $.RelPermalink }}
+            <li class="whs-sidebar-row">
+                <a href="{{ .RelPermalink }}">
+                    <span class="whs-sidebar-name">{{ .Title }}</span>
+                </a>
+            </li>
+            {{ end }}
+            {{ end }}
+        </ul>
+        {{ end }}
+
+        <!-- Always show the way out to the full country index -->
+        <a class="whs-sidebar-all" href="/blog/history/unesco-whs/">Browse all countries →</a>
+
+    </aside>
+    <!-- ===== END RIGHT COLUMN ===== -->
+
 </div>
 
-<hr>
-
-<div class="history-post-content">
-    {{ .Content }}
-</div>
+<script>
+    // Hides country rows whose name doesn't contain the typed text
+    function filterWhsSidebar(input) {
+        var q = input.value.toLowerCase();
+        input.closest('.whs-sidebar').querySelectorAll('.whs-row').forEach(function (row) {
+            var name = row.querySelector('.whs-name').textContent.toLowerCase();
+            row.style.display = name.indexOf(q) > -1 ? '' : 'none';
+        });
+    }
+</script>
 
 {{ end }}

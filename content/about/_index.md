@@ -31,12 +31,13 @@ layout = "about"
 
 ---
 
+
 ## Links
 
 <div class="about-links">
   <a href="https://scholar.google.com/citations?user=JpwAWNwAAAAJ&hl=en" target="_blank">Google Scholar</a>
   <a href="https://www.linkedin.com/in/nagendra-kamath-3b955677/" target="_blank">LinkedIn</a>
-  <a href="https://orcid.org/0000-0001-9854-4054" target="_blank">ORCID</a>
+  <!-- <a href="https://orcid.org/0000-0001-9854-4054" target="_blank">ORCID</a> -->
   <a href="https://www.instagram.com/nagukamath" target="_blank">Instagram</a>
   <a href="https://www.x.com/theNaguKamath" target="_blank">X / Twitter</a>
 </div>

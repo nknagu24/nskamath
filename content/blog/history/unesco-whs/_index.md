@@ -1,11 +1,8 @@
 +++
 title = "UNESCO World Heritage Sites"
-type = "unesco-whs"
+heading = "UNESCO<br>World Heritage Sites"
 subtitle = "Sites of outstanding universal value — browsed by country."
-
-# Every post inside this folder automatically gets type = "unesco-whs".
-# This is what routes them to our layouts and keeps them out of
-# the postcards' country system.
+type = "unesco-whs"
 [cascade]
   type = "unesco-whs"
 +++
