@@ -1,46 +1,37 @@
 {{ define "main" }}
 
-  <h1>{{ .Title }}</h1>
-  <p class="section-desc">{{ .Content }}</p>
+<!-- The accent wrapper sets --section-accent to violet for anything inside -->
+<div class="accent-physics">
 
-  <div class="sort-wrap">
-    <select class="sort-select" id="sortSelect" onchange="sortPosts()">
-      <option value="date-desc">Newest First</option>
-      <option value="date-asc">Oldest First</option>
-      <option value="alpha-asc">A → Z</option>
-      <option value="alpha-desc">Z → A</option>
-    </select>
-  </div>
-
-  <div class="travel-grid" id="postList">
-    {{ range .RegularPages.ByDate.Reverse }}
-    <a class="travel-grid-card"
-       href="{{ .RelPermalink }}"
-       data-date="{{ .Date.Unix }}"
-       data-title="{{ .Title }}">
-
-      <div class="travel-grid-meta">{{ .Params.date | time.Format "Jan 2006" }}</div>
-      <div class="travel-grid-title">{{ .Title }}</div>
-      <div class="travel-grid-summary">{{ .Params.summary }}</div>
-
-    </a>
+  <!-- Hero — same monospace style as the /blog/physics/ landing -->
+  <div class="physics-hero">
+    <h1 class="physics-hero-title">{{ .Params.heading | default .Title }}</h1>
+    {{ with .Params.subtitle }}
+    <p class="physics-hero-sub">{{ . }}</p>
     {{ end }}
   </div>
 
-<script>
-function sortPosts() {
-  const select = document.getElementById('sortSelect');
-  const list = document.getElementById('postList');
-  const cards = Array.from(list.querySelectorAll('.travel-grid-card'));
-  cards.sort((a, b) => {
-    const val = select.value;
-    if (val === 'date-desc') return b.dataset.date - a.dataset.date;
-    if (val === 'date-asc') return a.dataset.date - b.dataset.date;
-    if (val === 'alpha-asc') return a.dataset.title.localeCompare(b.dataset.title);
-    if (val === 'alpha-desc') return b.dataset.title.localeCompare(a.dataset.title);
-  });
-  cards.forEach(card => list.appendChild(card));
-}
-</script>
+  <!-- The page's own written content (your intro text, link lists, etc.) -->
+  <div class="physics-content">
+    {{ .Content }}
+  </div>
+
+  <!-- If this section ever contains posts (regular .md files),
+       they appear below as readout-style cards. If there are none,
+       this block renders nothing at all. -->
+  {{ with .RegularPages }}
+  <div class="subsection-tiles physics-tiles">
+    {{ range .ByDate.Reverse }}
+    <a class="subsection-tile" href="{{ .RelPermalink }}">
+      <div class="subsection-tile-title">{{ .Title }}</div>
+      {{ with .Params.summary }}
+      <div class="subsection-tile-desc">{{ . }}</div>
+      {{ end }}
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+
+</div>
 
 {{ end }}

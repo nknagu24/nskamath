@@ -1,0 +1,41 @@
+{{ define "main" }}
+
+<div class="section-hero">
+    <h1 class="section-hero-title">{{ .Params.heading | default .Title }}</h1>
+    {{ with .Params.subtitle }}
+    <p class="section-hero-sub">{{ . }}</p>
+    {{ end }}
+</div>
+
+{{ .Content }}
+
+<!-- Search box, same behavior as the postcards one -->
+<input type="text" class="whs-country-search" placeholder="Search countries…" onkeyup="filterWhsCountries(this)">
+
+<!-- One card per country, built automatically from the whscountry taxonomy -->
+<ul class="whs-country-index">
+    {{ $terms := site.GetPage "/whscountry" }}
+    {{ with $terms }}
+    {{ range .Pages.ByTitle }}
+    <li class="whs-row">
+        <a href="{{ .RelPermalink }}">
+            <span class="whs-name">{{ .Title }}</span>
+            <span class="whs-count">{{ len .Pages }}</span>
+        </a>
+    </li>
+    {{ end }}
+    {{ end }}
+</ul>
+
+<script>
+    // Hides country cards whose name doesn't contain the typed text
+    function filterWhsCountries(input) {
+        var q = input.value.toLowerCase();
+        document.querySelectorAll('.whs-country-index .whs-row').forEach(function (row) {
+            var name = row.querySelector('.whs-name').textContent.toLowerCase();
+            row.style.display = name.indexOf(q) > -1 ? '' : 'none';
+        });
+    }
+</script>
+
+{{ end }}

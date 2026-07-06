@@ -1,0 +1,32 @@
+{{ define "main" }}
+
+<!-- Cover image — auto-oriented and optimized, like everywhere else -->
+{{ with .Params.cover_image }}
+{{ $img := resources.Get (strings.TrimPrefix "/" .) }}
+{{ if $img }}
+{{ $img = $img.Filter images.AutoOrient }}
+{{ $o := $img.Resize "1400x webp q85" }}
+<div class="history-post-cover">
+    <img src="{{ $o.RelPermalink }}" alt="{{ $.Title }}">
+</div>
+{{ end }}
+{{ end }}
+
+<!-- Header: burgundy meta line, italic serif title, quiet date -->
+<div class="history-post-header">
+    <div class="history-post-meta">
+        {{ .Params.whscountry }}
+        {{ with .Params.location }} · {{ . }}{{ end }}
+        {{ with .Params.year_inscribed }} · Inscribed {{ . }}{{ end }}
+    </div>
+    <h1 class="history-post-title">{{ .Title }}</h1>
+    <div class="history-post-date">{{ .Params.date | time.Format "January 2006" }}</div>
+</div>
+
+<hr>
+
+<div class="history-post-content">
+    {{ .Content }}
+</div>
+
+{{ end }}

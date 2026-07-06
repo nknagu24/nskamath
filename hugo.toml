@@ -35,9 +35,10 @@ theme = "mytheme"
 
 
 [taxonomies]
-  tag = "tags"
-  category = "categories"
-  countryname = "country"
+tag = "tags"
+  countryname = "country"          # existing — postcards
+  whscountryname = "whscountry"    # new — UNESCO sites; front matter field will be "whscountry"  
+
 
 # This makes external links open in a new tab
 [markup]

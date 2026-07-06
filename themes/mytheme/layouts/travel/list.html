@@ -17,7 +17,7 @@
   </div>
 </div>
 
-<div class="travel-grid" id="postList">
+<div class="travel-grid accent-travel" id="postList">
   {{ range .RegularPages.ByDate.Reverse }}
   <a class="travel-grid-card" href="{{ .RelPermalink }}" data-date="{{ .Date.Unix }}" data-title="{{ .Title }}">
 

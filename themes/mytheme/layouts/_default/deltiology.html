@@ -1,0 +1,21 @@
+{{ define "main" }}
+
+<!-- ===== HERO: big terracotta title + italic subtitle, centered ===== -->
+<!-- Reuses the same structure as your other section heroes -->
+<div class="section-hero">
+    <h1 class="section-hero-title deltiology-title">{{ .Title }}</h1>
+    {{ with .Params.summary }}
+    <p class="section-hero-sub">{{ . }}</p>
+    {{ end }}
+</div>
+
+<!-- A soft terracotta divider line, like the gold one on travel posts -->
+<hr class="deltiology-rule">
+
+<!-- ===== ARTICLE BODY ===== -->
+<!-- The class below is what our new CSS targets for the reading typography -->
+<div class="deltiology-content">
+    {{ .Content }}
+</div>
+
+{{ end }}

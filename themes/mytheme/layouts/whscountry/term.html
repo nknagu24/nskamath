@@ -1,0 +1,28 @@
+{{ define "main" }}
+
+<h1 class="section-hero-title whs-country-title">{{ .Title }}</h1>
+
+<div class="whs-grid">
+    {{ range .Pages.ByTitle }}
+    <a class="whs-thumb" href="{{ .RelPermalink }}">
+
+        {{ with .Params.cover_image }}
+        {{ $img := resources.Get (strings.TrimPrefix "/" .) }}
+        {{ if $img }}
+        {{ $img = $img.Filter images.AutoOrient }}
+        {{ $t := $img.Resize "600x webp q80" }}
+        <img src="{{ $t.RelPermalink }}" alt="{{ $.Title }}">
+        {{ end }}
+        {{ end }}
+
+        <div class="whs-thumb-title">{{ .Title }}</div>
+        <div class="whs-thumb-meta">
+            {{ with .Params.location }}{{ . }}{{ end }}
+            {{ with .Params.year_inscribed }} · Inscribed {{ . }}{{ end }}
+        </div>
+
+    </a>
+    {{ end }}
+</div>
+
+{{ end }}

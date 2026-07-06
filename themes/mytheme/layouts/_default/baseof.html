@@ -45,8 +45,24 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 </head>
 
-<body class="{{ if eq .Section " blog" }}{{ $p :=split .RelPermalink "/" }}{{ if ge (len $p) 3 }}accent-{{ index $p 2
-  }}{{ end }}{{ end }}">
+{{/* Work out the accent class first, on its own lines —
+this is formatter-proof, unlike cramming it inside the class attribute. */}}
+{{ $accent := "" }}
+{{ if eq .Section "blog" }}
+{{ $p := split .RelPermalink "/" }}
+{{ if and (ge (len $p) 3) (ne (index $p 2) "") }}
+{{ $accent = printf "accent-%s" (index $p 2) }}
+{{ end }}
+{{ else if eq .Section "country" }}
+{{/* Country taxonomy pages belong to the postcards world */}}
+{{ $accent = "accent-postcards" }}
+{{ else if eq .Section "whscountry" }}
+{{/* WHS country pages belong to the history world */}}
+{{ $accent = "accent-history" }}
+{{ end }}
+
+
+<body class="{{ $accent }}">
 
 
   <div class="topbar" id="topbar">
@@ -130,18 +146,14 @@
           </div>
         </div>
         <p class="pref-sample">Betty Botter bought some butter; But she said the butter’s bitter; If I put it in my
-          batter, it will make my batter bitter; But a bit of better butter will make my batter better; So ‘twas better
-          Betty Botter bought a bit of better butter. </p>
+          batter, it will make my batter bitter;</p>
       </div>
     </div>
     {{ end }}
 
   </div>
 
-  <!-- ============================================================
-       READING PREFERENCES BAR  —  slides down under the header,
-       only on blog pages. Opened by the sliders icon above.
-       ============================================================ -->
+
 
 
   <!-- ============================================================
@@ -180,11 +192,13 @@
     {{ if not .IsHome }}
     <div class="back-btn-wrap">
       {{ if eq .Section "country" }}
-      <a href="/blog/postcards/stamps-and-stories/" class="back-btn">← Stamps &amp; Stories</a>
+      <a href="/blog/postcards/stamps-and-stories/" class="back-btn">Stamps &amp; Stories</a>
+      {{ else if eq .Section "whscountry" }}
+      <a href="/blog/history/unesco-whs/" class="back-btn">World Heritage Sites</a>
       {{ else if .Parent }}
-      <a href="{{ .Parent.RelPermalink }}" class="back-btn">← {{ .Parent.Title }}</a>
+      <a href="{{ .Parent.RelPermalink }}" class="back-btn">{{ .Parent.Title }}</a>
       {{ else }}
-      <a href="javascript:history.back()" class="back-btn">← Back</a>
+      <a href="javascript:history.back()" class="back-btn">Back</a>
       {{ end }}
     </div>
     {{ end }}
@@ -336,6 +350,30 @@
       }
       lastScroll = current;
     });
+
+
+    // ===== PREFS BAR: match the sample text to this page's article font =====
+    // Finds the first real article paragraph on the page, asks the browser
+    // what font it's actually rendering it in, and applies the same font
+    // to the preview sample in the preferences bar.
+    (function () {
+      var sample = document.querySelector('.prefs-bar .pref-sample');
+      if (!sample) return;  // no prefs bar on this page (non-blog) — nothing to do
+
+      // Article-body selectors for every section we have.
+      // The browser returns the FIRST one that exists on this page.
+      var article = document.querySelector(
+        '.travel-post-content p, ' +
+        '.postcard-content p, ' +
+        '.cardgames-post-content-simple p, ' +
+        '.physics-content p, ' +
+        '.deltiology-content p'
+      );
+      if (!article) return;  // not an article page — sample keeps its serif default
+
+      // getComputedStyle = "what is this element ACTUALLY rendered with"
+      sample.style.fontFamily = window.getComputedStyle(article).fontFamily;
+    })();
 
   </script>
 

@@ -1,5 +1,12 @@
 +++
 title = "What is Deltiology?"
+date = "2025-07-01"
+
+# This tells Hugo to use our new styled article layout (Step 3)
+layout = "deltiology"
+
+# A one-line intro shown under the big title
+summary = "An introduction to the hobby of postcard collecting."
 +++
 
 Deltiology is the study and collection of postcards. It is one of the most popular collecting hobbies in the world, alongside philately (stamp collecting) and numismatics (coin collecting). The word comes from the Greek word *deltion*, meaning small writing tablet.

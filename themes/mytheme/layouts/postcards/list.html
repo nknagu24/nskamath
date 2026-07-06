@@ -1,12 +1,18 @@
 {{ define "main" }}
 
-<div class="section-hero">
-  <h1 class="section-hero-title">{{ .Params.heading | default .Title }}</h1>
-  {{ with .Params.subtitle }}
-  <p class="section-hero-sub">{{ . }}</p>
-  {{ end }}
-</div>
+<!-- This wrapper is the whole fix: the accent-postcards class sets
+     --section-accent to terracotta, and everything inside inherits it -->
+<div class="accent-postcards">
 
-{{ .Content }}
+  <div class="section-hero">
+    <h1 class="section-hero-title">{{ .Params.heading | default .Title }}</h1>
+    {{ with .Params.subtitle }}
+    <p class="section-hero-sub">{{ . }}</p>
+    {{ end }}
+  </div>
+
+  {{ .Content }}
+
+</div>
 
 {{ end }}
