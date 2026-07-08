@@ -431,24 +431,39 @@ nav a:hover {
   color: #aaaaaa;
 }
 
-/* ===== MENU TRAY ===== */
+/* ===== MENU TRAY — frosted glass version ===== */
+
+/* The sliding panel itself.
+   Frosted glass = semi-transparent background + backdrop-filter blur,
+   same technique as the rest of the site. */
 .menu-tray {
   position: fixed;
   top: 0;
   right: -380px;
+  /* hidden off-screen by default */
   width: 360px;
   height: 100vh;
-  background-color: #ffffff;
+  background: rgb(255, 255, 255);
+  /* warm off-white, slightly see-through */
+  backdrop-filter: blur(18px);
+  /* the "frosted" effect */
+  -webkit-backdrop-filter: blur(18px);
+  /* Safari needs this prefix */
+  border-left: 1px solid rgba(184, 134, 11, 0.25);
+  /* faint gold edge */
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12);
   z-index: 1000;
   padding: 60px 40px;
   transition: right 0.3s ease;
   overflow-y: auto;
 }
 
+/* When open, slide fully into view */
 .menu-tray.open {
   right: 0;
 }
 
+/* Close (✕) button */
 .menu-close {
   position: absolute;
   top: 20px;
@@ -457,39 +472,57 @@ nav a:hover {
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  color: #111111;
+  color: #6b5a3e;
+  /* muted bronze */
+  transition: color 0.2s;
 }
 
+.menu-close:hover {
+  color: #B8860B;
+  /* gold on hover */
+}
+
+/* Section label — small uppercase Montserrat, gold tint */
 .tray-label {
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #aaaaaa;
+  color: #B8860B;
+  /* champagne gold */
   margin-bottom: 12px;
   margin-top: 0;
 }
 
+/* Section container */
 .tray-section {
   margin-bottom: 36px;
   display: flex;
   flex-direction: column;
 }
 
+/* Links inside tray */
 .tray-section a {
-  font-size: 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
   font-weight: 500;
-  color: #111111;
+  color: #3a3428;
+  /* warm dark brown, not pure black */
   text-decoration: none;
-  padding: 6px 0;
-  border-bottom: 1px solid #f0f0f0;
-  transition: color 0.2s;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(184, 134, 11, 0.12);
+  /* faint gold divider */
+  transition: color 0.2s, padding-left 0.2s;
 }
 
+/* Hover — gold text and a small slide, echoing the travel-card hover */
 .tray-section a:hover {
-  color: #555555;
+  color: #B8860B;
+  padding-left: 8px;
 }
 
+/* Dark overlay behind the tray — slightly softer than before */
 .menu-overlay {
   display: none;
   position: fixed;
@@ -497,7 +530,11 @@ nav a:hover {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(30, 25, 15, 0.35);
+  /* warm-tinted dim, not harsh black */
+  backdrop-filter: blur(2px);
+  /* subtle blur of the page behind */
+  -webkit-backdrop-filter: blur(2px);
   z-index: 999;
 }
 

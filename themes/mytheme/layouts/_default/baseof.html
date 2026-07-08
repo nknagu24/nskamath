@@ -11,7 +11,18 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Page title shown in the browser tab and in Google results.
+     Homepage gets a descriptive title with keywords;
+     all other pages keep the "Page | Site" pattern. -->
+  {{ if .IsHome }}
+  <title>Nagendra S Kamath - IIT Mandi</title>
+  <!-- Meta description: the grey snippet text Google shows under your
+     link. Contains both name variants so Google connects them. -->
+  <meta name="description"
+    content="Nagendra Kamath (Nagendra S Kamath) — PhD scholar in Physics at IIT Mandi, researching ultrafast spectroscopy of 2D materials. Publications, travel blog, postcards, and more.">
+  {{ else }}
   <title>{{ .Title }} | {{ .Site.Title }}</title>
+  {{ end }}
 
   <!-- Social preview (Open Graph) — controls how links look when shared -->
   <meta property="og:title"
@@ -42,6 +53,31 @@
     rel="stylesheet">
   <!-- Stylesheets -->
   <link rel="stylesheet" href="/css/style.css">
+  <!-- Structured data (JSON-LD): a machine-readable "identity card"
+       telling Google this site belongs to this person.
+       alternateName connects "Nagendra Kamath" and "NS Kamath" to you.
+       sameAs ties the site to profiles Google already trusts. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Nagendra S Kamath",
+    "alternateName": ["Nagendra Kamath", "NS Kamath"],
+    "jobTitle": "PhD Scholar in Physics",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Indian Institute of Technology Mandi"
+    },
+    "url": "https://nskamath.netlify.app/",
+    "sameAs": [
+      "https://scholar.google.com/citations?user=JpwAWNwAAAAJ",
+      "https://www.linkedin.com/in/nagendra-kamath-3b955677/",
+      "https://orcid.org/0000-0001-9854-4054",
+      "https://www.x.com/theNaguKamath",
+      "https://www.instagram.com/nagukamath"
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 </head>
 
@@ -178,7 +214,8 @@ page later, add its condition here with "or". */}}
     <div class="tray-section">
       <p class="tray-label">Personal</p>
       <a href="/blog/travel/">Travel</a>
-      <a href="/blog/photography/">Photography</a>
+      <a href="/blog/physics/">Physics</a>
+      <a href="/blog/postcards/">Postcards</a>
     </div>
 
     <div class="tray-section">
