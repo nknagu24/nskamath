@@ -1,5 +1,5 @@
 # The base URL - for local testing we use localhost
-baseURL = "http://localhost:1313/"
+baseURL = "https://nskamath.netlify.app/"
 
 # The title that appears on your browser tab
 title = "Nagendra S Kamath"
