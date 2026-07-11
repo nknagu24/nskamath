@@ -1,0 +1,17 @@
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $caption := .Get "caption" | default "" }}
+{{ $side := .Get "side" | default "right" }}
+{{ $width := .Get "width" | default "42%" }}
+{{ $image := resources.Get $src }}
+{{ if $image }}
+{{ $image = $image.Filter images.AutoOrient }}
+{{ $small := $image.Fit "700x900 webp q85" }}
+{{ $full := $image.Fit "2000x2000 webp q90" }}
+<figure class="history-figure history-figure-{{ $side }}" style="max-width: {{ $width }};">
+    <a href="{{ $full.RelPermalink }}" class="glightbox" {{ with $caption }} data-title="{{ . }}" {{ end }}>
+        <img src="{{ $small.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
+    </a>
+    {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
+{{ end }}

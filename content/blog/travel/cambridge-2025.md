@@ -58,11 +58,11 @@ After a quick stroll around the place, buying groceries and essentials, we retur
 
 The next day, one of us attended the conference. The gala dinner was held in the banquet hall of King's College Cambridge, with a beautifully arranged meal course. It felt like right out of a scene in Hogwarts.
 
-{{< imgrow >}}
-{{< img src="images/travel/cambridge-2025/cam-banquet-1.webp" alt="Kings College Banquet Hall 1" caption="" >}}
-{{< img src="images/travel/cambridge-2025/cam-banquet-2.webp" alt="Kings College Banquet Hall 2" caption="" >}}
-{{< img src="images/travel/cambridge-2025/cam-banquet-3.webp" alt="Kings College Banquet Hall 3" caption="" >}}
-{{< /imgrow >}}
+{{< gallery
+"images/travel/cambridge-2025/cam-banquet-1.webp"
+"images/travel/cambridge-2025/cam-banquet-2.webp"
+"images/travel/cambridge-2025/cam-banquet-3.webp"
+>}}
 
 {{< imgrow >}}
 {{< img src="images/travel/cambridge-2025/cam-banquetfod-1.webp" alt="Kings College Banquet Dinner 1" caption="" >}}
@@ -109,11 +109,13 @@ All this time, we were hooked onto his words. We quietly sipped beer, drinking i
 
 Next was Clare College. There were beautiful formal gardens and we passed the oldest bridge on the river (Clare Bridge) adorned with carved stone balls, and a picturesque wrought-iron gate. We craned our necks to take in every inch.
 
-{{< imgrow >}}
-{{< img src="images/travel/cambridge-2025/cam-punting-1.webp" alt="Kings College, Cambridge-2" caption="" >}}
-{{< img src="images/travel/cambridge-2025/cam-punting-3.webp" alt="Kings College, Cambridge-3" caption="" >}}
-{{< img src="images/travel/cambridge-2025/cam-punting-5.webp" alt="Kings College, Cambridge-4" caption="" >}}
-{{< /imgrow >}}
+{{< gallery 
+"images/travel/cambridge-2025/cam-punting-1.webp"
+"images/travel/cambridge-2025/cam-punting-3.webp"
+"images/travel/cambridge-2025/cam-punting-5.webp"
+>}}
+
+
 
 Then came the beautiful and classic King's College, both the college and chapel in view.  The river was serene, the weather just right. 
 
@@ -136,7 +138,7 @@ When the punting session ended, we disembarked and decided to get gelatos, and t
 As we strolled back to our lodgings, we passed another iconic Cambridge landmark: The Corpus Clock or the Stephen Hawking Clock.
 
 {{< img src= "images/travel/cambridge-2025/cam-jacks.webp" alt="Jacks Gelato" caption="" >}}
-<div class="img-row-2">
+<div class="img-row-2-lp">
 {{< img src="images/travel/cambridge-2025/cam-clock-1.webp" alt="Corpus Clock" >}}
 {{< img src="images/travel/cambridge-2025/cam-street-8.webp" alt="Cambridge street-8" >}}
 </div>

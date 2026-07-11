@@ -1722,24 +1722,8 @@ footer {
   box-shadow: 0 6px 20px rgba(60, 50, 30, 0.14);
 }
 
-/* Lightbox link wrapper inside image rows */
-.img-row .img-figure a,
-.img-row-2 .img-figure a {
-  display: block;
-}
 
-.img-row .img-figure a img,
-.img-row-2 .img-figure a img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-  cursor: zoom-in;
-}
 
-.img-row-2 .img-figure a img {
-  height: 250px;
-}
 
 /* Centered single images keep their natural size */
 .img-center .img-figure a img {
@@ -1801,9 +1785,11 @@ footer {
   /* gap on the right so body text doesn't touch it */
   padding: 20px 22px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(250, 244, 230, 0.60), rgba(245, 238, 225, 0.40));
+  background: linear-gradient(160deg,
+      color-mix(in srgb, var(--section-accent) 14%, transparent),
+      color-mix(in srgb, var(--section-accent) 5%, transparent));
   border: 1px solid rgba(255, 255, 255, 0.6);
-  border-left: 3px solid rgba(184, 134, 11, 0.85);
+  border-left: 3px solid var(--section-accent, #B8860B);
   box-shadow:
     0 4px 18px rgba(60, 50, 30, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.7);
@@ -2374,34 +2360,9 @@ footer {
   margin-top: 14px;
 }
 
-/* ===== IMAGE ROW ===== */
-.img-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin: 32px 0;
-}
 
-.img-row-2 {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin: 32px 0;
-}
 
-.img-row img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-}
 
-.img-row-2 img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  display: block;
-}
 
 /* ===== IMAGE CAPTIONS ===== */
 .img-figure {
@@ -3552,6 +3513,152 @@ tbody tr:last-child td {
 }
 
 
+/* ===== IMAGE ROWS (shared across sections) ===== */
+
+/* --- 3-up row: all images share ONE height, keep true shape, no crop --- */
+.img-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 14px;
+  margin: 32px 0;
+  flex-wrap: wrap;
+  /* very tall/narrow trios wrap gracefully */
+}
+
+.img-row .img-figure,
+.img-row>figure,
+.img-row>a {
+  margin: 0;
+  display: block;
+  min-width: 0;
+}
+
+.img-row .img-figure a,
+.img-row .img-figure a img,
+.img-row img {
+  display: block;
+}
+
+.img-row .img-figure a img,
+.img-row img {
+  height: 300px;
+  /* shared height — the dial for 3-up rows */
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(40, 40, 50, 0.16);
+  /* neutral shadow */
+  cursor: zoom-in;
+}
+
+/* --- 2-up, two-of-a-kind (2 portraits or 2 landscapes): equal-width, no crop --- */
+.img-row-2 {
+  display: flex;
+  gap: 16px;
+  margin: 32px 0;
+  align-items: flex-start;
+}
+
+.img-row-2 .img-figure,
+.img-row-2>figure,
+.img-row-2>a {
+  margin: 0;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.img-row-2 .img-figure a,
+.img-row-2 .img-figure a img,
+.img-row-2 img {
+  display: block;
+}
+
+.img-row-2 .img-figure a img,
+.img-row-2 img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(40, 40, 50, 0.16);
+  /* neutral shadow */
+  cursor: zoom-in;
+}
+
+/* --- 2-up MIXED (1 landscape + 1 portrait): share a height, no white card --- */
+.img-row-2-lp {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.img-row-2-lp .img-figure,
+.img-row-2-lp>figure,
+.img-row-2-lp>a {
+  margin: 0;
+  display: block;
+  min-width: 0;
+}
+
+.img-row-2-lp .img-figure a,
+.img-row-2-lp .img-figure a img,
+.img-row-2-lp img {
+  display: block;
+}
+
+.img-row-2-lp .img-figure a img,
+.img-row-2-lp img {
+  height: 360px;
+  /* shared height — the dial for mixed pairs */
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(40, 40, 50, 0.16);
+  /* neutral shadow */
+  cursor: zoom-in;
+}
+
+/* Mixed pair stacks earlier — it needs more room side-by-side */
+@media (max-width: 820px) {
+  .img-row-2-lp {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .img-row-2-lp .img-figure a img,
+  .img-row-2-lp img {
+    height: auto;
+    width: 100%;
+    max-width: 480px;
+  }
+}
+
+/* --- Mobile: everything stacks into one column --- */
+@media (max-width: 640px) {
+
+  .img-row,
+  .img-row-2,
+  .img-row-2-lp {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .img-row img,
+  .img-row-2 img,
+  .img-row-2-lp img {
+    height: auto;
+    width: 100%;
+    max-width: 480px;
+  }
+}
+
+
+
+
 /* ===== CENTERED SINGLE IMAGE ===== */
 
 .img-center {
@@ -4323,7 +4430,7 @@ tbody tr:last-child td {
 }
 
 .history-post-content h2 {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
 }
 
 .history-post-content h3 {
@@ -4344,8 +4451,8 @@ tbody tr:last-child td {
   margin-bottom: 0.5rem;
 }
 
-/* Drop cap on the opening paragraph, like travel */
-.history-post-content p:first-of-type::first-letter {
+/* Drop cap ONLY on the very first paragraph of the post, and never inside a list */
+.history-post-content>p:first-of-type::first-letter {
   font-family: 'Libre Baskerville', Georgia, serif;
   font-size: 4.5rem;
   font-weight: 700;
@@ -4353,7 +4460,25 @@ tbody tr:last-child td {
   line-height: 0.8;
   margin-right: 8px;
   margin-top: 6px;
-  color: var(--section-accent);
+  color: var(--section-accent, #7a3549);
+}
+
+/* Force-off any drop cap inside list items (covers li and p-inside-li) */
+.history-post-content li::first-letter,
+.history-post-content li p::first-letter {
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  float: none !important;
+  margin: 0 !important;
+  color: inherit !important;
+  line-height: inherit !important;
+  font-family: inherit !important;
+}
+
+/* Burgundy list numbers/bullets in history posts */
+.history-post-content li::marker {
+  color: var(--section-accent, #7a3549);
+  font-weight: 700;
 }
 
 /* Rounded lifted images */
@@ -4589,4 +4714,442 @@ tbody tr:last-child td {
 .whs-country-search.sidebar-search {
   margin-top: 0;
   margin-bottom: 14px;
+}
+
+
+
+
+/* ===== UTILITY PAGES INSIDE PHYSICS ===== */
+/* Scoped to .accent-physics so only physics utility pages get
+   the Space Mono / Silkscreen treatment. A future utility page
+   in another section will pick up that section's fonts instead
+   (once we write rules for it). */
+
+/* Page title — Silkscreen, the pixel display font */
+.accent-physics .utility-header h1 {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: #7a5a9a;
+  /* physics violet accent */
+}
+
+/* Summary line under the title — Space Mono */
+.accent-physics .utility-header .section-desc {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.92rem;
+  color: #666666;
+}
+
+/* Any prose written in the page body (the {{ .Content }} part) */
+.accent-physics .utility-content p,
+.accent-physics .utility-content li {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: #2a2a2a;
+}
+
+/* Subheadings inside the content, if you ever add them */
+.accent-physics .utility-content h2,
+.accent-physics .utility-content h3 {
+  font-family: 'Space Mono', monospace;
+  font-weight: 600;
+  color: #7a5a9a;
+}
+
+
+/* ===== IMAGES INSIDE DELTIOLOGY ARTICLES ===== */
+
+/* Single images in the article body — full column width,
+   soft shadow, breathing room. Mirrors the travel-post look. */
+.deltiology-content img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 28px 0;
+  border-radius: 4px;
+  /* remove if travel images are square-cornered */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+
+/* ===== HISTORY POST ===== */
+.history-post-cover {
+  width: 100%;
+  height: 48vh;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(60, 50, 30, 0.30);
+}
+
+.history-post-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.history-post-header {
+  margin-bottom: 40px;
+}
+
+.history-post-header+hr {
+  border: none;
+  height: 1px;
+  margin: 36px 0;
+  background: linear-gradient(to right, transparent, rgba(122, 53, 73, 0.65), transparent);
+}
+
+.history-post-meta {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7a3549;
+  margin-bottom: 12px;
+}
+
+.history-post-title {
+  font-family: 'Bonheur Royale', cursive;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 4.2rem;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.history-post-date {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  color: #aaaaaa;
+}
+
+.history-post-content {
+  max-width: 780px;
+  margin-top: 40px;
+}
+
+.history-post-content h2,
+.history-post-content h3 {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  color: #111111;
+  margin-top: 52px;
+  margin-bottom: 20px;
+}
+
+.history-post-content h2 {
+  font-size: 1.6rem;
+}
+
+.history-post-content h3 {
+  font-size: 1.1rem;
+}
+
+.history-post-content p,
+.history-post-content li {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: calc((1.5rem) * var(--reader-scale));
+  color: #1a1a1a;
+  line-height: var(--reader-leading, 1.75);
+  text-align: var(--reader-align, left);
+  text-indent: 0;
+  margin-top: 0 !important;
+}
+
+.history-post-content p {
+  margin-bottom: 1.4rem !important;
+}
+
+.history-post-content li {
+  margin-bottom: 0.5rem !important;
+}
+
+.history-post-content p:first-of-type {
+  text-indent: 0;
+}
+
+.history-post-content img {
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(60, 50, 30, 0.14);
+}
+
+/* History pullquote — burgundy hairline */
+.history-post-content .pullquote::before,
+.history-post-content .pullquote::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(122, 53, 73, 0.65), transparent);
+}
+
+.history-post-content .pullquote::before {
+  margin-bottom: 24px;
+}
+
+.history-post-content .pullquote::after {
+  margin-top: 24px;
+}
+
+
+
+
+
+/* History comment box — burgundy left border */
+.history-post-content .travel-comment {
+  border-left: 3px solid rgba(122, 53, 73, 0.85);
+}
+
+/* ===== HISTORY POST MOBILE ===== */
+@media (max-width: 768px) {
+  .history-post-cover {
+    height: 30vh;
+  }
+
+  .history-post-title {
+    font-size: 1.6rem;
+  }
+
+  .history-post-content p,
+  .history-post-content li {
+    font-size: calc((1rem + 2pt) * var(--reader-scale));
+    line-height: var(--reader-leading, 1.75);
+  }
+}
+
+
+/* ===== HISTORY COMMENT — full-width burgundy callout (no float) ===== */
+.history-comment {
+  margin: 30px 0;
+  padding: 20px 26px;
+  border-radius: 12px;
+  border-left: 4px solid #7a3549;
+  /* burgundy accent */
+  background: linear-gradient(135deg, rgba(122, 53, 73, 0.09), rgba(122, 53, 73, 0.04));
+  box-shadow:
+    0 4px 18px rgba(60, 30, 40, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.history-comment p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #4a2a34;
+  margin: 0 0 0.8rem;
+}
+
+.history-comment p:last-child {
+  margin-bottom: 0;
+}
+
+.history-comment a {
+  color: #7a3549;
+  text-decoration: underline;
+}
+
+/* ===== HISTORY FIGURE — image the text wraps around ===== */
+.history-figure {
+  margin: 6px 0 18px;
+}
+
+.history-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(60, 30, 40, 0.16);
+}
+
+.history-figure figcaption {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #7a5a64;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* float right (default): text wraps on the left */
+.history-figure-right {
+  float: right;
+  margin-left: 30px;
+}
+
+/* float left: text wraps on the right */
+.history-figure-left {
+  float: left;
+  margin-right: 30px;
+}
+
+/* on phones, stop floating — full width, text above and below */
+@media (max-width: 640px) {
+
+  .history-figure,
+  .history-figure-left,
+  .history-figure-right {
+    float: none;
+    max-width: 100% !important;
+    margin: 24px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .history-post-title {
+    font-size: 1.9rem;
+  }
+}
+
+/* ===== HISTORY IMAGES — scoped to the narrower history column ===== */
+
+/* Single {{< img >}} — fits the column, centered */
+.history-post-content .img-figure {
+  margin: 28px auto;
+  max-width: 100%;
+}
+
+.history-post-content .img-figure a {
+  display: block;
+}
+
+.history-post-content .img-figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(60, 30, 40, 0.16);
+}
+
+.history-post-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* History 2-up, MIXED (landscape + portrait) — shared height, no stretched wrapper */
+.history-post-content .img-row-2-lp {
+  display: flex;
+  align-items: flex-start;
+  /* align tops; wrappers don't stretch */
+  justify-content: center;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.history-post-content .img-row-2-lp .img-figure,
+.history-post-content .img-row-2-lp>figure,
+.history-post-content .img-row-2-lp>a {
+  margin: 0;
+  display: block;
+  min-width: 0;
+}
+
+/* both images share ONE height; each keeps its own width (no crop, no white card) */
+.history-post-content .img-row-2-lp .img-figure a img,
+.history-post-content .img-row-2-lp img {
+  height: 360px;
+  /* the shared height — your main dial */
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(60, 30, 40, 0.16);
+  cursor: zoom-in;
+}
+
+/* stack on phones */
+@media (max-width: 640px) {
+  .history-post-content .img-row-2-lp {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .history-post-content .img-row-2-lp img {
+    height: auto;
+    width: 100%;
+    max-width: 480px;
+  }
+}
+
+/* Centered single image — natural size, capped to the column */
+.history-post-content .img-center .img-figure a img {
+  width: auto;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  object-fit: contain;
+  cursor: zoom-in;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(60, 30, 40, 0.16);
+  display: flex;
+  justify-content: center;
+}
+
+
+
+/* History pullquote — centered in the column, burgundy hairlines */
+.history-post-content .pullquote {
+  float: none;
+  width: auto;
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 0;
+  text-align: center;
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #4a2a34;
+}
+
+.history-post-content .pullquote::before,
+.history-post-content .pullquote::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(122, 53, 73, 0.65), transparent);
+}
+
+.history-post-content .pullquote::before {
+  margin-bottom: 24px;
+}
+
+.history-post-content .pullquote::after {
+  margin-top: 24px;
+}
+
+/* History content links — burgundy accent */
+/* History body links — burgundy, force over any gold rule */
+.history-post-content a,
+.history-post-content p a,
+.history-post-content li a {
+  color: var(--section-accent, #7a3549) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.history-post-content a:hover,
+.history-post-content p a:hover,
+.history-post-content li a:hover {
+  color: #5a2636 !important;
+}
+
+
+.history-post-content hr {
+  border: none;
+  height: 1px;
+  margin: 40px 0;
+  background: linear-gradient(to right, transparent, rgba(122, 53, 73, 0.65), transparent);
+}
+
+
+.travel-post-content hr {
+  border: none;
+  height: 1px;
+  margin: 40px 0;
+  background: linear-gradient(to right, transparent, rgba(184, 134, 11, 0.65), transparent);
 }

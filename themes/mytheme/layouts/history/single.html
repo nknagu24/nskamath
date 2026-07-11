@@ -1,29 +1,27 @@
 {{ define "main" }}
-
 <!-- Cover image — optimized -->
 {{ with .Params.cover_image }}
-  {{ $image := resources.Get (strings.TrimPrefix "/" .) }}
-  {{ if $image }}
-    {{ $optimized := $image.Resize "1400x webp q85" }}
-    <div class="travel-post-cover">
-      <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
-    </div>
-  {{ end }}
+{{ $image := resources.Get (strings.TrimPrefix "/" .) }}
+{{ if $image }}
+{{ $optimized := $image.Resize "1400x webp q85" }}
+<div class="history-post-cover">
+  <img src="{{ $optimized.RelPermalink }}" alt="{{ $.Title }}">
+</div>
+{{ end }}
 {{ end }}
 
-<div class="travel-post-header">
-  <div class="travel-post-meta">
+<div class="history-post-header">
+  <div class="history-post-meta">
     {{ .Params.period }}
     {{ with .Params.region }} · {{ . }}{{ end }}
   </div>
-  <h1 class="travel-post-title">{{ .Title }}</h1>
-  <div class="travel-post-date">{{ .Params.date | time.Format "January 2006" }}</div>
+  <h1 class="history-post-title">{{ .Title }}</h1>
+  <div class="history-post-date">{{ .Params.date | time.Format "January 2006" }}</div>
 </div>
 
 <hr>
 
-<div class="travel-post-content">
+<div class="history-post-content">
   {{ .Content }}
 </div>
-
 {{ end }}

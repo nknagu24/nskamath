@@ -1,13 +1,14 @@
 {{ $src := .Get "src" }}
 {{ $alt := .Get "alt" | default "" }}
 {{ $caption := .Get "caption" | default "" }}
+{{ $width := .Get "width" | default "" }}
 {{ $image := resources.Get $src }}
 {{ if $image }}
-{{ $image = $image.Filter images.AutoOrient }} {{/* respect the photo's real orientation — fixes portraits */}}
-{{ $optimized := $image.Fit "1200x1200 webp q85" }} {{/* shown in the post */}}
-{{ $full := $image.Fit "2200x2200 webp q90" }} {{/* opened in the lightbox */}}
-<figure class="img-figure">
-  <a href="{{ $full.RelPermalink }}" class="glightbox" {{ with $caption }}data-title="{{ . }}" {{ end }}>
+{{ $image = $image.Filter images.AutoOrient }}
+{{ $optimized := $image.Fit "1200x1200 webp q85" }}
+{{ $full := $image.Fit "2200x2200 webp q90" }}
+<figure class="img-figure" {{ with $width }} style="max-width: {{ . }};" {{ end }}>
+  <a href="{{ $full.RelPermalink }}" class="glightbox" {{ with $caption }} data-title="{{ . }}" {{ end }}>
     <img src="{{ $optimized.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
   </a>
   {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
