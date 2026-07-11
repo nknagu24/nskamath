@@ -4773,8 +4773,8 @@ tbody tr:last-child td {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
-
 /* ===== HISTORY POST ===== */
+
 .history-post-cover {
   width: 100%;
   height: 48vh;
@@ -4794,11 +4794,16 @@ tbody tr:last-child td {
   margin-bottom: 40px;
 }
 
-.history-post-header+hr {
+.history-post-header+hr,
+.history-post-content hr {
   border: none;
   height: 1px;
-  margin: 36px 0;
+  margin: 40px 0;
   background: linear-gradient(to right, transparent, rgba(122, 53, 73, 0.65), transparent);
+}
+
+.history-post-header+hr {
+  margin: 36px 0;
 }
 
 .history-post-meta {
@@ -4816,8 +4821,8 @@ tbody tr:last-child td {
   font-style: italic;
   font-weight: 400;
   font-size: 4.2rem;
-  margin-bottom: 12px;
   line-height: 1.2;
+  margin-bottom: 12px;
 }
 
 .history-post-date {
@@ -4836,7 +4841,7 @@ tbody tr:last-child td {
   font-family: 'Libre Baskerville', Georgia, serif;
   font-style: italic;
   font-weight: 600;
-  color: #111111;
+  color: #111;
   margin-top: 52px;
   margin-bottom: 20px;
 }
@@ -4852,7 +4857,7 @@ tbody tr:last-child td {
 .history-post-content p,
 .history-post-content li {
   font-family: 'Crimson Pro', Georgia, serif;
-  font-size: calc((1.5rem) * var(--reader-scale));
+  font-size: calc(1.5rem * var(--reader-scale));
   color: #1a1a1a;
   line-height: var(--reader-leading, 1.75);
   text-align: var(--reader-align, left);
@@ -4873,225 +4878,14 @@ tbody tr:last-child td {
 }
 
 .history-post-content img {
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(60, 50, 30, 0.14);
-}
-
-/* History pullquote — burgundy hairline */
-.history-post-content .pullquote::before,
-.history-post-content .pullquote::after {
-  content: "";
-  display: block;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(122, 53, 73, 0.65), transparent);
-}
-
-.history-post-content .pullquote::before {
-  margin-bottom: 24px;
-}
-
-.history-post-content .pullquote::after {
-  margin-top: 24px;
-}
-
-
-
-
-
-/* History comment box — burgundy left border */
-.history-post-content .travel-comment {
-  border-left: 3px solid rgba(122, 53, 73, 0.85);
-}
-
-/* ===== HISTORY POST MOBILE ===== */
-@media (max-width: 768px) {
-  .history-post-cover {
-    height: 30vh;
-  }
-
-  .history-post-title {
-    font-size: 1.6rem;
-  }
-
-  .history-post-content p,
-  .history-post-content li {
-    font-size: calc((1rem + 2pt) * var(--reader-scale));
-    line-height: var(--reader-leading, 1.75);
-  }
-}
-
-
-/* ===== HISTORY COMMENT — full-width burgundy callout (no float) ===== */
-.history-comment {
-  margin: 30px 0;
-  padding: 20px 26px;
-  border-radius: 12px;
-  border-left: 4px solid #7a3549;
-  /* burgundy accent */
-  background: linear-gradient(135deg, rgba(122, 53, 73, 0.09), rgba(122, 53, 73, 0.04));
-  box-shadow:
-    0 4px 18px rgba(60, 30, 40, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-}
-
-.history-comment p {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: #4a2a34;
-  margin: 0 0 0.8rem;
-}
-
-.history-comment p:last-child {
-  margin-bottom: 0;
-}
-
-.history-comment a {
-  color: #7a3549;
-  text-decoration: underline;
-}
-
-/* ===== HISTORY FIGURE — image the text wraps around ===== */
-.history-figure {
-  margin: 6px 0 18px;
-}
-
-.history-figure img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
-  display: block;
   border-radius: 10px;
   box-shadow: 0 6px 20px rgba(60, 30, 40, 0.16);
 }
 
-.history-figure figcaption {
-  font-family: 'Crimson Pro', Georgia, serif;
-  font-style: italic;
-  font-size: 0.85rem;
-  color: #7a5a64;
-  text-align: center;
-  margin-top: 8px;
-}
+/* ===== Pullquote ===== */
 
-/* float right (default): text wraps on the left */
-.history-figure-right {
-  float: right;
-  margin-left: 30px;
-}
-
-/* float left: text wraps on the right */
-.history-figure-left {
-  float: left;
-  margin-right: 30px;
-}
-
-/* on phones, stop floating — full width, text above and below */
-@media (max-width: 640px) {
-
-  .history-figure,
-  .history-figure-left,
-  .history-figure-right {
-    float: none;
-    max-width: 100% !important;
-    margin: 24px 0;
-  }
-}
-
-@media (max-width: 768px) {
-  .history-post-title {
-    font-size: 1.9rem;
-  }
-}
-
-/* ===== HISTORY IMAGES — scoped to the narrower history column ===== */
-
-/* Single {{< img >}} — fits the column, centered */
-.history-post-content .img-figure {
-  margin: 28px auto;
-  max-width: 100%;
-}
-
-.history-post-content .img-figure a {
-  display: block;
-}
-
-.history-post-content .img-figure img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(60, 30, 40, 0.16);
-}
-
-.history-post-content img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* History 2-up, MIXED (landscape + portrait) — shared height, no stretched wrapper */
-.history-post-content .img-row-2-lp {
-  display: flex;
-  align-items: flex-start;
-  /* align tops; wrappers don't stretch */
-  justify-content: center;
-  gap: 16px;
-  margin: 32px 0;
-}
-
-.history-post-content .img-row-2-lp .img-figure,
-.history-post-content .img-row-2-lp>figure,
-.history-post-content .img-row-2-lp>a {
-  margin: 0;
-  display: block;
-  min-width: 0;
-}
-
-/* both images share ONE height; each keeps its own width (no crop, no white card) */
-.history-post-content .img-row-2-lp .img-figure a img,
-.history-post-content .img-row-2-lp img {
-  height: 360px;
-  /* the shared height — your main dial */
-  width: auto;
-  max-width: 100%;
-  object-fit: contain;
-  display: block;
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(60, 30, 40, 0.16);
-  cursor: zoom-in;
-}
-
-/* stack on phones */
-@media (max-width: 640px) {
-  .history-post-content .img-row-2-lp {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .history-post-content .img-row-2-lp img {
-    height: auto;
-    width: 100%;
-    max-width: 480px;
-  }
-}
-
-/* Centered single image — natural size, capped to the column */
-.history-post-content .img-center .img-figure a img {
-  width: auto;
-  max-width: 100%;
-  max-height: 100%;
-  height: auto;
-  object-fit: contain;
-  cursor: zoom-in;
-  border-radius: 10px;
-  box-shadow: 0 6px 20px rgba(60, 30, 40, 0.16);
-  display: flex;
-  justify-content: center;
-}
-
-
-
-/* History pullquote — centered in the column, burgundy hairlines */
 .history-post-content .pullquote {
   float: none;
   width: auto;
@@ -5122,8 +4916,120 @@ tbody tr:last-child td {
   margin-top: 24px;
 }
 
-/* History content links — burgundy accent */
-/* History body links — burgundy, force over any gold rule */
+/* ===== Comment Box ===== */
+
+.history-post-content .travel-comment {
+  border-left: 3px solid rgba(122, 53, 73, 0.85);
+}
+
+.history-comment {
+  margin: 30px 0;
+  padding: 20px 26px;
+  border-radius: 12px;
+  border-left: 4px solid #7a3549;
+  background: linear-gradient(135deg,
+      rgba(122, 53, 73, 0.09),
+      rgba(122, 53, 73, 0.04));
+  box-shadow:
+    0 4px 18px rgba(60, 30, 40, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.history-comment p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #4a2a34;
+  margin: 0 0 0.8rem;
+}
+
+.history-comment p:last-child {
+  margin-bottom: 0;
+}
+
+.history-comment a {
+  color: #7a3549;
+  text-decoration: underline;
+}
+
+/* ===== Floating Figures ===== */
+
+.history-figure {
+  margin: 6px 0 18px;
+}
+
+.history-figure img {
+  width: 100%;
+  display: block;
+}
+
+.history-figure figcaption {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #7a5a64;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.history-figure-right {
+  float: right;
+  margin-left: 30px;
+}
+
+.history-figure-left {
+  float: left;
+  margin-right: 30px;
+}
+
+/* ===== Images ===== */
+
+.history-post-content .img-figure {
+  margin: 28px auto;
+  max-width: 100%;
+}
+
+.history-post-content .img-figure a {
+  display: block;
+}
+
+.history-post-content .img-figure img {
+  display: block;
+  margin: 0 auto;
+}
+
+.history-post-content .img-row-2-lp {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.history-post-content .img-row-2-lp .img-figure,
+.history-post-content .img-row-2-lp>figure,
+.history-post-content .img-row-2-lp>a {
+  margin: 0;
+  display: block;
+  min-width: 0;
+}
+
+.history-post-content .img-row-2-lp img {
+  height: 360px;
+  width: auto;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+.history-post-content .img-center .img-figure a img {
+  width: auto;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+/* ===== Links ===== */
+
 .history-post-content a,
 .history-post-content p a,
 .history-post-content li a {
@@ -5138,18 +5044,68 @@ tbody tr:last-child td {
   color: #5a2636 !important;
 }
 
-
-.history-post-content hr {
-  border: none;
-  height: 1px;
-  margin: 40px 0;
-  background: linear-gradient(to right, transparent, rgba(122, 53, 73, 0.65), transparent);
-}
-
+/* ===== Travel Divider ===== */
 
 .travel-post-content hr {
   border: none;
   height: 1px;
   margin: 40px 0;
-  background: linear-gradient(to right, transparent, rgba(184, 134, 11, 0.65), transparent);
+  background: linear-gradient(to right, transparent, rgba(184, 134, 11, .65), transparent);
+}
+
+/* ===== Mobile ===== */
+
+@media (max-width: 768px) {
+  .history-post-title {
+    font-size: 1.9rem;
+  }
+}
+
+@media (max-width: 640px) {
+
+  .history-post-cover {
+    height: 30vh;
+  }
+
+  .history-post-title {
+    font-size: 1.6rem;
+  }
+
+  .history-post-content p,
+  .history-post-content li {
+    font-size: calc((1rem + 2pt) * var(--reader-scale));
+    line-height: var(--reader-leading, 1.75);
+  }
+
+  .history-figure,
+  .history-figure-left,
+  .history-figure-right {
+    float: none;
+    max-width: 100% !important;
+    margin: 24px 0;
+  }
+
+  .history-post-content .img-row-2-lp {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .history-post-content .img-row-2-lp img {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+  }
+
+  .history-post-content img {
+    max-height: 70vh;
+  }
+
+  .history-post-content .img-center .img-figure a img {
+    max-height: 65vh;
+  }
+
+  .history-post-content .gallery-main,
+  .gallery-slide {
+    max-height: 60vh;
+  }
 }
