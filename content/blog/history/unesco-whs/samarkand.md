@@ -102,6 +102,9 @@ We take the Golden Road to Samarkand."
 
      Timur's remains were reburied with Islamic rites in **November 1942**. A few weeks later, the Soviet Union achieved its decisive victory at the **Battle of Stalingrad**, giving rise to another popular legend that the curse had finally been lifted. Although historians regard these events as coincidence, the story remains one of Samarkand's most enduring legends.
 
+
+3. Following the **Battle of Talas** in **751 CE**, Chinese prisoners skilled in papermaking were brought to Central Asia. Craftsmen in Samarkand refined and advanced the technique, producing the renowned **Samarkand silk paper**—named for its smooth, silky surface and traditionally made from mulberry bark. The city soon became the leading center of papermaking in the Islamic world. From Samarkand, the technology spread to major centers of learning and trade such as **Baghdad**, **Damascus**, and **Cairo** by the 10th century, before reaching North Africa, Muslim Spain, and eventually Christian Europe, where papermaking was established in places such as Italy by the 12th century.
+
 --- 
 
 
