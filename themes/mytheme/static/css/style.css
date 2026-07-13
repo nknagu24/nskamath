@@ -1,6 +1,93 @@
 /* ===== GOOGLE FONT ===== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+
+
+/* ===== THEME VARIABLES (light + dark) ===== */
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --text-muted: #666666;
+  --surface: #faf8f5;
+  /* cards / panels */
+  --surface-border: #e8e0d0;
+  --header-bg: #111111;
+  --header-text: #ffffff;
+  --hairline: rgba(0, 0, 0, 0.08);
+  --glass: rgba(255, 255, 255, 0.55);
+  /* frosted card tint */
+  --glass-border: rgba(255, 255, 255, 0.6);
+}
+
+
+/* ===== SECTION ACCENT COLORS ===== */
+:root {
+  --section-accent: #B8860B;
+}
+
+/* Reading preferences — base scale (1 = normal) */
+:root {
+  --reader-scale: 1;
+  --reader-align: left;
+  --reader-leading: 1.75;
+}
+
+/* ===== READING TEXT — one shared size, driven by the preferences bar ===== */
+:root {
+  --reader-base: 1.35rem;
+}
+
+/* the single reading size (≈ old 1.2rem + 2pt) */
+@media (max-width: 768px) {
+  :root {
+    --reader-base: 1.15rem;
+  }
+}
+
+
+
+
+:root[data-theme="dark"] {
+  --bg: #14141a;
+  --text: #e8e6ea;
+  --text-muted: #9a9aa4;
+  --surface: #1e1e26;
+  --surface-border: #33333f;
+  --header-bg: #0d0d12;
+  --header-text: #f0eef2;
+  --hairline: rgba(255, 255, 255, 0.10);
+  --glass: rgba(40, 40, 52, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.10);
+}
+
+/* Follow the device setting on first visit — but ONLY if the user hasn't chosen.
+   The [data-theme] attribute (set by the toggle) always overrides this. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14141a;
+    --text: #e8e6ea;
+    --text-muted: #9a9aa4;
+    --surface: #1e1e26;
+    --surface-border: #33333f;
+    --header-bg: #0d0d12;
+    --header-text: #f0eef2;
+    --hairline: rgba(255, 255, 255, 0.10);
+    --glass: rgba(40, 40, 52, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.10);
+  }
+}
+
+
+/* Smooth the switch */
+body {
+  transition: background-color 0.25s ease, color 0.25s ease;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
 /* ===== RESET ===== */
 * {
   margin: 0;
@@ -13,13 +100,7 @@ html {
 }
 
 /* ===== BODY ===== */
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #ffffff;
-  color: #111111;
-  line-height: 1.8;
-  font-weight: 400;
-}
+
 
 /* ===== HEADINGS ===== */
 h1 {
@@ -48,24 +129,21 @@ h3 {
 p {
   margin-bottom: 16px;
   font-size: 1.033rem;
-  color: #333333;
+  color: var(--text-muted);
 }
 
 /* ===== LINKS ===== */
 a {
-  color: #111111;
+  color: var(--text);
   text-decoration: none;
 }
 
 a:hover {
-  color: #555555;
+  color: var(--text-muted);
   text-decoration: none;
 }
 
-/* ===== SECTION ACCENT COLORS ===== */
-:root {
-  --section-accent: #B8860B;
-}
+
 
 /* default (Travel / non-blog) */
 .accent-travel {
@@ -320,22 +398,22 @@ li {
 /* ===== HORIZONTAL RULE ===== */
 hr {
   border: none;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid var(--hairline);
   margin: 40px 0;
 }
 
 /* ===== BLOCKQUOTE ===== */
 blockquote {
-  border-left: 3px solid #111111;
+  border-left: 3px solid var(--text);
   padding-left: 20px;
   margin: 20px 0;
   font-style: italic;
-  color: #555555;
+  color: var(--text-muted);
 }
 
 /* ===== HEADER ===== */
 header {
-  background-color: #111111;
+  background-color: var(--header-bg);
   padding: 20px 60px;
   display: flex;
   justify-content: space-between;
@@ -357,7 +435,7 @@ header {
 
 .site-title {
   font-family: 'Bonheur Royale', cursive;
-  color: #ffffff;
+  color: var(--header-text);
   font-size: 1.6rem;
   text-decoration: none;
   font-weight: 400;
@@ -378,7 +456,7 @@ header {
 
 /* ===== NAVIGATION ===== */
 nav a {
-  color: #ffffff;
+  color: var(--header-text);
   text-decoration: none;
   margin-left: 30px;
   font-size: 0.8rem;
@@ -416,7 +494,7 @@ nav a:hover {
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #111111;
+  background-color: var(--header-bg);
   min-width: 200px;
   z-index: 100;
   padding: 8px 0;
@@ -461,7 +539,7 @@ nav a:hover {
 .menu-btn {
   background: none;
   border: none;
-  color: #ffffff;
+  color: var(--header-text);
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
@@ -474,7 +552,7 @@ nav a:hover {
 
 /* ===== SEARCH BUTTON ===== */
 .search-btn {
-  color: #ffffff;
+  color: var(--header-text);
   text-decoration: none;
   font-size: 0.8rem;
   margin-left: 16px;
@@ -497,13 +575,13 @@ nav a:hover {
   /* hidden off-screen by default */
   width: 360px;
   height: 100vh;
-  background: rgb(255, 255, 255);
+  background: var(--surface);
   /* warm off-white, slightly see-through */
   backdrop-filter: blur(18px);
   /* the "frosted" effect */
   -webkit-backdrop-filter: blur(18px);
   /* Safari needs this prefix */
-  border-left: 1px solid rgba(184, 134, 11, 0.25);
+  border-left: 1px solid var(--surface-border);
   /* faint gold edge */
   box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12);
   z-index: 1000;
@@ -578,11 +656,11 @@ nav a:hover {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #3a3428;
+  color: var(--text);
   /* warm dark brown, not pure black */
   text-decoration: none;
   padding: 8px 0;
-  border-bottom: 1px solid rgba(184, 134, 11, 0.12);
+  border-bottom: 1px solid var(--hairline);
   /* faint gold divider */
   transition: color 0.2s, padding-left 0.2s;
 }
@@ -964,7 +1042,7 @@ footer {
   font-style: italic;
   font-weight: 400;
   font-size: 2rem;
-  color: #111111;
+  color: var(--text);
   margin-bottom: 6px;
   line-height: 1.2;
 }
@@ -987,7 +1065,7 @@ footer {
   font-size: calc(var(--reader-base) * var(--reader-scale));
   line-height: var(--reader-leading, 1.75);
   text-align: var(--reader-align, left);
-  color: #2a2320;
+  color: var(--text);
   margin-bottom: 14px;
 }
 
@@ -997,7 +1075,7 @@ footer {
   font-style: italic;
   font-weight: 400;
   font-size: 1.35rem;
-  color: #111111;
+  color: var(--text);
   margin-top: 44px;
   margin-bottom: 18px;
 }
@@ -1020,7 +1098,7 @@ footer {
   font-size: calc(1.08rem * var(--reader-scale));
   line-height: var(--reader-leading, 1.75);
   text-align: var(--reader-align, left);
-  color: #2a2320;
+  color: var(--text);
   margin-bottom: 6px;
 }
 
@@ -1048,11 +1126,11 @@ footer {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #4a3d28;
+  color: var(--text);
 
   /* champagne frosted glass, like the sort dropdown and search box */
-  background-color: rgba(250, 244, 230, 0.65);
-  border: 1px solid rgba(184, 134, 11, 0.38);
+  background-color: var(--glass);
+  border-color: var(--glass-border);
   box-shadow:
     0 3px 12px rgba(60, 50, 30, 0.10),
     inset 0 1px 0 rgba(255, 255, 255, 0.65);
@@ -1105,12 +1183,12 @@ footer {
   display: block;
   padding: 30px 28px;
   text-decoration: none;
-  color: #1a1a1a;
+  color: var(--text);
   border-radius: 16px;
 
   /* neutral frosted glass — no color tint */
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(248, 248, 250, 0.35));
-  border: 1px solid rgba(220, 220, 226, 0.9);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
   box-shadow:
     0 6px 22px rgba(30, 30, 40, 0.08),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
@@ -1122,7 +1200,7 @@ footer {
 
 .section-tile:hover {
   transform: translateY(-4px);
-  color: #1a1a1a;
+  color: var(--text);
   border-color: rgba(190, 190, 198, 1);
   box-shadow:
     0 12px 30px rgba(30, 30, 40, 0.14),
@@ -1131,11 +1209,11 @@ footer {
 }
 
 .section-tile:hover .tile-title {
-  color: #111111;
+  color: var(--text);
 }
 
 .section-tile:hover .tile-desc {
-  color: #555555;
+  color: var(--text-muted);
 }
 
 .tile-title {
@@ -1145,13 +1223,13 @@ footer {
   font-weight: 400;
   margin-bottom: 10px;
   letter-spacing: 0.01em;
-  color: #111111;
+  color: var(--text);
 }
 
 .tile-desc {
   font-family: 'Crimson Pro', Georgia, serif;
   font-size: 0.95rem;
-  color: #777777;
+  color: var(--text-muted);
   line-height: 1.5;
 }
 
@@ -1196,7 +1274,7 @@ footer {
   font-style: italic;
   font-weight: 400;
   font-size: 1.5rem;
-  color: #242424;
+  color: var(--text);
   letter-spacing: 0.01em;
   margin-bottom: 0;
   text-align: center;
@@ -1204,7 +1282,7 @@ footer {
 }
 
 .blog-tiles .section-tile:hover .tile-title {
-  color: #242424;
+  color: var(--text);
 }
 
 /* Per-section tints (note the .blog-tiles prefix so they win over the base border) */
@@ -1246,7 +1324,7 @@ footer {
   font-style: normal;
   font-weight: 400;
   font-size: 4.5rem;
-  color: #1a1a1a;
+  color: var(--text);
   line-height: 1.1;
   letter-spacing: 0.01em;
   margin-bottom: 18px;
@@ -1257,7 +1335,7 @@ footer {
   font-style: italic;
   font-size: 1.25rem;
   line-height: 1.7;
-  color: #666666;
+  color: var(--text-muted);
   margin: 0 auto;
 }
 
@@ -1302,7 +1380,7 @@ footer {
 
 /* Each entry card */
 .ac-entry {
-  border-left: 2px solid #111111;
+  border-left: 2px solid var(--text);
   padding-left: 20px;
   margin-bottom: 36px;
 }
@@ -1319,13 +1397,13 @@ footer {
 .ac-title {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #111111;
+  color: var(--text);
 }
 
 /* Date on the right */
 .ac-date {
   font-size: 0.78rem;
-  color: #777777;
+  color: var(--text-muted);
   font-weight: 500;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -1335,14 +1413,14 @@ footer {
 /* Institution name */
 .ac-institution {
   font-size: 0.88rem;
-  color: #555555;
+  color: var(--text-muted);
   margin-bottom: 6px;
 }
 
 /* Detail lines like thesis, advisor, highlights */
 .ac-detail {
   font-size: 0.88rem;
-  color: #444444;
+  color: var(--text-muted);
   margin-bottom: 4px;
 }
 
@@ -1384,9 +1462,9 @@ footer {
 .recent-card {
   display: block;
   padding: 24px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--surface-border);
   text-decoration: none;
-  color: #111111;
+  color: var(--text);
   transition: box-shadow 0.2s, transform 0.2s;
 }
 
@@ -1408,14 +1486,14 @@ footer {
 .recent-card-title {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #111111;
+  color: var(--text);
   margin-bottom: 8px;
   line-height: 1.4;
 }
 
 .recent-summary {
   font-size: 0.82rem;
-  color: #666666;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
@@ -1450,7 +1528,7 @@ footer {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #4a3d28;
+  color: var(--text);
   padding: 10px 40px 10px 18px;
   cursor: pointer;
   outline: none;
@@ -1483,8 +1561,8 @@ footer {
   left: 0;
   z-index: 50;
   border-radius: 14px;
-  background-color: rgba(250, 244, 230, 0.97);
-  border: 1px solid rgba(184, 134, 11, 0.35);
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
   box-shadow:
     0 10px 28px rgba(60, 50, 30, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
@@ -1508,7 +1586,7 @@ footer {
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #4a3d28;
+  color: var(--text);
   padding: 9px 14px;
   border-radius: 9px;
   cursor: pointer;
@@ -1521,20 +1599,6 @@ footer {
 
 .sort-menu li.is-selected {
   background-color: #c1a150;
-  color: #ffffff;
-}
-
-/* Styles the opened option list — works in Firefox */
-.sort-select option {
-  background-color: #faf4e6;
-  /* champagne (must be solid, no glass here) */
-  color: #4a3d28;
-  font-weight: 500;
-}
-
-.sort-select option:checked {
-  background-color: #B8860B;
-  /* gold highlight on the selected one */
   color: #ffffff;
 }
 
@@ -1551,7 +1615,7 @@ footer {
   font-style: normal;
   font-weight: 400;
   font-size: 4.5rem;
-  color: #1a1a1a;
+  color: var(--text);
   line-height: 1.15;
   margin-bottom: 18px;
 }
@@ -1561,9 +1625,18 @@ footer {
   font-style: italic;
   font-size: 1.2rem;
   line-height: 1.7;
-  color: #666666;
+  color: var(--text-muted);
   margin: 0 auto;
 }
+
+.section-desc {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
 
 @media (max-width: 768px) {
   .section-hero-title {
@@ -1576,12 +1649,7 @@ footer {
 }
 
 /* ===== TRAVEL GRID (listing pages) ===== */
-.section-desc {
-  font-family: 'Crimson Pro', Georgia, serif;
-  font-size: 1.1rem;
-  color: #666666;
-  margin-bottom: 40px;
-}
+
 
 .travel-grid {
   display: grid;
@@ -1649,7 +1717,7 @@ footer {
   font-weight: 400;
   margin-bottom: 8px;
   line-height: 1.4;
-  color: #111111;
+  color: var(--text);
 }
 
 .travel-grid-sub {
@@ -1731,6 +1799,7 @@ footer {
   font-size: 2.2rem;
   margin-bottom: 12px;
   line-height: 1.2;
+  color: var(--text);
 }
 
 .travel-post-date {
@@ -1749,7 +1818,7 @@ footer {
   font-family: 'Libre Baskerville', Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  color: #111111;
+  color: var(--text);
   margin-top: 52px;
   margin-bottom: 20px;
 }
@@ -1766,7 +1835,7 @@ footer {
 .travel-post-content li {
   font-family: 'Crimson Pro', Georgia, serif;
   font-size: calc((1.5rem) * var(--reader-scale));
-  color: #1a1a1a;
+  color: var(--text);
   line-height: var(--reader-leading, 1.75);
   text-align: var(--reader-align, left);
   text-indent: 0;
@@ -1815,7 +1884,7 @@ footer {
   line-height: 0.8;
   margin-right: 8px;
   margin-top: 6px;
-  color: #111111;
+  color: var(--section-accent, #B8860B);
 }
 
 .pullquote {
@@ -1823,7 +1892,7 @@ footer {
   font-size: 1.3rem;
   font-style: italic;
   font-weight: 400;
-  color: #5a4a2a;
+  color: var(--text);
   padding: 30px 0;
   margin: 44px 0;
   text-align: center;
@@ -1940,19 +2009,14 @@ footer {
   }
 }
 
-/* Reading preferences — base scale (1 = normal) */
-:root {
-  --reader-scale: 1;
-  --reader-align: left;
-  --reader-leading: 1.75;
-}
+
 
 
 /* Preferences toggle button in the header */
 .prefs-btn {
   background: none;
   border: none;
-  color: #ffffff;
+  color: var(--header-text);
   font-size: 1.05rem;
   cursor: pointer;
   padding: 4px 8px;
@@ -1967,8 +2031,8 @@ footer {
 .prefs-bar {
   max-height: 0;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(250, 244, 230, 0.95), rgba(245, 238, 225, 0.9));
-  border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+  background: var(--surface);
+  border-bottom: 1px solid var(--surface-border);
   transition: max-height 0.3s ease;
 }
 
@@ -2001,18 +2065,18 @@ footer {
 /* override the old tray styling of the sample so it sits inline in the bar */
 .prefs-bar .pref-sample {
   flex: 1 0 100%;
-  /* drops onto its own full-width row */
   max-width: 600px;
-  /* capped measure so it wraps to 2–3 lines */
   margin: 6px 0 0;
   padding: 0;
   border: none;
+
   font-family: 'Crimson Pro', Georgia, serif;
   font-size: calc(1rem * var(--reader-scale));
-  text-align: var(--reader-align, left);
   line-height: var(--reader-leading, 1.75);
-  color: #666;
+  text-align: var(--reader-align, left);
+  color: var(--text-muted);
 }
+
 
 /* Gold while the preferences panel is open */
 .prefs-btn.is-active {
@@ -2020,7 +2084,7 @@ footer {
 }
 
 /* ===== READER PREFERENCES PANEL (in tray) ===== */
-.reader-prefs .pref-row {
+.pref-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2031,7 +2095,7 @@ footer {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
-  color: #4a3d28;
+  color: var(--text);
 }
 
 .pref-btns {
@@ -2047,8 +2111,8 @@ footer {
   min-width: 38px;
   border: 1px solid rgba(184, 134, 11, 0.4);
   border-radius: 8px;
-  background: rgba(250, 244, 230, 0.6);
-  color: #4a3d28;
+  background: var(--glass);
+  color: var(--text);
   cursor: pointer;
   transition: background-color 0.15s, color 0.15s;
 }
@@ -2058,15 +2122,7 @@ footer {
   color: #ffffff;
 }
 
-.pref-sample {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid #eee;
-  font-family: 'Crimson Pro', Georgia, serif;
-  font-size: calc(1rem * var(--reader-scale));
-  line-height: 1.6;
-  color: #666;
-}
+
 
 /* the chosen option in a group stays gold */
 .pref-btn.is-selected {
@@ -2076,10 +2132,7 @@ footer {
 }
 
 /* let the sample preview alignment + spacing too */
-.prefs-bar .pref-sample {
-  text-align: var(--reader-align, left);
-  line-height: var(--reader-leading, 1.75);
-}
+
 
 /* ===== PHOTOGRAPHY LIST ===== */
 .photo-albums {
@@ -2341,7 +2394,7 @@ footer {
   font-size: 1.35rem;
   font-style: italic;
   line-height: 1.7;
-  color: #4a3a34;
+  color: var(--text);
 }
 
 .postcard-content blockquote {
@@ -2357,7 +2410,7 @@ footer {
   font-family: 'Crimson Pro', Georgia, serif;
   font-size: 1.15rem;
   line-height: 1.8;
-  color: #2a2320;
+  color: var(--text);
   text-indent: 0;
 }
 
@@ -2394,7 +2447,7 @@ footer {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #b32a00;
+  color: #b2553a;
 }
 
 .postcard-sidebar-list {
@@ -2411,7 +2464,7 @@ footer {
 /* Current country */
 
 .postcard-sidebar-list .country-row.is-current a {
-  background: #b32a00;
+  background: #b2553a;
 }
 
 .postcard-sidebar-list .country-row.is-current .country-name {
@@ -2420,7 +2473,7 @@ footer {
 
 .postcard-sidebar-list .country-row.is-current .country-count {
   background: #fff;
-  color: #b32a00;
+  color: #b2553a;
 }
 
 /* Search */
@@ -2461,18 +2514,12 @@ figcaption {
   font-family: 'Crimson Pro', Georgia, serif;
   font-size: 0.85rem;
   font-style: italic;
-  color: #888888;
+  color: var(--text-muted);
   text-align: center;
   margin-top: 6px;
   line-height: 1.4;
 }
 
-.img-row .img-figure img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-}
 
 /* ===== SEARCH PAGE ===== */
 
@@ -2493,7 +2540,7 @@ figcaption {
   font-family: 'Crimson Pro', Georgia, serif;
   /* serif while typing — feels bookish */
   font-size: 1.15rem;
-  color: #2a2320;
+  color: var(--text);
   outline: none;
 
   border-radius: 999px;
@@ -2538,7 +2585,7 @@ figcaption {
   padding: 22px 26px;
   margin-bottom: 14px;
   text-decoration: none;
-  color: #111111;
+  color: var(--text);
 
   border-radius: 14px;
   background: linear-gradient(135deg, rgba(250, 244, 230, 0.60), rgba(245, 238, 225, 0.38));
@@ -2579,7 +2626,7 @@ figcaption {
   font-style: italic;
   font-weight: 400;
   font-size: 1.1rem;
-  color: #111111;
+  color: var(--text);
   margin-bottom: 6px;
   line-height: 1.4;
 }
@@ -2588,7 +2635,7 @@ figcaption {
 .search-result-summary {
   font-family: 'Crimson Pro', Georgia, serif;
   font-size: 0.98rem;
-  color: #555555;
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
@@ -2628,7 +2675,7 @@ figcaption {
 .error-code {
   font-family: 'Bonheur Royale', cursive;
   font-size: 8rem;
-  color: #111111;
+  color: var(--text);
   line-height: 1;
   margin-bottom: 16px;
 }
@@ -2642,15 +2689,15 @@ figcaption {
 
 .error-desc {
   font-size: 0.95rem;
-  color: #666666;
+  color: var(--text-muted);
   margin-bottom: 40px;
 }
 
 .error-btn {
   display: inline-block;
   padding: 12px 32px;
-  background-color: #111111;
-  color: #ffffff;
+  background-color: var(--header-bg);
+  color: var(--header-text);
   text-decoration: none;
   font-size: 0.8rem;
   font-weight: 600;
@@ -2678,7 +2725,7 @@ figcaption {
   padding: 28px;
   border-radius: 16px;
   text-decoration: none;
-  color: #242424;
+  color: var(--text);
 
   /* fallback first, then the accent-tinted glass for modern browsers */
   background: rgba(250, 244, 230, 0.5);
@@ -2712,7 +2759,7 @@ figcaption {
   font-size: 1.3rem;
   margin-bottom: 8px;
   line-height: 1.3;
-  color: #242424;
+  color: var(--text);
 }
 
 .subsection-tile-desc {
@@ -2722,15 +2769,15 @@ figcaption {
   /* was uppercase — reads better as prose */
   letter-spacing: 0;
   line-height: 1.5;
-  color: #555555;
+  color: var(--text-muted);
 }
 
 .subsection-tile:hover .subsection-tile-title {
-  color: #242424;
+  color: var(--text);
 }
 
 .subsection-tile:hover .subsection-tile-desc {
-  color: #555555;
+  color: var(--text-muted);
 }
 
 /* ===== SUBSECTION TILES MOBILE ===== */
@@ -2751,21 +2798,16 @@ figcaption {
 
 /* ===== CARD GAMES SECTION ===== */
 
-.section-desc {
-  color: #666666;
-  font-size: 0.9rem;
-  margin-bottom: 40px;
-}
+
 
 /* Filter bar */
 .cardgames-filters {
   display: flex;
   gap: 12px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
   align-items: center;
 }
-
 
 
 
@@ -2773,8 +2815,8 @@ figcaption {
 .cardgames-featured {
   display: flex;
   gap: 24px;
-  background-color: #f8f8f8;
-  border: 1px solid #e0e0e0;
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
   border-radius: 8px;
   padding: 24px;
   margin-bottom: 40px;
@@ -2817,13 +2859,13 @@ figcaption {
   font-size: 18px;
   font-weight: 600;
   margin: 8px 0;
-  color: #111111;
+  color: var(--text);
   line-height: 1.4;
 }
 
 .featured-content p {
   font-size: 13px;
-  color: #555555;
+  color: var(--text-muted);
   margin: 8px 0;
   line-height: 1.6;
 }
@@ -2848,9 +2890,9 @@ figcaption {
 .cardgames-card {
   display: block;
   text-decoration: none;
-  color: #111111;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  color: var(--text);
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -2860,14 +2902,14 @@ figcaption {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-decoration: none;
-  color: #111111;
+  color: var(--text);
 }
 
 /* Card header image */
 .card-header {
   width: 100%;
   height: 160px;
-  background-color: #f0f0f0;
+  background-color: var(--surface);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -2899,8 +2941,8 @@ figcaption {
 
 .tag {
   display: inline-block;
-  background-color: #f0f0f0;
-  color: #666666;
+  background-color: var(--surface);
+  color: var(--text-muted);
   padding: 4px 8px;
   border-radius: 4px;
   font-size: 11px;
@@ -2913,12 +2955,12 @@ figcaption {
   font-weight: 600;
   margin: 8px 0;
   line-height: 1.4;
-  color: #111111;
+  color: var(--text);
 }
 
 .card-body p {
   font-size: 13px;
-  color: #666666;
+  color: var(--text-muted);
   margin: 8px 0;
   line-height: 1.5;
 }
@@ -2927,29 +2969,15 @@ figcaption {
   display: flex;
   gap: 12px;
   font-size: 12px;
-  color: #999999;
+  color: var(--text-muted);
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--hairline);
 }
 
-/* ===== CARD GAMES SECTION - WITHOUT TIP BANNER ===== */
 
-.section-desc {
-  color: #666666;
-  font-size: 0.9rem;
-  margin-bottom: 30px;
-  line-height: 1.6;
-}
 
-/* Filter controls */
-.cardgames-filters {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
-  align-items: center;
-}
+
 
 
 
@@ -2957,12 +2985,13 @@ figcaption {
 .cardgames-filters select {
   padding: 10px 14px;
   font-size: 13px;
-  border: 1px solid #ddd;
+  border: var(--surface-border);
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: var(--surface);
   cursor: pointer;
   font-weight: 500;
   transition: border-color 0.2s;
+  color: var(--text);
 }
 
 .cardgames-filters select:hover {
@@ -3085,7 +3114,7 @@ figcaption {
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 0;
-  color: #111111;
+  color: var(--text);
   line-height: 1.2;
 }
 
@@ -3099,8 +3128,8 @@ figcaption {
 }
 
 .info-card {
-  background-color: #f8f9fa;
-  border: 1px solid #e9ecef;
+  background-color: var(--surface);
+  border: 1px solid var(--surface-border);
   border-radius: 6px;
   padding: 16px 12px;
   text-align: center;
@@ -3124,7 +3153,7 @@ figcaption {
 .info-card-value {
   font-size: 14px;
   font-weight: 600;
-  color: #111111;
+  color: var(--text);
   line-height: 1.4;
 }
 
@@ -3141,7 +3170,7 @@ figcaption {
   font-family: 'EB Garamond', Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  color: #111111;
+  color: var(--text);
   margin-top: 52px;
   margin-bottom: 20px;
 }
@@ -3159,7 +3188,7 @@ figcaption {
   font-family: 'EB Garamond', Georgia, serif;
   font-size: 1.2rem;
   line-height: 1.8;
-  color: #1a1a1a;
+  color: var(--text);
   text-align: justify;
   margin-bottom: 0 !important;
   margin-top: 0 !important;
@@ -3179,7 +3208,7 @@ figcaption {
 
 .cardgames-post-content-simple strong {
   font-weight: 600;
-  color: #111111;
+  color: var(--text);
 }
 
 /* ===== RELATED GAMES SECTION ===== */
@@ -3193,7 +3222,7 @@ figcaption {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 24px;
-  color: #111111;
+  color: var(--text);
 }
 
 .related-games-grid {
@@ -3205,7 +3234,7 @@ figcaption {
 .related-game-card {
   display: block;
   text-decoration: none;
-  color: #111111;
+  color: var(--text);
   border-radius: 6px;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
@@ -3354,7 +3383,7 @@ figcaption {
 
 /* Right side - content area */
 .concept-content {
-  background-color: #f5f5f5;
+  background-color: var(--surface);
   padding: 24px;
   flex: 1;
 }
@@ -3363,7 +3392,7 @@ figcaption {
   font-family: 'Montserrat', sans-serif !important;
   font-size: 15px !important;
   line-height: 1.6 !important;
-  color: #333333 !important;
+  color: var(--text) !important;
   margin: 0 0 8px 0 !important;
   font-weight: 400 !important;
 }
@@ -3377,7 +3406,7 @@ figcaption {
   font-family: 'Montserrat', sans-serif !important;
   font-size: 15px !important;
   line-height: 1.6 !important;
-  color: #333333 !important;
+  color: var(--text) !important;
   margin: 8px 0 8px 20px !important;
   padding: 0 !important;
 }
@@ -3386,7 +3415,7 @@ figcaption {
   font-family: 'Montserrat', sans-serif !important;
   font-size: 15px !important;
   line-height: 1.6 !important;
-  color: #333333 !important;
+  color: var(--text) !important;
   margin-bottom: 4px !important;
   font-weight: 400 !important;
 }
@@ -3450,15 +3479,15 @@ table {
 }
 
 thead {
-  background-color: #f8f9fa;
-  border-bottom: 2px solid #111111;
+  background-color: var(--surface);
+  border-bottom: 2px solid var(--text);
 }
 
 th {
   padding: 12px 16px;
   text-align: left;
   font-weight: 600;
-  color: #111111;
+  color: var(--text);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-size: 12px;
@@ -3466,17 +3495,17 @@ th {
 
 td {
   padding: 12px 16px;
-  color: #333333;
-  border-bottom: 1px solid #e9ecef;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--hairline);
 }
 
 tbody tr:hover {
-  background-color: #f8f9fa;
+  background-color: var(--surface);
   transition: background-color 0.2s ease;
 }
 
 tbody tr:last-child td {
-  border-bottom: 1px solid #111111;
+  border-bottom: 1px solid var(--text);
 }
 
 /* Mobile responsive */
@@ -3504,14 +3533,14 @@ tbody tr:last-child td {
 
 .highlight-rule {
   padding: 12px 16px !important;
-  background-color: #f5f5f5 !important;
-  border-left: 3px solid #111111 !important;
+  background-color: var(--surface) !important;
+  border-left: 3px solid var(--text) !important;
   margin: 16px 0 !important;
 }
 
 .highlight-rule strong {
   font-weight: 600 !important;
-  color: #111111 !important;
+  color: var(--text) !important;
 }
 
 /* ============================================================
@@ -3529,7 +3558,7 @@ tbody tr:last-child td {
   font-weight: 400;
   line-height: 1.1;
   letter-spacing: 0.03em;
-  color: #111;
+  color: var(--text);
   margin-bottom: 32px;
 }
 
@@ -3555,7 +3584,7 @@ tbody tr:last-child td {
   font-size: 1.3rem;
   font-style: italic;
   line-height: 1.8;
-  color: #333;
+  color: var(--text);
 }
 
 .travel-index-byline {
@@ -3806,9 +3835,9 @@ tbody tr:last-child td {
   padding: 12px 16px;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1rem;
-  color: #1a1a1a;
-  background: #fdfaf3;
-  border: 1.5px solid #b32a00;
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid #b2553a;
   border-radius: 6px;
   outline: none;
 }
@@ -3838,10 +3867,10 @@ tbody tr:last-child td {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  background: #f7f3ec;
-  border: 1.5px solid #b32a00;
+  background: var(--surface);
+  border: 1.5px solid #b2553a;
   border-radius: 6px;
-  box-shadow: 3px 3px 0 #b32a00;
+  box-shadow: 3px 3px 0 #b2553a;
   text-decoration: none;
   transition:
     transform .15s ease,
@@ -3850,9 +3879,9 @@ tbody tr:last-child td {
 }
 
 .country-row a:hover {
-  background: #fdfaf3;
+  background: var(--bg);
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 #b32a00;
+  box-shadow: 1px 1px 0 #b2553a;
   text-decoration: none;
 }
 
@@ -3860,7 +3889,7 @@ tbody tr:last-child td {
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.05rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
 .country-count {
@@ -3870,7 +3899,7 @@ tbody tr:last-child td {
   text-align: center;
   font: 700 0.82rem Georgia, serif;
   color: #fff;
-  background: #b32a00;
+  background: #b2553a;
 }
 
 /* ===== Country Page ===== */
@@ -3890,10 +3919,10 @@ tbody tr:last-child td {
   display: block;
   padding: 12px;
   text-decoration: none;
-  color: #1a1a1a;
-  background: #f7f3ec;
-  border: 1.5px solid #b32a00;
-  box-shadow: 4px 4px 0 #b32a00;
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid #b2553a;
+  box-shadow: 4px 4px 0 #b2553a;
   transition:
     transform .15s ease,
     box-shadow .15s ease;
@@ -3901,7 +3930,7 @@ tbody tr:last-child td {
 
 .postcard-thumb:hover {
   transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 #b32a00;
+  box-shadow: 2px 2px 0 #b2553a;
   text-decoration: none;
 }
 
@@ -3924,7 +3953,7 @@ tbody tr:last-child td {
   margin-top: 2px;
   font-family: Georgia, serif;
   font-size: 0.82rem;
-  color: #777;
+  color: var(--text-muted);
 }
 
 /* ============================================================
@@ -4001,7 +4030,7 @@ tbody tr:last-child td {
   font-size: calc(var(--reader-base) * var(--reader-scale));
   line-height: var(--reader-leading, 1.75);
   text-align: var(--reader-align, left);
-  color: #2a2320;
+  color: var(--text);
 }
 
 .deltiology-content li {
@@ -4061,17 +4090,6 @@ tbody tr:last-child td {
   margin-top: 30px;
 }
 
-/* ===== READING TEXT — one shared size, driven by the preferences bar ===== */
-:root {
-  --reader-base: 1.35rem;
-}
-
-/* the single reading size (≈ old 1.2rem + 2pt) */
-@media (max-width: 768px) {
-  :root {
-    --reader-base: 1.15rem;
-  }
-}
 
 /* a bit smaller on phones */
 
@@ -4088,11 +4106,6 @@ tbody tr:last-child td {
 }
 
 /* The sample uses the exact same base, so it now matches the real text */
-.prefs-bar .pref-sample {
-  font-size: calc(var(--reader-base) * var(--reader-scale));
-  line-height: var(--reader-leading, 1.75);
-  text-align: var(--reader-align, left);
-}
 
 
 /* ============================================================
@@ -4115,7 +4128,7 @@ tbody tr:last-child td {
   font-size: 2.4rem;
   font-weight: 700;
   letter-spacing: .02em;
-  color: #2a2436;
+  color: var(--text);
 }
 
 .physics-hero-title::after {
@@ -4139,7 +4152,7 @@ tbody tr:last-child td {
   font-family: 'Space Mono', monospace;
   font-size: 1rem;
   line-height: 1.7;
-  color: #6a5a80;
+  color: var(--text-muted);
 }
 
 /* ============================================================
@@ -4246,7 +4259,7 @@ tbody tr:last-child td {
   font-family: 'Space Mono', monospace;
   font-weight: 700;
   letter-spacing: .02em;
-  color: #2a2436;
+  color: var(--text);
 }
 
 .physics-content h2 {
@@ -4271,7 +4284,7 @@ tbody tr:last-child td {
   font-size: calc(.92rem * var(--reader-scale));
   line-height: var(--reader-leading, 1.75);
   text-align: var(--reader-align, left);
-  color: #3a3348;
+  color: var(--text);
 }
 
 .physics-content li {
@@ -4290,14 +4303,14 @@ tbody tr:last-child td {
 
 .physics-content strong {
   font-weight: 700;
-  color: #17151f;
+  color: var(--text);
 }
 
 .physics-content blockquote,
 .physics-content blockquote p {
   font-family: 'Space Mono', monospace;
   font-style: normal;
-  color: #5a4a80;
+  color: var(--text-muted);
 }
 
 .physics-content blockquote {
@@ -4321,7 +4334,7 @@ tbody tr:last-child td {
 .accent-physics .utility-header .section-desc {
   font-family: 'Space Mono', monospace;
   font-size: .92rem;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .accent-physics .utility-content p,
@@ -4329,7 +4342,7 @@ tbody tr:last-child td {
   font-family: 'Space Mono', monospace;
   font-size: .95rem;
   line-height: 1.9;
-  color: #2a2a2a;
+  color: #var(--text);
 }
 
 .accent-physics .utility-content h2,
@@ -4688,7 +4701,7 @@ tbody tr:last-child td {
 .history-post-date {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.82rem;
-  color: #aaa;
+  color: var(--text-muted);
 }
 
 .history-post-content {
@@ -4701,7 +4714,7 @@ tbody tr:last-child td {
   font-family: 'Libre Baskerville', Georgia, serif;
   font-style: italic;
   font-weight: 600;
-  color: #111;
+  color: var(--text);
   margin-top: 52px;
   margin-bottom: 20px;
 }
@@ -4720,7 +4733,7 @@ tbody tr:last-child td {
   font-size: calc(1.5rem * var(--reader-scale));
   line-height: var(--reader-leading, 1.75);
   text-align: var(--reader-align, left);
-  color: #1a1a1a;
+  color: var(--text);
   margin-top: 0;
 }
 
@@ -4780,7 +4793,7 @@ tbody tr:last-child td {
   font-style: italic;
   font-size: 1.05rem;
   line-height: 1.6;
-  color: #4a2a34;
+  color: var(--text);
 }
 
 .history-post-content .pullquote::before,
@@ -4827,7 +4840,8 @@ tbody tr:last-child td {
   font-family: 'Montserrat', sans-serif;
   font-size: .95rem;
   line-height: 1.65;
-  color: #4a2a34;
+  color: var(--text);
+  ;
   margin: 0 0 .8rem;
 }
 
@@ -4857,7 +4871,7 @@ tbody tr:last-child td {
   font-family: 'Crimson Pro', Georgia, serif;
   font-style: italic;
   font-size: .85rem;
-  color: #7a5a64;
+  color: var(--text-muted);
   text-align: center;
   margin-top: 8px;
 }
@@ -5077,4 +5091,35 @@ tbody tr:last-child td {
   .whs-grid {
     grid-template-columns: 1fr;
   }
+}
+
+
+.tray-theme-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tray-theme-btn {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.tray-theme-btn:hover {
+  border-color: #B8860B;
+  color: #B8860B;
+}
+
+.tray-theme-btn.is-active {
+  background: #B8860B;
+  color: #ffffff;
+  border-color: #B8860B;
 }

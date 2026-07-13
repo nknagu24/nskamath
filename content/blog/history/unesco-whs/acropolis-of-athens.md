@@ -12,7 +12,7 @@ cover_image = "images/history/acropolis/acropolis-cover.webp"
 
 
 
-## Location of this UNESCO WHS site
+## Location of this UNESCO WHS
 
 The **Acropolis of Athens** is an ancient citadel situated atop a flat-topped limestone hill rising about **150 m (490 ft)** above sea level in the heart of **Athens, Greece**. The complex contains some of the finest surviving monuments of Classical Greece, including the **Parthenon**, **Erechtheion**, **Temple of Athena Nike**, and the monumental gateway known as the **Propylaea**.
 
@@ -100,7 +100,7 @@ The **Propylaea** served as the monumental gateway to the Acropolis. Designed by
 
 ### Temple of Athena Nike
 
-Standing beside the Propylaea is the **Temple of Athena Nike**, a small yet elegant Ionic temple dedicated to Athena in her aspect as the goddess of victory. Built between **427 and 424 BC**, it commemorated Athenian military successes during the Persian Wars and once housed a statue of **Nike Apteros** ("Wingless Victory"), symbolizing that victory would never leave Athens.
+Standing beside the Propylaea is the **Temple of Athena Nike**, a small yet elegant temple dedicated to Athena in her aspect as the goddess of victory. Built between **427 and 424 BC**, it commemorated Athenian military successes during the Persian Wars and once housed a statue of **Nike Apteros** ("Wingless Victory"), symbolizing that victory would never leave Athens.
 
 <div class="img-row-2-lp">
 {{< img src="images/history/acropolis/athena-nike-1.webp" alt="athena-nike-1" >}}

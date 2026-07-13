@@ -15,8 +15,8 @@ cover_image = "images/history/tajmahal/tajmahal_cover.webp"
 The Taj Mahal is a **mausoleum** built on the southern (right) bank of the **Yamuna (Jamuna) River** in ***Agra, Uttar Pradesh, India***. Agra Fort, another UNESCO World Heritage Site, is also located on the right bank of the Yamuna River, about **1 mile (1.6 km)** from the Taj Mahal.
 
 <div class="pullquote">
-"A teardrop on the cheek of eternity."
--Rabindranath Tagore
+<strong>"A teardrop on the cheek of eternity."</strong>
+<br>-Rabindranath Tagore
 </div>
 
 ## Commissioned by
@@ -68,8 +68,8 @@ Entry to the Taj Mahal complex is through a monumental gate built of richly deco
 The **false sarcophagi** (cenotaphs) of Mumtaz Mahal and Shah Jahan are located in the central chamber, while their actual tombs lie in the crypt below. Mumtaz Mahal's cenotaph occupies the exact center of the chamber on an ornate marble base. The cenotaphs are aligned north–south, with their heads pointing north. According to Islamic burial tradition, the bodies were laid on their right sides with their faces turned westward toward Mecca.
 
 <div class="pullquote">
-"The embodiment of all things pure."
--Rudyard Kipling
+<strong>"The embodiment of all things pure."</strong>
+<br>-Rudyard Kipling
 </div>
 
 {{< gallery

@@ -205,6 +205,15 @@ page later, add its condition here with "or". */}}
     <button class="menu-close" onclick="toggleMenu()">&#10005;</button>
 
     <div class="tray-section">
+      <p class="tray-label">Theme</p>
+      <div class="tray-theme-btns">
+        <button type="button" class="tray-theme-btn" onclick="setTheme('light')" title="Light">☀ Light</button>
+        <button type="button" class="tray-theme-btn" onclick="setTheme('dark')" title="Dark">☾ Dark</button>
+        <button type="button" class="tray-theme-btn" onclick="setTheme('auto')" title="Match device">Auto</button>
+      </div>
+    </div>
+
+    <div class="tray-section">
       <a href="/academics/" class="tray-label tray-label-link">Academic</a>
       <a href="/academics/education/">Education</a>
       <a href="/academics/publications/">Publications</a>
@@ -216,6 +225,7 @@ page later, add its condition here with "or". */}}
       <a href="/blog/travel/">Travel</a>
       <a href="/blog/physics/">Physics</a>
       <a href="/blog/postcards/">Postcards</a>
+      <a href="/blog/history/">History</a>
     </div>
 
     <div class="tray-section">
@@ -415,6 +425,43 @@ page later, add its condition here with "or". */}}
       // getComputedStyle = "what is this element ACTUALLY rendered with"
       sample.style.fontFamily = window.getComputedStyle(article).fontFamily;
     })();
+
+    // Theme: light / dark / auto (auto = follow device)
+    // Theme: light / dark / auto — set it, save it, and highlight the active button
+    function setTheme(mode) {
+      var root = document.documentElement;
+      if (mode === 'auto') {
+        root.removeAttribute('data-theme');
+        localStorage.removeItem('theme');
+      } else {
+        root.setAttribute('data-theme', mode);
+        localStorage.setItem('theme', mode);
+      }
+      highlightTheme(mode);
+    }
+
+    // Mark the matching theme button(s) active, clear the rest
+    function highlightTheme(mode) {
+      document.querySelectorAll('.tray-theme-btn').forEach(function (btn) {
+        // the button's mode is read from its onclick, e.g. setTheme('dark')
+        var btnMode = btn.getAttribute('onclick').match(/setTheme\('(\w+)'\)/)[1];
+        btn.classList.toggle('is-active', btnMode === mode);
+      });
+    }
+
+    // On load: apply saved theme (or 'auto') and highlight the right button
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var mode = (saved === 'light' || saved === 'dark') ? saved : 'auto';
+      if (mode !== 'auto') {
+        document.documentElement.setAttribute('data-theme', mode);
+      }
+      // wait until the buttons exist in the DOM
+      document.addEventListener('DOMContentLoaded', function () {
+        highlightTheme(mode);
+      });
+    })();
+
 
   </script>
 
