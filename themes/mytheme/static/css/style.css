@@ -721,33 +721,64 @@ main {
   padding: 0 30px;
 }
 
+
+/* ===== BACK BUTTON ===== */
+
 .back-btn {
-  font-size: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #aaaaaa;
+
+  color: var(--text-muted);
   text-decoration: none;
+  cursor: pointer;
+
   transition: color 0.2s;
 }
 
-/* Hover — takes the accent color of whatever section you're in */
-.back-btn:hover {
-  color: var(--section-accent, #B8860B);
-  /* falls back to gold if no accent is set */
-}
+/* Circular arrow badge */
 
-/* The arrow before the text */
 .back-btn::before {
-  content: "← ";
-  display: inline-block;
-  transition: transform 0.2s;
+  content: "←";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--section-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--section-accent) 35%, transparent);
+
+  color: var(--section-accent, #B8860B);
+  font-size: 1.05rem;
+  line-height: 1;
+
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
 }
 
-/* Arrow slides slightly left when hovered — a small "going back" hint */
+/* Hover */
+
+.back-btn:hover {
+  color: var(--text);
+}
+
 .back-btn:hover::before {
+  background: var(--section-accent, #B8860B);
+  color: #fff;
   transform: translateX(-3px);
 }
+
 
 /* ===== FOOTER ===== */
 footer {

@@ -21,7 +21,7 @@ We got down at the bus-stop- the iconic white Ferris wheel greeting us, and we h
 The tarmac roads changed to cobblestone-paved footpaths as we approached the city centre. What greeted us was a sight to behold.
 
 <div class="pullquote">
-“I am looking forward very much to getting back to Cambridge, and being able to say what I think and not to mean what I say.”- Bertrand Russell
+<strong>“I am looking forward very much to getting back to Cambridge, and being able to say what I think and not to mean what I say.”</strong><br>-Bertrand Russell
 </div>
 
 {{< img src="images/travel/cambridge-2025/cam-kingscollege-1.webp" alt="Kings college 1, Cambridge" caption="" >}}
