@@ -2651,6 +2651,17 @@ figcaption {
   transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
 }
 
+/* Highlighted match inside search results */
+.search-result-card mark {
+  background: color-mix(in srgb, var(#B8860B) 30%, transparent);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 2px;
+}
+
+
+
+
 /* Hover — lifts up like the other cards, but stays light so text remains readable */
 .search-result-card:hover {
   transform: translateY(-3px);
@@ -5215,4 +5226,53 @@ tbody tr:last-child td {
   background: #B8860B;
   color: #ffffff;
   border-color: #B8860B;
+}
+
+/* Section filter chips above results */
+.search-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.search-filter {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--surface-border);
+  background: var(--glass);
+  color: var(--text);
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.search-filter:hover {
+  border-color: #B8860B;
+  color: #B8860B;
+}
+
+.search-filter.is-active {
+  background: #B8860B;
+  border-color: #B8860B;
+  color: #ffffff;
+}
+
+/* Keyboard-selected result */
+.search-result-card.is-selected {
+  border-color: #B8860B;
+  box-shadow: 0 10px 28px rgba(60, 50, 30, 0.18), 0 0 0 2px rgba(184, 134, 11, 0.35);
+}
+
+/* "closest results" notice */
+.search-loose-notice {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
 }

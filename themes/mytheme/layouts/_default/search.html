@@ -12,52 +12,133 @@
 
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
 <script>
-  let fuse;
+  let fuse, fuseLoose;
+  let currentResults = [];
+  let activeSection = 'all';
+  let selectedIdx = -1;
 
   fetch('/index.json')
     .then(res => res.json())
     .then(data => {
-      fuse = new Fuse(data, {
-        keys: [
-          { name: 'title', weight: 0.45 },
-          { name: 'summary', weight: 0.2 },
-          { name: 'content', weight: 0.15 },
-          { name: 'country', weight: 0.1 },
-          { name: 'city', weight: 0.05 },
-          { name: 'period', weight: 0.05 }
-        ],
-        threshold: 0.3,
-        ignoreLocation: true,
-        includeScore: true
-      });
+      const keys = [
+        { name: 'title', weight: 0.45 },
+        { name: 'summary', weight: 0.2 },
+        { name: 'content', weight: 0.15 },
+        { name: 'country', weight: 0.1 },
+        { name: 'city', weight: 0.05 },
+        { name: 'period', weight: 0.05 }
+      ];
+      fuse = new Fuse(data, { keys, threshold: 0.3, ignoreLocation: true, includeScore: true, includeMatches: true, minMatchCharLength: 3 });
+      fuseLoose = new Fuse(data, { keys, threshold: 0.5, ignoreLocation: true, includeScore: true, includeMatches: true, minMatchCharLength: 3 });  /* the "did you mean" net */
     });
 
-  document.getElementById('searchInput').addEventListener('input', function () {
-    const query = this.value.trim();
-    const resultsDiv = document.getElementById('searchResults');
+  function makeSnippet(text, indices, pad) {
+    if (!text) return '';
+    let best = indices.reduce((a, b) => (b[1] - b[0] > a[1] - a[0] ? b : a));
+    let start = Math.max(0, best[0] - pad);
+    let end = Math.min(text.length, best[1] + 1 + pad);
+    return (start > 0 ? '…' : '') + text.slice(start, best[0]) +
+      '<mark>' + text.slice(best[0], best[1] + 1) + '</mark>' +
+      text.slice(best[1] + 1, end) + (end < text.length ? '…' : '');
+  }
 
-    if (query.length < 2) {
-      resultsDiv.innerHTML = '';
-      return;
-    }
+  function buildCard(r, idx) {
+    let snippetHTML = '', titleHTML = r.item.title, targetURL = r.item.url;
+    if (r.matches) {
+      const contentMatch = r.matches.find(m => m.key === 'content');
+      const summaryMatch = r.matches.find(m => m.key === 'summary');
+      const titleMatch = r.matches.find(m => m.key === 'title');
+      if (contentMatch) {
+        snippetHTML = makeSnippet(r.item.content, contentMatch.indices, 60);
+        const best = contentMatch.indices.reduce((a, b) => (b[1] - b[0] > a[1] - a[0] ? b : a));
+        let phrase = r.item.content.slice(best[0], Math.min(r.item.content.length, best[1] + 40));
+        phrase = phrase.replace(/\s+\S*$/, '').replace(/[#&%]/g, '').trim();
+        if (phrase.length > 8) targetURL = r.item.url + '#:~:text=' + encodeURIComponent(phrase);
+      } else if (summaryMatch) {
+        snippetHTML = makeSnippet(r.item.summary, summaryMatch.indices, 60);
+      } else { snippetHTML = r.item.summary || ''; }
+      if (titleMatch) titleHTML = makeSnippet(r.item.title, titleMatch.indices, 200);
+    } else { snippetHTML = r.item.summary || ''; }
 
-    const results = fuse.search(query).slice(0, 20);   // cap at top 20
-
-    if (results.length === 0) {
-      resultsDiv.innerHTML = '<p class="search-no-results">No results found.</p>';
-      return;
-    }
-
-    resultsDiv.innerHTML = results.map(r => `
-    <a class="search-result-card" href="${r.item.url}">
+    return `
+    <a class="search-result-card${idx === selectedIdx ? ' is-selected' : ''}" data-idx="${idx}" href="${targetURL}">
       <div class="search-result-meta">
         <span class="search-badge badge-${r.item.section}">${r.item.section}</span>
         ${r.item.date}${r.item.country ? ' · ' + r.item.country : ''}
       </div>
-      <div class="search-result-title">${r.item.title}</div>
-      <div class="search-result-summary">${r.item.summary || ''}</div>
-    </a>
-  `).join('');
+      <div class="search-result-title">${titleHTML}</div>
+      <div class="search-result-summary">${snippetHTML}</div>
+    </a>`;
+  }
+
+  function render() {
+    const resultsDiv = document.getElementById('searchResults');
+    const filtered = activeSection === 'all'
+      ? currentResults.slice(0, 20)
+      : currentResults.filter(r => r.item.section === activeSection).slice(0, 20);
+
+    /* filter buttons built from the sections present in the full result set */
+    const sections = ['all', ...new Set(currentResults.map(r => r.item.section))];
+    const filterHTML = currentResults.length ? `
+    <div class="search-filters">
+      ${sections.map(s => `<button type="button" class="search-filter${s === activeSection ? ' is-active' : ''}" onclick="setFilter('${s}')">${s === 'all' ? 'All (' + currentResults.length + ')' : s}</button>`).join('')}
+    </div>` : '';
+
+    if (filtered.length === 0 && currentResults.length === 0) {
+      resultsDiv.innerHTML = '<p class="search-no-results">No results found.</p>';
+      return;
+    }
+
+    resultsDiv.innerHTML = filterHTML + filtered.map((r, i) => buildCard(r, i)).join('');
+  }
+
+  function setFilter(section) {
+    activeSection = section;
+    selectedIdx = -1;
+    render();
+  }
+
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const query = this.value.trim();
+    const resultsDiv = document.getElementById('searchResults');
+    selectedIdx = -1;
+    activeSection = 'all';
+
+    if (query.length < 2) { resultsDiv.innerHTML = ''; currentResults = []; return; }
+
+    currentResults = fuse.search(query);
+    let noticeHTML = '';
+
+    /* "did you mean": zero strict results → retry with the loose net */
+    if (currentResults.length === 0) {
+      currentResults = fuseLoose.search(query).slice(0, 10);
+      if (currentResults.length > 0) {
+        noticeHTML = '<p class="search-loose-notice">No exact matches — closest results:</p>';
+      }
+    }
+
+    render();
+    if (noticeHTML) resultsDiv.insertAdjacentHTML('afterbegin', noticeHTML);
+  });
+
+  /* Keyboard navigation: ↓ ↑ move, Enter opens, Esc clears selection */
+  document.getElementById('searchInput').addEventListener('keydown', function (e) {
+    const cards = document.querySelectorAll('.search-result-card');
+    if (!cards.length) return;
+
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const dir = e.key === 'ArrowDown' ? 1 : -1;
+      selectedIdx = (selectedIdx + dir + cards.length) % cards.length;
+      cards.forEach((c, i) => c.classList.toggle('is-selected', i === selectedIdx));
+      cards[selectedIdx].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && selectedIdx >= 0) {
+      e.preventDefault();
+      window.location.href = cards[selectedIdx].href;
+    } else if (e.key === 'Escape') {
+      selectedIdx = -1;
+      cards.forEach(c => c.classList.remove('is-selected'));
+    }
   });
 </script>
 

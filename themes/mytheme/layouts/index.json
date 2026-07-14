@@ -3,7 +3,7 @@
   {{- $.Scratch.Add "index" (dict
     "title" .Title
     "summary" (.Params.summary | default "")
-    "content" (.Plain | truncate 1500)
+    "content" .Plain
     "url" .RelPermalink
     "section" .Type
     "country" (.Params.country | default (.Params.whscountry | default ""))
