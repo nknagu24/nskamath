@@ -14,18 +14,24 @@
 <script>
   let fuse;
 
-  // Load the search index
   fetch('/index.json')
     .then(res => res.json())
     .then(data => {
       fuse = new Fuse(data, {
-        keys: ['title', 'summary', 'section'],
+        keys: [
+          { name: 'title', weight: 0.45 },
+          { name: 'summary', weight: 0.2 },
+          { name: 'content', weight: 0.15 },
+          { name: 'country', weight: 0.1 },
+          { name: 'city', weight: 0.05 },
+          { name: 'period', weight: 0.05 }
+        ],
         threshold: 0.3,
+        ignoreLocation: true,
         includeScore: true
       });
     });
 
-  // Search as user types
   document.getElementById('searchInput').addEventListener('input', function () {
     const query = this.value.trim();
     const resultsDiv = document.getElementById('searchResults');
@@ -35,7 +41,7 @@
       return;
     }
 
-    const results = fuse.search(query);
+    const results = fuse.search(query).slice(0, 20);   // cap at top 20
 
     if (results.length === 0) {
       resultsDiv.innerHTML = '<p class="search-no-results">No results found.</p>';
@@ -43,12 +49,15 @@
     }
 
     resultsDiv.innerHTML = results.map(r => `
-      <a class="search-result-card" href="${r.item.url}">
-        <div class="search-result-meta">${r.item.date} · ${r.item.section}</div>
-        <div class="search-result-title">${r.item.title}</div>
-        <div class="search-result-summary">${r.item.summary || ''}</div>
-      </a>
-    `).join('');
+    <a class="search-result-card" href="${r.item.url}">
+      <div class="search-result-meta">
+        <span class="search-badge badge-${r.item.section}">${r.item.section}</span>
+        ${r.item.date}${r.item.country ? ' · ' + r.item.country : ''}
+      </div>
+      <div class="search-result-title">${r.item.title}</div>
+      <div class="search-result-summary">${r.item.summary || ''}</div>
+    </a>
+  `).join('');
   });
 </script>
 
