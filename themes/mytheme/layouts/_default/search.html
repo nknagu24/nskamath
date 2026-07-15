@@ -16,6 +16,7 @@
   let currentResults = [];
   let activeSection = 'all';
   let selectedIdx = -1;
+  let looseMode = false;   // true when showing "closest results"
 
   fetch('/index.json')
     .then(res => res.json())
@@ -29,25 +30,31 @@
         { name: 'period', weight: 0.05 }
       ];
       fuse = new Fuse(data, { keys, threshold: 0.3, ignoreLocation: true, includeScore: true, includeMatches: true, minMatchCharLength: 3 });
-      fuseLoose = new Fuse(data, { keys, threshold: 0.5, ignoreLocation: true, includeScore: true, includeMatches: true, minMatchCharLength: 3 });  /* the "did you mean" net */
+      fuseLoose = new Fuse(data, { keys, threshold: 0.5, ignoreLocation: true, includeScore: true, includeMatches: true, minMatchCharLength: 3 });
     });
 
+  // Cut a window of text around the strongest match, wrapping it in <mark>
   function makeSnippet(text, indices, pad) {
     if (!text) return '';
     let best = indices.reduce((a, b) => (b[1] - b[0] > a[1] - a[0] ? b : a));
     let start = Math.max(0, best[0] - pad);
     let end = Math.min(text.length, best[1] + 1 + pad);
-    return (start > 0 ? '…' : '') + text.slice(start, best[0]) +
+    return (start > 0 ? '…' : '') +
+      text.slice(start, best[0]) +
       '<mark>' + text.slice(best[0], best[1] + 1) + '</mark>' +
-      text.slice(best[1] + 1, end) + (end < text.length ? '…' : '');
+      text.slice(best[1] + 1, end) +
+      (end < text.length ? '…' : '');
   }
 
+  // Build one result card, with highlighted snippet and jump-to-text link
   function buildCard(r, idx) {
     let snippetHTML = '', titleHTML = r.item.title, targetURL = r.item.url;
+
     if (r.matches) {
       const contentMatch = r.matches.find(m => m.key === 'content');
       const summaryMatch = r.matches.find(m => m.key === 'summary');
       const titleMatch = r.matches.find(m => m.key === 'title');
+
       if (contentMatch) {
         snippetHTML = makeSnippet(r.item.content, contentMatch.indices, 60);
         const best = contentMatch.indices.reduce((a, b) => (b[1] - b[0] > a[1] - a[0] ? b : a));
@@ -56,40 +63,50 @@
         if (phrase.length > 8) targetURL = r.item.url + '#:~:text=' + encodeURIComponent(phrase);
       } else if (summaryMatch) {
         snippetHTML = makeSnippet(r.item.summary, summaryMatch.indices, 60);
-      } else { snippetHTML = r.item.summary || ''; }
+      } else {
+        snippetHTML = r.item.summary || '';
+      }
+
       if (titleMatch) titleHTML = makeSnippet(r.item.title, titleMatch.indices, 200);
-    } else { snippetHTML = r.item.summary || ''; }
+    } else {
+      snippetHTML = r.item.summary || '';
+    }
 
     return `
-    <a class="search-result-card${idx === selectedIdx ? ' is-selected' : ''}" data-idx="${idx}" href="${targetURL}">
-      <div class="search-result-meta">
-        <span class="search-badge badge-${r.item.section}">${r.item.section}</span>
-        ${r.item.date}${r.item.country ? ' · ' + r.item.country : ''}
-      </div>
-      <div class="search-result-title">${titleHTML}</div>
-      <div class="search-result-summary">${snippetHTML}</div>
-    </a>`;
+      <a class="search-result-card${idx === selectedIdx ? ' is-selected' : ''}" data-idx="${idx}" href="${targetURL}">
+        <div class="search-result-meta">
+          <span class="search-badge badge-${r.item.section}">${r.item.section}</span>
+          ${r.item.date}${r.item.country ? ' · ' + r.item.country : ''}
+        </div>
+        <div class="search-result-title">${titleHTML}</div>
+        <div class="search-result-summary">${snippetHTML}</div>
+      </a>`;
   }
 
+  // Render notice + filter chips + result cards
   function render() {
     const resultsDiv = document.getElementById('searchResults');
+
     const filtered = activeSection === 'all'
       ? currentResults.slice(0, 20)
       : currentResults.filter(r => r.item.section === activeSection).slice(0, 20);
 
-    /* filter buttons built from the sections present in the full result set */
-    const sections = ['all', ...new Set(currentResults.map(r => r.item.section))];
-    const filterHTML = currentResults.length ? `
-    <div class="search-filters">
-      ${sections.map(s => `<button type="button" class="search-filter${s === activeSection ? ' is-active' : ''}" onclick="setFilter('${s}')">${s === 'all' ? 'All (' + currentResults.length + ')' : s}</button>`).join('')}
-    </div>` : '';
-
-    if (filtered.length === 0 && currentResults.length === 0) {
+    if (currentResults.length === 0) {
       resultsDiv.innerHTML = '<p class="search-no-results">No results found.</p>';
       return;
     }
 
-    resultsDiv.innerHTML = filterHTML + filtered.map((r, i) => buildCard(r, i)).join('');
+    const noticeHTML = looseMode
+      ? '<p class="search-loose-notice">No exact matches — closest results:</p>'
+      : '';
+
+    const sections = ['all', ...new Set(currentResults.map(r => r.item.section))];
+    const filterHTML = `
+      <div class="search-filters">
+        ${sections.map(s => `<button type="button" class="search-filter${s === activeSection ? ' is-active' : ''}" onclick="setFilter('${s}')">${s === 'all' ? 'All (' + currentResults.length + ')' : s}</button>`).join('')}
+      </div>`;
+
+    resultsDiv.innerHTML = noticeHTML + filterHTML + filtered.map((r, i) => buildCard(r, i)).join('');
   }
 
   function setFilter(section) {
@@ -98,30 +115,31 @@
     render();
   }
 
+  // Search as the user types
   document.getElementById('searchInput').addEventListener('input', function () {
     const query = this.value.trim();
-    const resultsDiv = document.getElementById('searchResults');
     selectedIdx = -1;
     activeSection = 'all';
+    looseMode = false;
 
-    if (query.length < 2) { resultsDiv.innerHTML = ''; currentResults = []; return; }
+    if (query.length < 2) {
+      document.getElementById('searchResults').innerHTML = '';
+      currentResults = [];
+      return;
+    }
 
     currentResults = fuse.search(query);
-    let noticeHTML = '';
 
-    /* "did you mean": zero strict results → retry with the loose net */
+    // "Did you mean": zero strict results → retry with the loose net
     if (currentResults.length === 0) {
       currentResults = fuseLoose.search(query).slice(0, 10);
-      if (currentResults.length > 0) {
-        noticeHTML = '<p class="search-loose-notice">No exact matches — closest results:</p>';
-      }
+      if (currentResults.length > 0) looseMode = true;
     }
 
     render();
-    if (noticeHTML) resultsDiv.insertAdjacentHTML('afterbegin', noticeHTML);
   });
 
-  /* Keyboard navigation: ↓ ↑ move, Enter opens, Esc clears selection */
+  // Keyboard navigation: ↓ ↑ move, Enter opens, Esc clears selection
   document.getElementById('searchInput').addEventListener('keydown', function (e) {
     const cards = document.querySelectorAll('.search-result-card');
     if (!cards.length) return;

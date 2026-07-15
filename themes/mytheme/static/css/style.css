@@ -742,7 +742,6 @@ main {
   transition: color 0.2s;
 }
 
-ck-btn::before
 
 /* the circular arrow badge — frosted glass with the search bar's 3D depth */
 .back-btn::before {
@@ -4455,6 +4454,24 @@ tbody tr:last-child td {
   font-weight: 600;
   color: #7a5a9a;
 }
+
+/* ===== PHYSICS LASER-POINTER CURSOR ===== */
+/* Red laser dot everywhere in the physics section */
+.accent-physics,
+.accent-physics * {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Ccircle%20cx%3D%2216.0%22%20cy%3D%2216.0%22%20r%3D%2212.0%22%20fill%3D%22rgba%28255%2C30%2C30%2C0.25%29%22/%3E%3Ccircle%20cx%3D%2216.0%22%20cy%3D%2216.0%22%20r%3D%226.666666666666667%22%20fill%3D%22rgba%28255%2C40%2C40%2C0.55%29%22/%3E%3Ccircle%20cx%3D%2216.0%22%20cy%3D%2216.0%22%20r%3D%223.3333333333333335%22%20fill%3D%22%23ff1a1a%22/%3E%3C/svg%3E") 16 16, auto;
+}
+
+/* Keep the I-beam in text fields so typing still feels right */
+.accent-physics input,
+.accent-physics textarea {
+  cursor: text;
+}
+
+/* Laser tightens and brightens while clicking 
+.accent-physics *:active {
+  cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%226%22%20fill%3D%22rgba%28255%2C20%2C20%2C0.45%29%22/%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%222.8%22%20fill%3D%22%23ff0000%22/%3E%3C/svg%3E") 12 12, auto;
+} */
 
 /* ============================================================
    RESPONSIVE
