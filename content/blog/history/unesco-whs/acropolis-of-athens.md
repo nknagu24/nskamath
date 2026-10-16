@@ -175,6 +175,8 @@ Known as the **"Athens of the South,"** Nashville chose the Parthenon as the cen
 
 8. **The original Athena Parthenos no longer exists.** The colossal gold-and-ivory statue created by Phidias disappeared during late antiquity. The most faithful reconstruction can now be seen in the full-scale replica of the Parthenon in Nashville, Tennessee.
 
+9. **Ancient Athens was the birth place of democracy.** Democracy began in the ancient Greek city-state of Athens around 507 BC. The Athenian leader Cleisthenes introduced a system called demokratia, combining demos (the people) and kratos (power). This allowed eligible male citizens to directly vote on laws and policies.
+
 
 
 

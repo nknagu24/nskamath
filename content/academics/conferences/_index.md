@@ -17,8 +17,8 @@ weight = 50
 ## 2025
 <div class="ac-entry">
   <div class="ac-head">
-    <span class="ac-title">UFS 2023 — IIT Hyderabad</span>
-    <span class="ac-date">13-15 Nov 2023</span>
+    <span class="ac-title">UFS 2025 — IIT Hyderabad</span>
+    <span class="ac-date">13-15 Nov 2025</span>
   </div>
   <div class="ac-institution">12th Theme Meeting on Ultrafast Sciences</div>
   <div class="ac-detail">Poster presentation</div>

@@ -1409,6 +1409,22 @@ footer {
   .subsection-tiles {
     grid-template-columns: 1fr;
     max-width: 100%;
+    gap: 20px !important;
+  }
+
+  /* blog tiles are the tallest — a bit more air between them */
+  .blog-tiles {
+    gap: 18px !important;
+  }
+
+  /* shorter cards so more than two fit on screen */
+  .blog-tiles .section-tile {
+    min-height: 92px;
+    padding: 22px 24px;
+  }
+
+  .blog-tiles .tile-title {
+    font-size: 1.35rem;
   }
 }
 
@@ -4480,7 +4496,7 @@ tbody tr:last-child td {
 @media (max-width:768px) {
 
   .physics-hero-title {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
 
   .physics-hero-sub {
@@ -4748,7 +4764,7 @@ tbody tr:last-child td {
    ============================================================ */
 
 .accent-history {
-  --section-accent: #7a3549;
+  --section-accent: #a6435f;
 }
 
 .blog-tiles .tile-history {
@@ -5127,7 +5143,6 @@ tbody tr:last-child td {
   }
 
   /* Collapse any two-column layout */
-  main>div,
   main>.layout,
   .post-with-sidebar,
   .history-layout {
@@ -5292,4 +5307,107 @@ tbody tr:last-child td {
   font-size: 0.98rem;
   color: var(--text-muted);
   margin-bottom: 14px;
+}
+
+/* ===== THEME PEBBLE — icon-on-knob style ===== */
+.theme-pebble {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* the track: light pill in day mode, dark pill in night mode */
+.pebble-track {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 26px;
+  border-radius: 999px;
+  background: #e8e6e2;
+  /* light track (day) */
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  transition: background-color 0.25s, border-color 0.25s;
+}
+
+/* the knob: white circle carrying the icon */
+.pebble-knob {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+/* the two icons stacked in the knob; only one shows at a time */
+.pebble-ic-sun,
+.pebble-ic-moon {
+  position: absolute;
+  font-size: 0.7rem;
+  transition: opacity 0.2s;
+}
+
+.pebble-ic-sun {
+  color: #d99a1b;
+  opacity: 1;
+}
+
+/* day: sun visible */
+.pebble-ic-moon {
+  color: #4a4a6a;
+  opacity: 0;
+}
+
+/* moon hidden */
+
+/* ===== NIGHT MODE (explicit) ===== */
+:root[data-theme="dark"] .pebble-track {
+  background: #17151f;
+  /* dark track */
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+:root[data-theme="dark"] .pebble-knob {
+  transform: translateX(26px);
+}
+
+:root[data-theme="dark"] .pebble-ic-sun {
+  opacity: 0;
+}
+
+:root[data-theme="dark"] .pebble-ic-moon {
+  opacity: 1;
+}
+
+/* ===== NIGHT MODE (auto, following the device) ===== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pebble-track {
+    background: #17151f;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  :root:not([data-theme="light"]) .pebble-knob {
+    transform: translateX(26px);
+  }
+
+  :root:not([data-theme="light"]) .pebble-ic-sun {
+    opacity: 0;
+  }
+
+  :root:not([data-theme="light"]) .pebble-ic-moon {
+    opacity: 1;
+  }
+}
+
+.theme-pebble:hover .pebble-track {
+  border-color: #B8860B;
 }

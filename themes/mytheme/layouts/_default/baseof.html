@@ -97,9 +97,8 @@ this is formatter-proof, unlike cramming it inside the class attribute. */}}
 {{ $accent = "accent-history" }}
 {{ end }}
 
-{{/* Should the reading-preferences bar show on this page?
-True on any blog page, and on the About page. To add another
-page later, add its condition here with "or". */}}
+{{/* Reading-preferences bar: blog pages and About only.
+To add another page later, add its condition here with "or". */}}
 {{ $showPrefs := or (eq .Section "blog") (eq .RelPermalink "/about/") }}
 
 <body class="{{ $accent }}">
@@ -141,13 +140,25 @@ page later, add its condition here with "or". */}}
         </div>
       </nav>
 
-      <!-- Header icons: search, reading-preferences (blog only), hamburger -->
+      <!-- Header icons: search, theme pebble, reading-preferences (blog only), hamburger -->
       <div class="header-icons">
         <a href="/search/" class="search-btn" title="Search"><i class="fas fa-search"></i></a>
+
+        <button type="button" class="theme-pebble" id="themePebble" onclick="pebbleToggle()"
+          aria-label="Toggle dark mode">
+          <span class="pebble-track">
+            <span class="pebble-knob">
+              <i class="fas fa-sun pebble-ic-sun"></i>
+              <i class="fas fa-moon pebble-ic-moon"></i>
+            </span>
+          </span>
+        </button>
+
         {{ if $showPrefs }}
         <button class="prefs-btn" onclick="togglePrefs()" title="Reading preferences"
           aria-label="Reading preferences"><i class="fas fa-sliders"></i></button>
         {{ end }}
+
         <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
       </div>
     </header>
@@ -311,6 +322,16 @@ page later, add its condition here with "or". */}}
       localStorage.setItem('readerScale', readerScale);      // remember it
     }
 
+    // Pebble: flip between light and dark based on what's currently SHOWING
+    function pebbleToggle() {
+      var forced = document.documentElement.getAttribute('data-theme');
+      var effectiveDark;
+      if (forced === 'dark') { effectiveDark = true; }
+      else if (forced === 'light') { effectiveDark = false; }
+      else { effectiveDark = window.matchMedia('(prefers-color-scheme: dark)').matches; }  // auto: ask the device
+      setTheme(effectiveDark ? 'light' : 'dark');
+    }
+
     // Reading preferences — alignment & line spacing
     function setReaderAlign(val, btn) {
       document.documentElement.style.setProperty('--reader-align', val);
@@ -359,9 +380,10 @@ page later, add its condition here with "or". */}}
     // Open / close the preferences bar — keep top bar visible, sync the button's "on" look
     function togglePrefs() {
       var bar = document.getElementById('prefsBar');
+      if (!bar) return;                                  // no prefs bar on this page
       var btn = document.querySelector('.prefs-btn');
       var open = bar.classList.toggle('open');
-      btn.classList.toggle('is-active', open);
+      if (btn) btn.classList.toggle('is-active', open);
       document.getElementById('topbar').classList.remove('header-hidden');
       lastScroll = window.scrollY;
     }
@@ -426,7 +448,6 @@ page later, add its condition here with "or". */}}
       sample.style.fontFamily = window.getComputedStyle(article).fontFamily;
     })();
 
-    // Theme: light / dark / auto (auto = follow device)
     // Theme: light / dark / auto — set it, save it, and highlight the active button
     function setTheme(mode) {
       var root = document.documentElement;
