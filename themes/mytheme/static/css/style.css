@@ -4461,7 +4461,7 @@ tbody tr:last-child td {
   font-family: 'Space Mono', monospace;
   font-size: .95rem;
   line-height: 1.9;
-  color: #var(--text);
+  color: var(--text);
 }
 
 .accent-physics .utility-content h2,
@@ -5410,4 +5410,693 @@ tbody tr:last-child td {
 
 .theme-pebble:hover .pebble-track {
   border-color: #B8860B;
+}
+
+
+/* =====================================================================
+   VIDEO BANNER  (astronomy pages + the video-banner shortcode)
+   ===================================================================== */
+
+/* The whole banner. By default (shortcode inside a normal article) it
+   breaks out of the narrow text column to be wider. */
+.video-banner {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1200px, 94vw);
+  margin: 0 0 40px;
+}
+
+/* The box the video sits in. Always as wide as the page; its height is
+   the SMALLEST of these three, so it never gets too tall:
+     620px          = absolute maximum height
+     50vw - 24px    = about half the screen width (keeps a ~2:1 shape)
+     62vh           = never more than 62% of the window's height        */
+.video-banner-frame {
+  position: relative;
+  width: 100%;
+  height: min(620px, calc(50vw - 24px), 62vh);
+  overflow: hidden;
+  background: #000;
+  /* black shows while the video loads */
+}
+
+/* The video fills the box; "cover" crops edges instead of black bars */
+.video-banner-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Text layer on top of the video, centred. The soft dark glow in the
+   middle keeps white text readable on bright frames. */
+.video-banner-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 24px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 65%);
+  pointer-events: none;
+  /* clicks pass through to the button */
+}
+
+/* Small line above the title ("ASTRONOMY"), UChicago style */
+.video-banner .video-banner-kicker {
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(0.75rem, 1.2vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 12px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Big title ("BLACK HOLES"): heavy, uppercase, white.
+   clamp(smallest, scales with screen, largest) */
+.video-banner .video-banner-title {
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(2rem, 5.2vw, 4.6rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  border: none;
+  /* in case your normal h1 has a border */
+  text-shadow: 0 3px 18px rgba(0, 0, 0, 0.8);
+}
+
+/* Round pause/play button, bottom-left corner on the video:
+   solid white disc → dark gap → thin white outer ring */
+.video-banner .video-banner-btn {
+  position: absolute;
+  left: 26px;
+  bottom: 26px;
+  z-index: 2;
+  /* above the video and text layer */
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 5px rgba(0, 0, 0, 0.35),
+    /* the dark gap   */
+    0 0 0 8px #fff;
+  /* the outer ring */
+  transition: transform 0.2s;
+}
+
+.video-banner .video-banner-btn:hover {
+  transform: scale(1.07);
+}
+
+.video-banner .video-banner-btn .fa-play {
+  margin-left: 4px;
+}
+
+/* centre the triangle */
+.video-banner .video-banner-btn:focus-visible {
+  outline: 3px solid var(--section-accent, #7a5a9a);
+  outline-offset: 10px;
+}
+
+/* Credit line under the banner, small and left-aligned */
+.video-banner .video-banner-credit {
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.8rem;
+  font-style: normal;
+  text-align: left;
+  color: var(--text-muted);
+  margin: 8px 0 0;
+}
+
+/* Link inside the banner credit: same muted colour, underlined so it
+   reads as a link, accent colour on hover */
+.video-banner .video-banner-credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.video-banner .video-banner-credit a:hover {
+  color: var(--section-accent);
+}
+
+/* Phones */
+@media (max-width: 600px) {
+  .video-banner-frame {
+    height: 70vw;
+  }
+
+  /* taller box on narrow screens */
+  .video-banner .video-banner-btn {
+    width: 46px;
+    height: 46px;
+    left: 16px;
+    bottom: 16px;
+    font-size: 1.1rem;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.35), 0 0 0 6px #fff;
+  }
+}
+
+
+/* =====================================================================
+   ASTRONOMY CONCEPT PAGES
+   ===================================================================== */
+
+/* ── Page width ──
+   Astronomy articles and the landing-page card row are wider than the
+   site's normal ~860px column. Change 1240px to make them wider or
+   narrower; the margin-left line keeps them centred on the screen. */
+.astro-page,
+.astro-landing-cards {
+  --astro-width: min(1240px, calc(100vw - 48px));
+  width: var(--astro-width);
+  margin-left: calc((100% - var(--astro-width)) / 2);
+}
+
+/* Inside an astronomy page the banner simply fills the page width */
+.astro-page .video-banner {
+  left: 0;
+  transform: none;
+  width: 100%;
+  margin-bottom: 26px;
+}
+
+/* Plain title, used only when a page has no banner video */
+.astro-title {
+  margin-bottom: 10px;
+}
+
+/* ── Two columns: text on the left, trivia bubble on the right ──
+   290px = width of the right column; 56px = gap between columns. */
+.astro-layout.has-side {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 290px;
+  gap: 56px;
+  align-items: start;
+}
+
+.astro-main {
+  max-width: 860px;
+  min-width: 0;
+}
+
+/* The bubble follows you down the page while you read.
+   top = where it stops below the top of the window (clears the header). */
+.astro-side {
+  position: sticky;
+  top: 110px;
+}
+
+/* ── Breadcrumb ──
+   ".astro-page" in front makes these stronger than the site's general
+   nav-link styling, which otherwise leaks in (uppercase, gold). */
+.astro-page .astro-crumbs {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.astro-page .astro-crumbs a {
+  color: var(--text-muted);
+  text-decoration: none;
+  text-transform: none;
+  /* undo uppercase */
+  letter-spacing: normal;
+  /* undo wide spacing */
+  font-size: inherit;
+  font-weight: normal;
+  margin: 0;
+  /* undo the extra gap */
+  padding: 0;
+}
+
+.astro-page .astro-crumbs a:hover {
+  color: var(--section-accent);
+  text-decoration: underline;
+}
+
+.astro-crumbs-here {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── Lede: big italic opening paragraph ──
+   Follows the prefs bar's size and spacing (alignment stays left). */
+.astro-lede {
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-optical-sizing: auto;
+  font-style: italic;
+  font-size: calc(1.3rem * var(--reader-scale, 1));
+  line-height: var(--reader-leading, 1.75);
+  color: var(--text);
+  background: var(--surface);
+  border-left: 4px solid var(--section-accent);
+  border-radius: 6px;
+  padding: 26px 30px;
+  margin: 0 0 30px;
+}
+
+.astro-lede p {
+  margin: 0;
+}
+
+/* ── Kids / Students / Scholars switcher ── */
+.astro-levels {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 7px 10px 7px 18px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  margin: 0 0 36px;
+}
+
+.astro-levels[hidden] {
+  display: none;
+}
+
+.astro-levels-label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.astro-level-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 7px 20px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.astro-level-btn:hover {
+  color: var(--text);
+  background: var(--hairline);
+}
+
+.astro-level-btn.is-active {
+  background: var(--section-accent);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.astro-level-btn:focus-visible {
+  outline: 3px solid var(--section-accent);
+  outline-offset: 2px;
+}
+
+/* Show only the chosen audience's level blocks.
+   ~= means "this word appears in the space-separated list". */
+.astro-page[data-show="kids"] .level-block:not([data-level~="kids"]),
+.astro-page[data-show="students"] .level-block:not([data-level~="students"]),
+.astro-page[data-show="scholars"] .level-block:not([data-level~="scholars"]) {
+  display: none;
+}
+
+/* ── Article text: reading font + prefs bar ──
+   The prefs bar sets --reader-scale (size), --reader-align (left/justify)
+   and --reader-leading (line spacing). The second value inside var( , )
+   is the default used before anything is clicked. */
+
+/* Text column: 720px ≈ 70 characters per line, a comfortable measure */
+.astro-page .astro-text {
+  max-width: 720px;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-optical-sizing: auto;
+  /* letter shapes adapt to the text size */
+  color: var(--text);
+}
+
+/* Body text, list items and table cells.
+   1.15rem = normal size; change it to resize all astronomy text. */
+.astro-page .astro-text p,
+.astro-page .astro-text li,
+.astro-page .astro-text td,
+.astro-page .astro-text th {
+  font-family: inherit;
+  /* beat any site-wide paragraph font */
+  color: inherit;
+  /* beat any site-wide grey paragraph colour */
+  font-size: calc(1.15rem * var(--reader-scale, 1));
+  line-height: var(--reader-leading, 1.75);
+  font-weight: 400;
+}
+
+/* Alignment for paragraphs and list items; text-wrap: pretty avoids a
+   single lonely word on the last line (ignored by older browsers). */
+.astro-page .astro-text p,
+.astro-page .astro-text li {
+  text-align: var(--reader-align, left);
+  text-wrap: pretty;
+}
+
+.astro-page .astro-text p {
+  margin: 0 0 1.15em;
+}
+
+/* gap between paragraphs */
+.astro-page .astro-text strong {
+  font-weight: 600;
+}
+
+/* calm semibold in a serif */
+
+/* Equations written as <p style="text-align:center;"> stay centred */
+.astro-page .astro-text p[style*="center"] {
+  text-align: center;
+}
+
+/* Headings: Montserrat for contrast with the serif body; they follow
+   the text-size buttons too. */
+.astro-page .astro-text h2,
+.astro-page .astro-text h3 {
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+  margin: 2.2em 0 0.7em;
+}
+
+.astro-page .astro-text h2 {
+  font-size: calc(1.5rem * var(--reader-scale, 1));
+}
+
+.astro-page .astro-text h3 {
+  font-size: calc(1.2rem * var(--reader-scale, 1));
+}
+
+/* ── Trivia bubble ── */
+.astro-trivia {
+  container-type: inline-size;
+  /* lets the big number size itself to the bubble */
+  padding: 24px 22px 20px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 28px;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+}
+
+.astro-trivia-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.astro-trivia-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.astro-fact[hidden] {
+  display: none;
+}
+
+/* The big number. clamp(smallest, preferred, largest):
+     13cqi = 13% of the bubble's width, so it shrinks in a narrow bubble.
+   overflow-wrap: anywhere = a very long word wraps instead of overflowing. */
+.astro-fact-big {
+  display: block;
+  font-size: clamp(1.4rem, 13cqi, 2.6rem);
+  overflow-wrap: anywhere;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--section-accent);
+  margin-bottom: 8px;
+}
+
+.astro-fact-text {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.astro-trivia-next {
+  margin-top: 14px;
+  padding: 5px 14px;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--section-accent);
+  background: transparent;
+  border: 1px solid var(--section-accent);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.astro-trivia-next:hover {
+  background: var(--section-accent);
+  color: #fff;
+}
+
+/* ── Tablets and phones: one column, bubble moves below the text ── */
+@media (max-width: 900px) {
+  .astro-layout.has-side {
+    display: block;
+  }
+
+  .astro-side {
+    position: static;
+    margin: 28px 0;
+  }
+
+  .astro-lede {
+    font-size: calc(1.1rem * var(--reader-scale, 1));
+    padding: 20px;
+  }
+
+  .astro-levels {
+    border-radius: 22px;
+    padding: 7px 10px;
+  }
+
+  .astro-levels-label {
+    /* label on its own line */
+    width: 100%;
+    margin: 0 0 2px 8px;
+  }
+
+  .astro-level-btn {
+    padding: 6px 14px;
+  }
+}
+
+
+/* =====================================================================
+   ASTRONOMY PICTURE CARDS  (landing page + "Explore more" row)
+   ===================================================================== */
+
+/* Space above the "Explore more" row at the bottom of a concept page */
+.astro-cards-section {
+  margin: 72px 0 24px;
+}
+
+.astro-landing-cards .astro-cards-section {
+  margin-top: 32px;
+}
+
+.astro-cards-heading {
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 24px;
+}
+
+/* auto-fill + minmax(220px, 1fr): as many columns as fit, each at least
+   220px wide, stretched to fill the row. */
+.astro-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+/* One card: a tall rectangle with the picture filling it */
+.astro-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 5 / 8;
+  /* tall shape, like NASA's cards */
+  overflow: hidden;
+  background: #0b0b14;
+  text-decoration: none;
+}
+
+/* The picture (or the starry placeholder) covers the whole card */
+.astro-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+/* Placeholder for pages without a card_image / banner_poster */
+.astro-card-noimg {
+  background:
+    radial-gradient(circle at 30% 25%, rgba(155, 122, 214, 0.35), transparent 55%),
+    radial-gradient(circle at 75% 70%, rgba(80, 110, 200, 0.25), transparent 50%),
+    #0b0b14;
+}
+
+/* Dark fade at the bottom so the white title is always readable */
+.astro-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 40%);
+  pointer-events: none;
+}
+
+/* Title in the bottom-left corner, with the round arrow after it */
+.astro-card-title {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  z-index: 1;
+  /* above the dark fade */
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+}
+
+/* The small round arrow. Swap var(--section-accent) for #e8412c
+   to get NASA's red instead of the physics violet. */
+.astro-card-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--section-accent, #9b7ad6);
+  color: #fff;
+  font-size: 0.7rem;
+  transition: transform 0.3s ease;
+}
+
+/* Hover: picture zooms in slightly, arrow nudges right */
+.astro-card:hover .astro-card-img {
+  transform: scale(1.06);
+}
+
+.astro-card:hover .astro-card-arrow {
+  transform: translateX(4px);
+}
+
+.astro-card:focus-visible {
+  outline: 3px solid var(--section-accent, #9b7ad6);
+  outline-offset: 3px;
+}
+
+/* Phones: two smaller cards per row instead of one huge one */
+@media (max-width: 600px) {
+  .astro-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .astro-card-title {
+    left: 12px;
+    right: 12px;
+    bottom: 14px;
+    font-size: 1rem;
+    gap: 6px;
+  }
+
+  .astro-card-arrow {
+    width: 20px;
+    height: 20px;
+    font-size: 0.6rem;
+  }
+
+  .astro-cards-heading {
+    font-size: 1.3rem;
+  }
+}
+
+/* ===== MATH (KaTeX) ===== */
+
+/* KaTeX draws math at 1.21× the text size by default, which looks a
+   little big next to the serif body. 1.08em matches it better. */
+.astro-page .katex { font-size: 1.08em; }
+
+/* Display equations: breathing room above and below, and long ones
+   scroll sideways on phones instead of spilling off the screen. */
+.katex-display {
+  margin: 1.4em 0;
+  padding: 4px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Fractions: a little more breathing room around the fraction bar.
+   TeX keeps only a tiny gap between the bar and a superscript below it
+   (like c² in 2GM/c²), which looks cramped on screens.
+   In KaTeX's fraction structure, the first span is the denominator and
+   the last span is the numerator; we nudge them away from the bar.
+     0.1em  = push the denominator down
+     0.06em = lift the numerator up
+   Raise these numbers for more space. transform only moves the drawing,
+   so surrounding text doesn't shift. */
+.katex .mfrac > .vlist-t > .vlist-r > .vlist > span:first-child {
+  transform: translateY(0.1em);
+}
+.katex .mfrac > .vlist-t > .vlist-r > .vlist > span:last-child {
+  transform: translateY(-0.06em);
+}
+
+/* Equations on their own line ($$ ... $$) a bit larger than inline math */
+.astro-page .katex-display > .katex { font-size: 1.25em; }
+
+/* Equation numbers like (1): pinned to the right margin, as in books.
+   Newer KaTeX calls the number "katex-tag" (older versions: "tag").
+   Covering both names keeps this working whichever version Hugo uses.
+   position: absolute + right: 0 sends it to the right edge of the
+   text column, while the equation itself stays centred. */
+.katex-display > .katex > .katex-html > .katex-tag,
+.katex-display > .katex > .katex-html > .tag {
+  position: absolute;
+  right: 0;
+  color: var(--text-muted);   /* quieter than the equation, like a journal */
 }

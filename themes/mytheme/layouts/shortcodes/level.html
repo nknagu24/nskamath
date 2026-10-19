@@ -1,0 +1,26 @@
+{{- /*
+  LEVEL SHORTCODE: text shown only to one audience (or several).
+
+  Usage in an astronomy .md file (note the % signs, not < >):
+
+    {{% level "kids" %}}
+    Text only kids see. Normal **Markdown** works, headings too.
+    {{% /level %}}
+
+    {{% level "students scholars" %}}
+    Text both students and scholars see.
+    {{% /level %}}
+
+  Text outside any level block is shown to everyone.
+  Allowed names: kids, students, scholars (lowercase, separated by spaces).
+
+  WARNING: the three lines below must NOT be indented. Markdown treats
+  any line starting with 4+ spaces as a code block, which would print
+  </div> as text and break every level block after it.
+*/ -}}
+{{- $levels := .Get 0 | default "students" -}}
+<div class="level-block" data-level="{{ $levels }}">
+
+{{ .Inner }}
+
+</div>

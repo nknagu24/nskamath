@@ -49,3 +49,18 @@ tag = "tags"
 # Generate JSON search index
 [outputs]
   home = ["HTML", "JSON"]
+
+
+# ── Math (LaTeX) ──
+# "passthrough" tells Hugo's Markdown reader to leave anything between
+# these delimiters untouched, so underscores and backslashes in LaTeX
+# aren't mistaken for Markdown formatting. The render hook (step 2)
+# then turns it into typeset math.
+[markup.goldmark.extensions.passthrough]
+enable = true
+
+[markup.goldmark.extensions.passthrough.delimiters]
+# Display (centred, own line):  $$ ... $$   or   \[ ... \]
+block = [['\[', '\]'], ['$$', '$$']]
+# Inline (inside a sentence):   $ ... $    or   \( ... \)
+inline = [['\(', '\)'], ['$', '$']]

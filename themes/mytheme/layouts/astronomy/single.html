@@ -1,0 +1,186 @@
+{{- /*
+ASTRONOMY CONCEPT PAGE LAYOUT
+Used by any page whose front matter says: type = "astronomy"
+
+Top to bottom:
+1. Video banner with the page title on it (or a plain title if no video)
+Below it, two columns:
+left: 2. breadcrumb 3. lede 4. Kids/Students/Scholars switcher 5. article text
+right: 6. "Did you know?" trivia bubble (stays in view while scrolling)
+7. "Explore more" picture cards linking to the other astronomy pages
+*/ -}}
+{{ define "main" }}
+
+{{- /* data-show = which audience is visible. "students" is the default;
+the script at the bottom changes it when a button is clicked. */}}
+<article class="astro-page" data-show="students">
+
+    {{- /* ── 1. BANNER ─────────────────────────────────────────────── */}}
+    {{- with .Params.banner_video }}
+    {{- partial "video-banner.html" (dict
+    "src" .
+    "poster" $.Params.banner_poster
+    "kicker" ($.Params.banner_kicker | default "Astronomy")
+    "title" $.Title
+    "heading" true
+    "credit" $.Params.banner_credit
+    "page" $
+    ) }}
+    {{- else }}
+    {{- /* No video given in front matter: just show the title */}}
+    <h1 class="astro-title">{{ .Title }}</h1>
+    {{- end }}
+
+    {{- /* Everything under the banner sits in two columns:
+    left = breadcrumb, lede, switcher, article text
+    right = trivia bubble (only if the page has trivia)
+    "has-side" switches the two-column grid on. */}}
+    <div class="astro-layout{{ if .Params.trivia }} has-side{{ end }}">
+
+        <div class="astro-main">
+
+            {{- /* ── 2. BREADCRUMB ────────────────────────────────────────
+            .Ancestors = every section above this page (Astronomy,
+            Physics, Blog, Home), nearest first. .Reverse flips it to
+            start from the top. Home and the top-level Blog section
+            are skipped, so it reads e.g.
+            Physics › Astronomy › Solar System › Mars */}}
+            <nav class="astro-crumbs" aria-label="Breadcrumb">
+                {{- range .Ancestors.Reverse }}
+                {{- if not .IsHome }}
+                {{- if not .Parent.IsHome }}
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a> <span aria-hidden="true">›</span>
+                {{- end }}
+                {{- end }}
+                {{- end }}
+                <span class="astro-crumbs-here">{{ .Title }}</span>
+            </nav>
+
+            {{- /* ── 3. LEDE (opening paragraph) ─────────────────────────
+            markdownify lets you use *italics* or **bold** inside it. */}}
+            {{- with .Params.lede }}
+            <div class="astro-lede">{{ . | markdownify }}</div>
+            {{- end }}
+
+            {{- /* ── 4. AUDIENCE SWITCHER ───────────────────────────────
+            Hidden automatically on pages with no level blocks. */}}
+            <div class="astro-levels" role="group" aria-label="Choose reading level">
+                <span class="astro-levels-label">View article for:</span>
+                <button type="button" class="astro-level-btn" data-level="kids">Kids</button>
+                <button type="button" class="astro-level-btn" data-level="students">Students</button>
+                <button type="button" class="astro-level-btn" data-level="scholars">Scholars</button>
+            </div>
+
+            {{- /* ── 5. THE ARTICLE TEXT (everything below +++ in the .md) */}}
+            <div class="astro-text">
+                {{ .Content }}
+            </div>
+
+        </div>
+
+        {{- /* ── 6. TRIVIA BUBBLE (right column) ─────────────────────
+        All facts are written into the page; the script shows
+        one at random. Without JavaScript the first one shows. */}}
+        {{- with .Params.trivia }}
+        <aside class="astro-side">
+            <div class="astro-trivia" aria-live="polite">
+                <p class="astro-trivia-label">Did you know?</p>
+                <ul class="astro-trivia-list">
+                    {{- range $i, $fact := . }}
+                    <li class="astro-fact" {{ if $i }} hidden{{ end }}>
+                        {{ with $fact.big }}<span class="astro-fact-big">{{ . }}</span>{{ end }}
+                        <span class="astro-fact-text">{{ $fact.text | markdownify }}</span>
+                    </li>
+                    {{- end }}
+                </ul>
+                {{- if gt (len .) 1 }}
+                <button type="button" class="astro-trivia-next">
+                    <i class="fa-solid fa-shuffle" aria-hidden="true"></i> Another fact
+                </button>
+                {{- end }}
+            </div>
+        </aside>
+        {{- end }}
+
+    </div>
+
+    {{- /* ── 7. MORE CONCEPTS ─────────────────────────────────────
+    Picture cards for every OTHER page in the same section,
+    shown full width below the article. .Pages also includes
+    sub-sections, so Black Holes shows a "Solar System" card,
+    and Mars shows the other planets. Hidden automatically
+    when there is nothing else to show. */}}
+    {{- $others := where .CurrentSection.Pages "RelPermalink" "ne" .RelPermalink }}
+    {{- partial "astro-cards.html" (dict
+    "pages" $others
+    "heading" (printf "Explore more in %s" .CurrentSection.Title)
+    ) }}
+
+</article>
+
+<script>
+    (function () {
+        var page = document.querySelector(".astro-page");
+
+        /* ===== AUDIENCE SWITCHER ===== */
+        var switcher = page.querySelector(".astro-levels");
+        var buttons = switcher.querySelectorAll(".astro-level-btn");
+        var allowed = ["kids", "students", "scholars"];
+
+        /* No level blocks on this page? Then the switcher is pointless: hide it. */
+        if (!page.querySelector(".level-block")) {
+            switcher.hidden = true;
+        }
+
+        function setLevel(level) {
+            page.setAttribute("data-show", level);       /* CSS hides the other levels */
+            buttons.forEach(function (b) {
+                var on = b.getAttribute("data-level") === level;
+                b.classList.toggle("is-active", on);
+                b.setAttribute("aria-pressed", on ? "true" : "false");
+            });
+            try { localStorage.setItem("astro-level", level); } catch (e) { }
+        }
+
+        buttons.forEach(function (b) {
+            b.addEventListener("click", function () { setLevel(b.getAttribute("data-level")); });
+        });
+
+        /* Starting level, in order of priority:
+             1. a link like  .../black-holes/?level=kids
+             2. the level this reader chose last time (remembered in the browser)
+             3. students                                                           */
+        var start = new URLSearchParams(window.location.search).get("level");
+        if (allowed.indexOf(start) === -1) {
+            try { start = localStorage.getItem("astro-level"); } catch (e) { start = null; }
+        }
+        if (allowed.indexOf(start) === -1) { start = "students"; }
+        setLevel(start);
+
+        /* ===== TRIVIA BUBBLE ===== */
+        var facts = page.querySelectorAll(".astro-fact");
+        if (facts.length) {
+            var current = -1;
+
+            function showFact(index) {
+                facts.forEach(function (f, i) { f.hidden = (i !== index); });
+                current = index;
+            }
+
+            /* Pick a random fact, never the same one twice in a row */
+            function randomFact() {
+                if (facts.length === 1) { return showFact(0); }
+                var next;
+                do { next = Math.floor(Math.random() * facts.length); } while (next === current);
+                showFact(next);
+            }
+
+            randomFact();   /* a random fact each time the page opens */
+
+            var nextBtn = page.querySelector(".astro-trivia-next");
+            if (nextBtn) { nextBtn.addEventListener("click", randomFact); }
+        }
+    })();
+</script>
+
+{{ end }}

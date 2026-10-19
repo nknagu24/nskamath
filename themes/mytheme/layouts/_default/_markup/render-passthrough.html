@@ -1,0 +1,21 @@
+{{- /*
+  MATH RENDER HOOK
+  Hugo calls this for every $...$ / $$...$$ it finds in Markdown.
+  transform.ToMath runs KaTeX at build time and returns finished HTML.
+
+  .Inner         = the LaTeX between the delimiters
+  .Type          = "block" for $$...$$, "inline" for $...$
+  displayMode    = true makes block equations centred and full size
+  htmlAndMathml  = visual HTML + MathML for screen readers
+
+  If the LaTeX has a mistake, the build stops and tells you the file
+  and line, instead of silently showing broken math on the site.
+*/ -}}
+{{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") }}
+{{- with try (transform.ToMath .Inner $opts) }}
+  {{- with .Err }}
+    {{- errorf "Math error in %s: %s" $.Position . }}
+  {{- else }}
+    {{- .Value }}
+  {{- end }}
+{{- end -}}

@@ -1,0 +1,50 @@
+{{- /*
+ASTRONOMY CARDS PARTIAL
+A row of tall picture cards (NASA "Discover more" style), one per page.
+Used in two places:
+1. the Astronomy landing page → every concept page
+2. the bottom of each concept → all the OTHER concept pages
+
+Receives a dict:
+pages the list of pages to show as cards (required)
+heading a title above the row (optional)
+
+Picture for each card, first one found wins:
+1. card_image in that page's front matter
+2. banner_poster in that page's front matter
+3. none: a dark starry gradient is used instead
+*/ -}}
+{{- with .pages }}
+<section class="astro-cards-section">
+    {{- with $.heading }}
+    <h2 class="astro-cards-heading">{{ . }}</h2>
+    {{- end }}
+
+    <div class="astro-cards">
+        {{- range . }}
+
+        {{- /* Find this page's picture and crop it to a tall card shape.
+        Fill "600x960" = crop to 600×960 px (5:8, portrait),
+        keeping the centre of the image; webp q75 = small file. */}}
+        {{- $img := "" }}
+        {{- with or .Params.card_image .Params.banner_poster }}
+        {{- with resources.Get . }}
+        {{- $img = (.Fill "600x960 webp q75 Center").RelPermalink }}
+        {{- end }}
+        {{- end }}
+
+        <a class="astro-card" href="{{ .RelPermalink }}">
+            {{- if $img }}
+            <img class="astro-card-img" src="{{ $img }}" alt="" loading="lazy">
+            {{- else }}
+            <span class="astro-card-img astro-card-noimg" aria-hidden="true"></span>
+            {{- end }}
+            <span class="astro-card-title">
+                {{ .Title }}
+                <span class="astro-card-arrow" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+            </span>
+        </a>
+        {{- end }}
+    </div>
+</section>
+{{- end }}

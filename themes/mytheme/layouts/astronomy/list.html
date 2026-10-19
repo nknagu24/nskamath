@@ -1,0 +1,33 @@
+{{- /*
+ASTRONOMY LANDING PAGE (/blog/physics/astronomy/ and any sub-section
+inside it, like /blog/physics/astronomy/solar-system/)
+Used because the section's _index.md says: type = "astronomy"
+
+Same physics-style hero as the other physics subsections,
+then every page AND sub-section inside it as a tall picture card.
+*/ -}}
+{{ define "main" }}
+
+<!-- accent-physics = violet accents for everything inside -->
+<div class="accent-physics">
+
+    <!-- Hero: title + subtitle, same look as Resources / Utilities -->
+    <div class="physics-hero">
+        <h1 class="physics-hero-title">{{ .Params.heading | default .Title }}</h1>
+        {{ with .Params.subtitle }}<p class="physics-hero-sub">{{ . }}</p>{{ end }}
+    </div>
+
+    <!-- Optional intro text written below the +++ in _index.md -->
+    {{ with .Content }}<div class="physics-content">{{ . }}</div>{{ end }}
+
+    <!-- One tall picture card per page or sub-section.
+       .Pages = articles + sub-sections (e.g. the Solar System folder).
+       Order: by "weight" if you set one, otherwise newest first.
+       The wrapper makes this row wider than the normal text column. -->
+    <div class="astro-landing-cards">
+        {{ partial "astro-cards.html" (dict "pages" .Pages) }}
+    </div>
+
+</div>
+
+{{ end }}

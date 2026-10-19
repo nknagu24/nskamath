@@ -1,0 +1,89 @@
+{{- /*
+VIDEO BANNER PARTIAL
+The actual banner code. Used in two places:
+1. the astronomy page layout (banner set in front matter)
+2. the video-banner shortcode (banner placed anywhere inside a .md file)
+
+It receives a "dict" (a bundle of named values):
+src video path inside assets/ (required)
+poster still image path inside assets/ (optional)
+kicker small line above the title (optional)
+title big text on the video (optional)
+heading true = title is the page's main <h1> heading
+    credit caption under the banner (optional)
+    page the page using it (for error messages)
+    */ -}}
+
+    {{- $video := resources.Get .src -}}
+    {{- if not $video -}}
+    {{- errorf "video-banner: could not find %q inside the assets folder (page: %s)" .src .page.File.Path -}}
+    {{- end -}}
+
+    {{- $posterURL := "" -}}
+    {{- with .poster -}}
+    {{- with resources.Get . -}}
+    {{- $posterURL = (.Resize "1600x webp q75").RelPermalink -}}
+    {{- end -}}
+    {{- end -}}
+
+    <figure class="video-banner">
+        <div class="video-banner-frame">
+
+            {{- /* autoplay needs muted; playsinline keeps it in the page on iPhones */}}
+            <video class="video-banner-video" autoplay muted loop playsinline preload="metadata" {{- with $posterURL }}
+                poster="{{ . }}" {{ end }}>
+                <source src="{{ $video.RelPermalink }}" type="{{ $video.MediaType.Type }}">
+            </video>
+
+            {{- if or .kicker .title }}
+            <div class="video-banner-overlay">
+                {{ with .kicker }}<p class="video-banner-kicker">{{ . }}</p>{{ end }}
+                {{- /* As the page heading it must be an <h1>; otherwise a plain paragraph */}}
+                    {{ with .title }}
+                    {{ if $.heading }}<h1 class="video-banner-title">{{ . }}</h1>
+                    {{ else }}<p class="video-banner-title">{{ . }}</p>{{ end }}
+                    {{ end }}
+            </div>
+            {{- end }}
+
+            <button class="video-banner-btn" type="button" aria-label="Pause background video">
+                <i class="fa-solid fa-pause" aria-hidden="true"></i>
+            </button>
+        </div>
+          {{- /* markdownify turns Markdown in the credit into HTML,
+         so [Name](https://link) becomes a clickable link */}}
+  {{ with .credit }}<figcaption class="video-banner-credit">{{ . | markdownify }}</figcaption>{{ end }}
+    </figure>
+
+    <script>
+        /* Pause/play button. Controls only the banner directly above this script. */
+        (function () {
+            var banner = document.currentScript.previousElementSibling;
+            var video = banner.querySelector("video");
+            var button = banner.querySelector(".video-banner-btn");
+            var icon = button.querySelector("i");
+
+            function showState() {
+                if (video.paused) {
+                    icon.className = "fa-solid fa-play";
+                    button.setAttribute("aria-label", "Play background video");
+                } else {
+                    icon.className = "fa-solid fa-pause";
+                    button.setAttribute("aria-label", "Pause background video");
+                }
+            }
+
+            button.addEventListener("click", function () {
+                if (video.paused) { video.play(); } else { video.pause(); }
+            });
+            video.addEventListener("play", showState);
+            video.addEventListener("pause", showState);
+
+            /* Readers who chose "reduce motion" in their system get a paused video */
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                video.removeAttribute("autoplay");
+                video.pause();
+            }
+            showState();
+        })();
+    </script>

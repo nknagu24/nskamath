@@ -1,0 +1,17 @@
+{{- /*
+VIDEO BANNER SHORTCODE: drops a banner anywhere inside a .md file.
+All the real work happens in partials/video-banner.html.
+
+{{< video-banner src="videos/physics/astronomy/black-holes/banner.mp4"
+    poster="images/physics/astronomy/black-holes/banner-poster.jpg" kicker="Astronomy" title="Black Holes"
+    credit="Visualization: NASA">}}
+    */ -}}
+    {{- partial "video-banner.html" (dict
+    "src" (.Get "src")
+    "poster" (.Get "poster")
+    "kicker" (.Get "kicker")
+    "title" (.Get "title")
+    "credit" (.Get "credit")
+    "heading" false
+    "page" .Page
+    ) -}}

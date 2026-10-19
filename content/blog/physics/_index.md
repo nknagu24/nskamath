@@ -13,4 +13,9 @@ type = "physics"
     <div class="subsection-tile-title">Utilities</div>
     <div class="subsection-tile-desc">Useful tools.</div>
   </a>
+<a class="subsection-tile" href="/blog/physics/astronomy/">
+    <div class="subsection-tile-title">Astronomy</div>
+    <div class="subsection-tile-desc">Things related to celestial bodies.</div>
+  </a>
+
 </div>
