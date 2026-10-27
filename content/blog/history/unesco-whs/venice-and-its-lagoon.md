@@ -8,6 +8,8 @@ summary = "One of the most romantic places on the planet."
 
 card_image = "images/history/venice/venice-card.webp"
 cover_image = "images/history/venice/venice-cover.webp"
+
+draft = true
 +++
 
 ## Location of this UNESCO WHS

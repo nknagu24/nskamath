@@ -4,7 +4,10 @@ subtitle = "I have many rabbit holes I tend to fall into, and this section holds
 +++
 
 <div class="section-tiles blog-tiles">
-  <a class="section-tile tile-travel" href="/blog/travel/">
+    <a class="section-tile tile-history" href="/blog/history/">
+    <div class="tile-title">History</div>
+  </a>
+    <a class="section-tile tile-travel" href="/blog/travel/">
     <div class="tile-title">Travel</div>
   </a>
   <a class="section-tile tile-physics" href="/blog/physics/">
@@ -18,9 +21,6 @@ subtitle = "I have many rabbit holes I tend to fall into, and this section holds
   </a>
   <a class="section-tile tile-cardgames" href="/blog/card-games/">
     <div class="tile-title">Card Games</div>
-  </a>
-  <a class="section-tile tile-history" href="/blog/history/">
-    <div class="tile-title">History</div>
   </a>
 
 </div>

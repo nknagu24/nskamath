@@ -1,5 +1,5 @@
 +++
 title = "Astronomy"
 type = "astronomy"
-subtitle = "Concepts related to stars, galaxies, and the other bodies of the night sky."
+subtitle = "Concepts related to stars, galaxies, and the other bodies of the night sky. **#This page is still a work in progress#**"
 +++

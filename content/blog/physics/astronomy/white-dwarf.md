@@ -1,6 +1,6 @@
 +++
 # ─── FRONT MATTER: page settings ───────────────────────────────────
-
+draft = true
 title = "White Dwarfs"
 date = "2026-10-19"
 summary = "The glowing cores left behind by stars like our Sun: as massive as a star, as small as Earth, and held up by quantum mechanics."

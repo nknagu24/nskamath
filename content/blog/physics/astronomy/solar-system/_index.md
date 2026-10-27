@@ -12,4 +12,6 @@ card_image = "images/physics/astronomy/solar-system/card.jpg"
 
 # Position among the Astronomy cards (lower = earlier). Optional.
 # weight = 1
+
+draft = true
 +++
