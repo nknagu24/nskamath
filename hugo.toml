@@ -5,7 +5,7 @@ baseURL = "https://nskamath.netlify.app/"
 title = "Nagendra S Kamath"
 
 # The language of your site
-languageCode = "en-us"
+locale = "en-us"
 
 # This tells Hugo to use our custom theme
 theme = "mytheme"

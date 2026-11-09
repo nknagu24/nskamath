@@ -11,8 +11,18 @@
   {{ .Content }}
 
   {{ with .Params.tool }}
+  {{/* Cache fix: a short fingerprint of the tool's file is added to its
+       address (e.g. laser-maze.js?v=3f9a1c2e). When the file changes,
+       the fingerprint changes, so every browser fetches the new version
+       instead of an old saved copy. */}}
+  {{ $file := printf "static/tools/%s.js" . }}
+  {{ $version := "" }}
+  {{ if fileExists $file }}
+        {{ $version = substr (readFile $file | md5) 0 8 }}
+  {{ end }}
+
   <div class="tool-embed" data-tool="{{ . }}"><noscript>This interactive tool requires JavaScript to run.</noscript></div>
-  <script type="module" src="/tools/{{ . }}.js"></script>
+  <script type="module" src="/tools/{{ . }}.js?v={{ $version }}"></script>
   {{ end }}
 </div>
 
