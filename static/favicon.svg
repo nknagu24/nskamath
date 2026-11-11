@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   viewBox="0 0 100 100"
+   viewBox="0 0 512 512"
+   width="512"
+   height="512"
    version="1.1"
-   id="svg6"
-   sodipodi:docname="favicon.svg"
+   id="svg5"
+   sodipodi:docname="n-lettermark-solid.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs10" />
+     id="defs9" />
   <sodipodi:namedview
-     id="namedview8"
+     id="namedview7"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
@@ -20,29 +22,22 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="5.6992807"
-     inkscape:cx="66.58735"
-     inkscape:cy="46.321635"
+     inkscape:zoom="1.5742188"
+     inkscape:cx="255.68238"
+     inkscape:cy="256"
      inkscape:window-width="1920"
      inkscape:window-height="1008"
-     inkscape:window-x="0"
+     inkscape:window-x="1920"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg6" />
-  <rect
-     width="100"
-     height="100"
-     fill="#111111"
-     id="rect2" />
-  <text
-     xml:space="preserve"
-     style="font-style:normal;font-weight:normal;font-size:120.874px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.88866"
-     x="4.5333805"
-     y="85.617126"
-     id="text19873"><tspan
-       sodipodi:role="line"
-       id="tspan19871"
-       x="4.5333805"
-       y="85.617126"
-       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:120.874px;font-family:'EB Garamond';-inkscape-font-specification:'EB Garamond Italic';fill:#ffffff;fill-opacity:1;stroke-width:1.88866">N</tspan></text>
+     inkscape:current-layer="svg5" />
+  <g
+     id="art"
+     data-name="art"
+     transform="translate(-11.642204,-28.492434)">
+    <path
+       d="M 98,420 85,398 148,114 174,92 h 58 l 76,200 44,-200 h 58 l 18,22 -63,284 -25,22 H 280 L 204,220 160,420 Z"
+       fill="#f2d292"
+       id="path2" />
+  </g>
 </svg>
