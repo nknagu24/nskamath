@@ -1,6 +1,6 @@
 {{- /*
-RESOURCE LIST — builds a searchable, filterable list from a data file.
-Receives the contents of data/<name>.toml (see physics-resources/list.html).
+RESOURCE LIST — builds a searchable, filterable, sortable list from a data file.
+Receives the contents of data/<name>.toml (see physics-resources/single.html).
 */ -}}
 {{- $items := .resource }}
 
@@ -19,20 +19,54 @@ Receives the contents of data/<name>.toml (see physics-resources/list.html).
 
 <div class="res-list">
 
-  <!-- ===== SEARCH + TOPIC FILTERS ===== -->
   <div class="res-tools">
+
+    <!-- ===== SEARCH ===== -->
     <input type="search" class="res-search" id="resSearch"
            placeholder="Search title, author, note…" aria-label="Search resources">
 
-    <div class="res-chips" role="group" aria-label="Filter by topic">
-      <!-- re-uses the glass pill style from the Recent page -->
-      <button type="button" class="recent-filter res-chip is-active" data-topic="all" aria-pressed="true">All</button>
-      {{- range $topics }}
-      <button type="button" class="recent-filter res-chip" data-topic="{{ . }}" aria-pressed="false">{{ . | humanize }}</button>
-      {{- end }}
+    <!-- ===== TOPIC FILTER =====
+         data-group="topic" tells the script which row a button belongs to -->
+    <div class="res-chip-row">
+      <span class="res-chips-label">Topic</span>
+      <div class="res-chips" role="group" aria-label="Filter by topic">
+        <button type="button" class="recent-filter res-chip is-active" data-group="topic" data-value="all" aria-pressed="true">All</button>
+        {{- range $topics }}
+        <button type="button" class="recent-filter res-chip" data-group="topic" data-value="{{ . }}" aria-pressed="false">{{ . | humanize }}</button>
+        {{- end }}
+      </div>
     </div>
 
-    <div class="res-count" id="resCount"></div>
+    <!-- ===== KIND FILTER ===== -->
+    <div class="res-chip-row">
+      <span class="res-chips-label">Kind</span>
+      <div class="res-chips" role="group" aria-label="Filter by kind">
+        <button type="button" class="recent-filter res-chip is-active" data-group="kind" data-value="all" aria-pressed="true">All</button>
+        {{- range $kinds }}
+        <button type="button" class="recent-filter res-chip" data-group="kind" data-value="{{ . }}" aria-pressed="false">{{ . }}</button>
+        {{- end }}
+      </div>
+    </div>
+
+    <!-- ===== COUNT (left) + SORT MENU (right) =====
+         The sort menu re-uses the travel page's dropdown styles
+         (.sort-dropdown / .sort-toggle / .sort-menu). -->
+    <div class="res-bar">
+      <div class="res-count" id="resCount"></div>
+
+      <div class="sort-dropdown res-sort" id="resSortDropdown">
+        <button type="button" class="sort-toggle" id="resSortToggle" aria-haspopup="listbox" aria-expanded="false">
+          <span id="resSortLabel">Title A → Z</span>
+        </button>
+        <ul class="sort-menu" id="resSortMenu" role="listbox">
+          <li role="option" data-value="title-asc" class="is-selected">Title A → Z</li>
+          <li role="option" data-value="title-desc">Title Z → A</li>
+          <li role="option" data-value="year-desc">Newest First</li>
+          <li role="option" data-value="year-asc">Oldest First</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 
   <!-- ===== ONE GROUP PER KIND (Book, Review, ...) ===== -->
@@ -42,10 +76,14 @@ Receives the contents of data/<name>.toml (see physics-resources/list.html).
     <h2 class="res-group-title">{{ $kind }}</h2>
     <ul class="res-items">
       {{- range sort (where $items "kind" $kind) "title" }}
-      {{- /* data-search: all searchable text in lowercase, in one attribute.
-             data-topics: topics joined with | so the script can split them. */}}
+      {{- /* data-… attributes are what the script filters and sorts on:
+             topics joined with |, kind, year (0 if none), title in lowercase,
+             and all searchable text in lowercase. */}}
       <li class="res-item"
           data-topics="{{ delimit (.topics | default slice) "|" }}"
+          data-kind="{{ .kind }}"
+          data-year="{{ .year | default 0 }}"
+          data-title="{{ lower .title }}"
           data-search="{{ lower (printf "%s %s %s %s" .title (.author | default "") (.note | default "") (delimit (.topics | default slice) " ")) }}">
 
         {{- if .url }}
@@ -75,9 +113,6 @@ Receives the contents of data/<name>.toml (see physics-resources/list.html).
 </div>
 
 <script>
-/* ===== RESOURCE SEARCH + FILTER =====
-   An item shows only if it matches the search box AND the chosen topic.
-   Groups with nothing left visible hide their heading too. */
 (function () {
   const box    = document.getElementById('resSearch');
   const chips  = document.querySelectorAll('.res-chip');
@@ -85,8 +120,13 @@ Receives the contents of data/<name>.toml (see physics-resources/list.html).
   const groups = document.querySelectorAll('.res-group');
   const count  = document.getElementById('resCount');
   const empty  = document.getElementById('resEmpty');
-  let topic = 'all';
 
+  /* What's currently chosen in each filter row */
+  const chosen = { topic: 'all', kind: 'all' };
+
+  /* ===== FILTER =====
+     An item shows only if it matches the search box AND the topic
+     AND the kind. Groups with nothing visible hide their heading. */
   function apply() {
     // every word typed must appear somewhere ("shah ultrafast" works)
     const words = box.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -94,8 +134,9 @@ Receives the contents of data/<name>.toml (see physics-resources/list.html).
 
     items.forEach(function (item) {
       const okText  = words.every(function (w) { return item.dataset.search.includes(w); });
-      const okTopic = topic === 'all' || item.dataset.topics.split('|').includes(topic);
-      item.hidden = !(okText && okTopic);
+      const okTopic = chosen.topic === 'all' || item.dataset.topics.split('|').includes(chosen.topic);
+      const okKind  = chosen.kind === 'all' || item.dataset.kind === chosen.kind;
+      item.hidden = !(okText && okTopic && okKind);
       if (!item.hidden) shown++;
     });
 
@@ -109,15 +150,65 @@ Receives the contents of data/<name>.toml (see physics-resources/list.html).
 
   box.addEventListener('input', apply);            // filters as you type
 
+  /* Clicking a chip only affects its own row (topic or kind) */
   chips.forEach(function (chip) {
     chip.addEventListener('click', function () {
-      topic = chip.dataset.topic;
+      const group = chip.dataset.group;
+      chosen[group] = chip.dataset.value;
       chips.forEach(function (c) {
+        if (c.dataset.group !== group) return;     // leave the other row alone
         c.classList.toggle('is-active', c === chip);
         c.setAttribute('aria-pressed', c === chip);
       });
       apply();
     });
+  });
+
+  /* ===== SORT =====
+     Re-orders the items inside each kind group. Items with no year
+     go to the end for both year sorts; ties fall back to title A→Z. */
+  function sortItems(val) {
+    document.querySelectorAll('.res-items').forEach(function (list) {
+      const rows = Array.from(list.children);
+      rows.sort(function (a, b) {
+        const ta = a.dataset.title, tb = b.dataset.title;
+        const ya = Number(a.dataset.year), yb = Number(b.dataset.year);
+        if (val === 'title-asc')  return ta.localeCompare(tb);
+        if (val === 'title-desc') return tb.localeCompare(ta);
+        if (val === 'year-desc')  return (yb - ya) || ta.localeCompare(tb);
+        if (val === 'year-asc')   return ((ya || 9999) - (yb || 9999)) || ta.localeCompare(tb);
+      });
+      rows.forEach(function (row) { list.appendChild(row); });
+    });
+  }
+
+  /* ===== SORT MENU (open / pick / close) — same behaviour as travel ===== */
+  const dropdown = document.getElementById('resSortDropdown');
+  const toggle   = document.getElementById('resSortToggle');
+  const menu     = document.getElementById('resSortMenu');
+  const label    = document.getElementById('resSortLabel');
+
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();                           // don't let the page-click below close it at once
+    const open = dropdown.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  menu.querySelectorAll('li').forEach(function (option) {
+    option.addEventListener('click', function () {
+      menu.querySelectorAll('li').forEach(function (li) { li.classList.remove('is-selected'); });
+      option.classList.add('is-selected');
+      label.textContent = option.textContent;
+      dropdown.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      sortItems(option.dataset.value);
+    });
+  });
+
+  // clicking anywhere else closes the menu
+  document.addEventListener('click', function () {
+    dropdown.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
   });
 
   apply();                                         // fill in the count on load

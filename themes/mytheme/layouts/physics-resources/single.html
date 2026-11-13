@@ -3,8 +3,7 @@
 <!-- Violet accent for everything inside (back button hover, etc.) -->
 <div class="accent-physics">
 
-    <!-- Post header — monospace title with the spectrum line under it,
-       same style as the physics hero -->
+    <!-- Post header — monospace title with the spectrum line under it -->
     <div class="physics-hero">
         <h1 class="physics-hero-title">{{ .Title }}</h1>
         {{ with .Params.summary }}
@@ -12,10 +11,17 @@
         {{ end }}
     </div>
 
-    <!-- The written content — styled by the .physics-content CSS we added -->
+    <!-- The written content (anything below the +++ in the .md file) -->
     <div class="physics-content">
         {{ .Content }}
     </div>
+
+    <!-- Data-driven list: only on pages whose front matter has
+         data = "..." — e.g. data = "resources" shows the list from
+         data/resources.toml. Pages without that line are unaffected. -->
+    {{ with .Params.data }}
+        {{ partial "resource-list.html" (index hugo.Data .) }}
+    {{ end }}
 
 </div>
 

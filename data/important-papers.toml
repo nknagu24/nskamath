@@ -25,7 +25,7 @@ url    = "https://doi.org/10.1103/RevModPhys.90.021001"
 kind   = "Review"
 author = "G. Wang et al., Rev. Mod. Phys. 90, 021001"
 year   = 2018
-topics = ["excitons", "tmds", "2d-materials"]
+topics = ["excitons", "2d-materials"]
 note   = "The go-to starting point for exciton physics in monolayer TMDs."
 
 [[resource]]

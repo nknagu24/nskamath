@@ -6609,3 +6609,57 @@ tbody tr:last-child td {
   color: var(--text-muted);
   margin-top: 30px;
 }
+
+/* ===== RESOURCE LIST — FILTER ROWS, COUNT BAR, SORT ===== */
+
+/* One filter row: small label on the left, chips beside it */
+.res-chip-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+/* "TOPIC" / "KIND" labels — fixed width so both rows' chips line up */
+.res-chips-label {
+  flex-shrink: 0;
+  width: 52px;
+  font-family: 'Silkscreen', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Count on the left, sort menu on the right */
+.res-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+/* Sort menu, physics edition: monospace text, violet edge and arrow.
+   The three-class selectors are deliberately strong, so they also win
+   over the travel dropdown's dark-mode rules. */
+.res-list .sort-dropdown .sort-toggle {
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.02em;
+  border-color: color-mix(in srgb, var(--section-accent) 40%, transparent);
+  /* same chevron arrow as travel, drawn in violet (%237a5a9a = #7a5a9a) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a5a9a' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+}
+
+.res-list .sort-dropdown .sort-menu li {
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Phones: label sits above its chips */
+@media (max-width: 600px) {
+  .res-chip-row {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
