@@ -19,19 +19,114 @@
 # kind and sorted by title automatically.
 # ============================================================
 
+
 [[resource]]
-title  = "Colloquium: Excitons in atomically thin transition metal dichalcogenides"
-url    = "https://doi.org/10.1103/RevModPhys.90.021001"
-kind   = "Review"
-author = "G. Wang et al., Rev. Mod. Phys. 90, 021001"
-year   = 2018
-topics = ["excitons", "2d-materials"]
-note   = "The go-to starting point for exciton physics in monolayer TMDs."
+title  = "2D Materials: Properties and Devices"
+kind   = "Books"
+author = "P. Avouris, T. F. Heinz & T. Low, Cambridge University Press"
+year   = 2017
+url    = "https://doi.org/10.1017/9781316681619"
+topics = ["2d-materials", "optoelectronics"]
+note   = "Broad edited volume covering graphene, TMDs and other 2D crystals, from fundamentals to devices."
+
+[[resource]]
+title  = "Principles of Lasers"
+kind   = "Books"
+author = "Orazio Svelto, Springer (5th ed.)"
+year   = 2010
+url    = "https://doi.org/10.1007/978-1-4419-1302-9"
+topics = ["lasers"]
+note   = "Standard textbook on how lasers work: gain, resonators, pumping and pulsed operation."
+
+[[resource]]
+title  = "Femtosecond Technology: From Basic Research to Application Prospects"
+url    = "https://doi.org/10.1007/978-3-642-58469-5"
+kind   = "Books"
+author = "T. Kamiya, F. Saito, O. Wada & H. Yajima (eds.), Springer Series in Photonics vol. 2"
+year   = 1999
+topics = ["ultrafast", "lasers"]
+note   = "Application-oriented survey of femtosecond lasers, ultrafast devices and measurement."
+
+[[resource]]
+title  = "Nonlinear Optics"
+url    = "https://doi.org/10.1016/C2015-0-05510-1"
+kind   = "Books"
+author = "Robert W. Boyd, Academic Press (4th ed.)"
+year   = 2020
+topics = ["nonlinear-optics", "ultrafast"]
+note   = "The standard graduate text on nonlinear optics; the 4th edition adds ultrafast and plasmonic topics."
 
 [[resource]]
 title  = "Ultrafast Spectroscopy of Semiconductors and Semiconductor Nanostructures"
-kind   = "Book"
+kind   = "Books"
 author = "Jagdeep Shah"
+url    = "https://doi.org/10.1007/978-3-662-03770-6"
 year   = 1999
 topics = ["ultrafast", "spectroscopy"]
 note   = "Classic reference on carrier dynamics and ultrafast techniques."
+
+
+# ---------------------------- Review Articles ----------------------------
+
+[[resource]]
+title  = "Colloquium: Excitons in atomically thin transition metal dichalcogenides"
+url    = "https://doi.org/10.1103/RevModPhys.90.021001"
+kind   = "Review Articles"
+author = "G. Wang et al., Rev. Mod. Phys. 90, 021001"
+year   = 2018
+topics = ["excitons", "tmds", "2d-materials"]
+note   = "The go-to starting point for exciton physics in monolayer TMDs."
+
+[[resource]]
+title  = "Exciton physics and device application of two-dimensional transition metal dichalcogenide semiconductors"
+url    = "https://doi.org/10.1038/s41699-018-0074-2"
+kind   = "Review Articles"
+author = "T. Mueller & E. Malic, npj 2D Mater. Appl. 2, 29"
+year   = 2018
+topics = ["excitons", "tmds", "optoelectronics"]
+note   = "Bright, dark, localized and interlayer excitons, then LEDs, solar cells, photodetectors and valley devices. Open access."
+
+[[resource]]
+title  = "Photonics and optoelectronics of 2D semiconductor transition metal dichalcogenides"
+url    = "https://doi.org/10.1038/nphoton.2015.282"
+kind   = "Review Articles"
+author = "K. F. Mak & J. Shan, Nat. Photon. 10, 216–226"
+year   = 2016
+topics = ["tmds", "optoelectronics", "valleytronics"]
+note   = "Electronic and optical properties of TMDs with emphasis on excitonic effects and spin–valley physics."
+
+[[resource]]
+title  = "2D transition metal dichalcogenides"
+url    = "https://doi.org/10.1038/natrevmats.2017.33"
+kind   = "Review Articles"
+author = "S. Manzeli et al., Nat. Rev. Mater. 2, 17033"
+year   = 2017
+topics = ["tmds", "2d-materials"]
+note   = "Synthesis and properties of TMDs, including charge-density-wave, superconducting and topological phases."
+
+[[resource]]
+title  = "Ultrafast carrier dynamics in two-dimensional transition metal dichalcogenides"
+url    = "https://doi.org/10.1039/C8TC06343E"
+kind   = "Review Articles"
+author = "Y. Li et al., J. Mater. Chem. C 7, 4304–4319"
+year   = 2019
+topics = ["ultrafast", "tmds", "spectroscopy"]
+note   = "Many-body effects, nonradiative recombination, intervalley transfer, C-exciton cooling and heterostructure dynamics."
+
+[[resource]]
+title  = "Collective excitations in 2D materials"
+url    = "https://doi.org/10.1038/s42254-020-0214-4"
+kind   = "Review Articles"
+author = "A. Rodin et al., Nat. Rev. Phys. 2, 524–537"
+year   = 2020
+topics = ["2d-materials", "excitons"]
+note   = "Plasmons, excitons, phonons and their hybrids in 2D materials."
+
+[[resource]]
+title  = "Excitonic complexes in two-dimensional transition metal dichalcogenides"
+url    = "https://doi.org/10.1038/s41467-023-44119-9"
+kind   = "Review Articles"
+author = "X. Chen et al., Nat. Commun. 14, 8233 (Comment)"
+year   = 2023
+topics = ["excitons", "tmds"]
+note   = "Short commentary on trions, biexcitons, dark excitons and other many-body complexes, mostly in WSe2."

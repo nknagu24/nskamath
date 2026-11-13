@@ -3,28 +3,42 @@
 <div class="recent-section">
   <h1 class="recent-heading">Recent Posts</h1>
 
-  <!-- ===== TOOLBAR: filters on the left, view switch on the right ===== -->
+  <!-- ===== TOOLBAR =====
+       Computer: section pills on the left, view knob on the right.
+       Phone: [Filters] button on the left, view knob on the right,
+       pills fold out underneath when Filters is tapped. -->
   <div class="recent-toolbar">
 
-    <!-- Filter buttons — "All" selected by default; the rest are
-         generated from the folders inside content/blog/ -->
-    <div class="recent-filters" id="recentFilters">
-      <button class="recent-filter is-active" data-filter="all" aria-pressed="true">All</button>
+    <!-- Filters button — only visible on phones (CSS hides it on computers) -->
+    <button type="button" class="filter-toggle" id="recentFilterToggle"
+            aria-expanded="false" aria-controls="recentFilterPanel">
+      <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+      <span>Filters</span>
+      <!-- shows "1" when a section other than All is picked -->
+      <span class="filter-badge" id="recentFilterBadge" hidden>0</span>
+    </button>
 
-      {{ with site.GetPage "/blog" }}
-        {{ range .Sections }}
-          {{/* "/blog/travel/" split at "/" → ["", "blog", "travel", ""]; item 2 = folder name */}}
-          {{ $slug := index (split .RelPermalink "/") 2 }}
-          <button class="recent-filter accent-{{ $slug }}" data-filter="{{ $slug }}" aria-pressed="false">
-            {{ .Title }}
-          </button>
-        {{ end }}
-      {{ end }}
+    <!-- Folding panel holding the section pills.
+         The inner div is needed for the smooth open/close animation. -->
+    <div class="filter-panel" id="recentFilterPanel">
+      <div class="filter-panel-inner">
+        <div class="recent-filters" id="recentFilters">
+          <button class="recent-filter is-active" data-filter="all" aria-pressed="true">All</button>
+
+          {{ with site.GetPage "/blog" }}
+            {{ range .Sections }}
+              {{/* "/blog/travel/" split at "/" → ["", "blog", "travel", ""]; item 2 = folder name */}}
+              {{ $slug := index (split .RelPermalink "/") 2 }}
+              <button class="recent-filter accent-{{ $slug }}" data-filter="{{ $slug }}" aria-pressed="false">
+                {{ .Title }}
+              </button>
+            {{ end }}
+          {{ end }}
+        </div>
+      </div>
     </div>
 
-
-<!-- View switch — the reusable partial; "recentView" is the same
-         saved-choice name as before, so visitors keep their setting -->
+    <!-- Cards/list knob (reusable partial) -->
     {{ partial "view-toggle.html" (dict "target" "#recentGrid" "key" "recentView") }}
 
   </div>
@@ -62,13 +76,27 @@
 </div>
 
 <script>
-/* ===== RECENT FILTER =====
-   Clicking a filter: mark it active, show only matching cards. */
 (function () {
   const buttons = document.querySelectorAll('.recent-filter');
   const cards   = document.querySelectorAll('.recent-card');
   const empty   = document.getElementById('recentEmpty');
+  const badge   = document.getElementById('recentFilterBadge');
+  const filterBtn   = document.getElementById('recentFilterToggle');
+  const filterPanel = document.getElementById('recentFilterPanel');
 
+  /* ===== OPEN / CLOSE THE FILTER PANEL (phones) ===== */
+  function setPanel(open) {
+    filterPanel.classList.toggle('is-open', open);
+    filterBtn.classList.toggle('is-open', open);
+    filterBtn.setAttribute('aria-expanded', open);
+  }
+
+  filterBtn.addEventListener('click', function () {
+    setPanel(!filterPanel.classList.contains('is-open'));
+  });
+
+  /* ===== SECTION FILTER =====
+     Clicking a pill: mark it active, show only matching cards. */
   buttons.forEach(function (btn) {
     btn.addEventListener('click', function () {
       const filter = btn.dataset.filter;
@@ -87,34 +115,15 @@
       });
 
       empty.hidden = (shown > 0);
+
+      // badge: "1" when filtering, hidden when showing All
+      badge.textContent = 1;
+      badge.hidden = (filter === 'all');
+
+      // on phones, fold the panel away so the results are visible
+      // (on computers it's never "open", so this does nothing)
+      setPanel(false);
     });
-  });
-})();
-
-/* ===== VIEW SWITCH (cards ↔ list) =====
-   Adds/removes the "is-list" class on the grid — the CSS does the rest.
-   The choice is saved in the browser (localStorage), so the page
-   reopens in the same view. try/catch: some private-browsing modes
-   block storage; the switch still works, it just won't remember. */
-(function () {
-  const grid   = document.getElementById('recentGrid');
-  const toggle = document.getElementById('viewToggle');
-
-  function setView(view) {
-    grid.classList.toggle('is-list', view === 'list');
-    toggle.dataset.view = view;                       // moves the knob
-    toggle.setAttribute('aria-label',
-      view === 'list' ? 'Switch to card view' : 'Switch to list view');
-    try { localStorage.setItem('recentView', view); } catch (e) {}
-  }
-
-  // start in the saved view, or cards if nothing saved yet
-  let saved = 'cards';
-  try { saved = localStorage.getItem('recentView') || 'cards'; } catch (e) {}
-  setView(saved);
-
-  toggle.addEventListener('click', function () {
-    setView(toggle.dataset.view === 'list' ? 'cards' : 'list');
   });
 })();
 </script>

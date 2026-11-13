@@ -1,3 +1,11 @@
+{{- /*
+IMG SHORTCODE — one optimised, clickable figure.
+  src      path inside assets/ (e.g. images/travel/…)   required
+  alt      short description for screen readers          optional
+  caption  text under the figure; Markdown works,         optional
+           e.g. [link text](https://…) or *italics*
+  width    max width, e.g. "60%"                          optional
+*/ -}}
 {{ $src := .Get "src" }}
 {{ $alt := .Get "alt" | default "" }}
 {{ $caption := .Get "caption" | default "" }}
@@ -8,10 +16,14 @@
 {{ $optimized := $image.Fit "1200x1200 webp q85" }}
 {{ $full := $image.Fit "2200x2200 webp q90" }}
 <figure class="img-figure" {{ with $width }} style="max-width: {{ . }};" {{ end }}>
-  <a href="{{ $full.RelPermalink }}" class="glightbox" {{ with $caption }} data-title="{{ . }}" {{ end }}>
+  {{/* The pop-up viewer's title can't hold links, so it gets the caption
+       as plain text: markdownify turns the Markdown into HTML, plainify
+       then strips the tags, leaving just the words. */}}
+  <a href="{{ $full.RelPermalink }}" class="glightbox" {{ with $caption }} data-title="{{ . | markdownify | plainify }}" {{ end }}>
     <img src="{{ $optimized.RelPermalink }}" alt="{{ $alt }}" loading="lazy">
   </a>
-  {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+  {{/* Under the figure, the Markdown becomes real HTML (clickable links) */}}
+  {{ with $caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
 </figure>
 {{ else }}
 <img src="{{ $src }}" alt="{{ $alt }}" loading="lazy">

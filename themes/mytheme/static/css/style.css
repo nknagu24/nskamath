@@ -6663,3 +6663,387 @@ tbody tr:last-child td {
     gap: 6px;
   }
 }
+
+/* ===== FILTERS BUTTON + FOLDING PANEL =====
+   Computer: button hidden, panel always open.
+   Phone (≤768px): button shown, panel folded until tapped. */
+
+/* Search box and Filters button side by side */
+.res-search-row {
+  display: flex;
+  gap: 10px;
+}
+
+.res-search-row .res-search {
+  flex: 1;                    /* search box takes the remaining width */
+  min-width: 0;
+}
+
+/* The button — same glass pill as the search box */
+.filter-toggle {
+  display: none;              /* hidden on computers */
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 0 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text);
+  background: color-mix(in srgb, var(--section-accent) 8%, var(--glass));
+  border: 1px solid color-mix(in srgb, var(--section-accent) 35%, transparent);
+  box-shadow: inset 0 1px 0 var(--glass-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+/* While the panel is open, the button is filled with the accent colour */
+.filter-toggle.is-open {
+  background: var(--section-accent);
+  border-color: var(--section-accent);
+  color: #ffffff;
+}
+
+/* Small round number: how many filters are active */
+.filter-badge {
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  background: var(--section-accent);
+  color: #ffffff;
+}
+
+/* When the button itself is violet, flip the badge to white */
+.filter-toggle.is-open .filter-badge {
+  background: #ffffff;
+  color: var(--section-accent);
+}
+
+/* Panel contents: the two chip rows stacked with a gap */
+.filter-panel-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+@media (max-width: 768px) {
+  .filter-toggle {
+    display: inline-flex;     /* show the button on phones */
+  }
+
+  /* Folding trick: a one-row grid whose row height animates
+     from 0 (closed) to its natural height (open). */
+  .filter-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+
+  .filter-panel.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  .filter-panel-inner {
+    overflow: hidden;         /* hides the rows while folded */
+    min-height: 0;
+  }
+}
+
+
+/* ===== RECENT — FILTERS BUTTON + FOLDING PILLS =====
+   Re-uses .filter-toggle / .filter-panel from the Resources page;
+   these lines only adapt them to the Recent toolbar. */
+
+/* Computer: the panel fills the space left of the view knob */
+.recent-toolbar .filter-panel {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Button matches the Recent pills (Montserrat caps) and the knob's height */
+.recent-toolbar .filter-toggle {
+  height: 36px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  /* Row 1: [Filters] ........ [knob]
+     Row 2: the folding pills, full width */
+  .recent-toolbar {
+    flex-wrap: wrap;
+    row-gap: 0;                  /* no empty gap while the panel is folded */
+  }
+
+  .recent-toolbar .filter-toggle {
+    order: 1;
+  }
+
+  .recent-toolbar .view-toggle {
+    order: 2;
+    margin-left: auto;           /* push the knob to the right */
+  }
+
+  .recent-toolbar .filter-panel {
+    order: 3;
+    flex-basis: 100%;            /* takes a whole row of its own */
+  }
+
+  /* space between the button row and the pills — inside the
+     folding part, so it disappears when the panel is closed */
+  .recent-toolbar .recent-filters {
+    padding-top: 14px;
+  }
+}
+
+
+/* ===== RESOURCE LIST — CARD (BOOK) VIEW =====
+   ".res-list:not(.is-list)" = "only while the knob is on cards".
+   In list view none of this applies, so the rows look as before. */
+
+/* Sort menu and view knob side by side on the right */
+.res-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* A shelf: as many 160px+ books per row as fit (2 on phones) */
+.res-list:not(.is-list) .res-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 22px;
+}
+
+/* One book: 2:3 portrait like a book cover, glass tinted violet.
+   Corners are squarer on the spine side, rounder on the opening side. */
+.res-list:not(.is-list) .res-item {
+  position: relative;            /* anchor for the spine + clickable area */
+  aspect-ratio: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 18px 14px 14px 26px;  /* extra left padding clears the spine */
+  border-radius: 4px 10px 10px 4px;
+  overflow: hidden;
+
+  background: linear-gradient(160deg,
+      color-mix(in srgb, var(--section-accent) 22%, var(--glass)),
+      color-mix(in srgb, var(--section-accent) 8%, var(--glass)));
+  border: 1px solid color-mix(in srgb, var(--section-accent) 35%, transparent);
+  box-shadow:
+    4px 6px 16px rgba(40, 30, 60, 0.18),       /* book casting a shadow */
+    inset 0 1px 0 var(--glass-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* The spine: a darker accent strip down the left edge */
+.res-list:not(.is-list) .res-item::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 10px;
+  background: linear-gradient(90deg,
+      color-mix(in srgb, var(--section-accent) 80%, #000),
+      var(--section-accent));
+  box-shadow: inset -2px 0 3px rgba(0, 0, 0, 0.25);  /* fold where spine meets cover */
+}
+
+/* Hover: the book lifts off the shelf */
+.res-list:not(.is-list) .res-item:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    6px 12px 26px rgba(40, 30, 60, 0.26),
+    inset 0 1px 0 var(--glass-border);
+}
+
+/* Title on the cover: up to 6 lines, then "…" */
+.res-list:not(.is-list) .res-title {
+  font-size: 1.15rem;
+  line-height: 1.45;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Makes the WHOLE book clickable: an invisible layer from the
+   title link stretched over the entire card */
+.res-list:not(.is-list) .res-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Author · year pinned to the bottom of the cover, up to 3 lines */
+.res-list:not(.is-list) .res-meta {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 0.66rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Notes and tags don't fit on a cover — list view shows them */
+.res-list:not(.is-list) .res-note,
+.res-list:not(.is-list) .res-tags {
+  display: none;
+}
+
+/* Filtered-out items stay hidden in BOTH views. Needs to be this
+   specific, or the book view's "display: flex" would bring them back. */
+.res-list .res-items .res-item[hidden] {
+  display: none;
+}
+
+/* Phones: slightly narrower books so two fit side by side */
+@media (max-width: 600px) {
+  .res-list:not(.is-list) .res-items {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+  }
+}
+
+
+/* Chips with no matching resources are hidden by the script.
+   This makes sure no pill style (e.g. a display value) can
+   accidentally keep them visible. */
+.res-chips .res-chip[hidden] {
+  display: none;
+}
+
+
+
+/* Same comfortable math size inside physics notes */
+.physics-content .katex { font-size: 1.08em; }
+
+/* Display equations in notes a little larger than inline ones */
+.physics-content .katex-display > .katex { font-size: 1.2em; }
+
+
+/* ===== NOTES — PLAIN LIST =====
+   One line per note: "> Title ........ Nov 2026".
+   No boxes or summaries, just a faint dashed rule between lines. */
+.notes-list {
+  list-style: none;
+  max-width: 780px;
+  margin: 10px auto 60px;
+  padding: 0;
+}
+
+.notes-list li {
+  display: flex;
+  justify-content: space-between;   /* title left, date right */
+  align-items: baseline;
+  gap: 16px;
+  padding: 7px 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--section-accent) 25%, transparent);
+}
+
+.notes-list a {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.95rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+  font-weight: 800;
+}
+
+/* "> " prompt before each title, like the physics tiles */
+.notes-list a::before {
+  content: "> ";
+  font-family: 'Silkscreen', monospace;
+  color: var(--section-accent);
+}
+
+.notes-list a:hover {
+  color: var(--section-accent);
+}
+
+.notes-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  white-space: nowrap;              /* "Nov 2026" never breaks */
+}
+
+
+/* ===== NOTES SHELF — section titles on the book covers =====
+   Same book size as Important Papers; only the title is bigger,
+   since a section name is short and the cover has room for it.
+   (Important Papers titles stay at 0.85rem.) */
+.res-list.notes-shelf:not(.is-list) .res-title {
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+/* ===== NOTES SHELF — symbol pattern on each cover =====
+   The pattern sits BEHIND the title and the note count:
+   "isolation: isolate" makes each book its own layer stack, and
+   z-index: -1 puts the pattern at the bottom of that stack —
+   above the cover's glass colour, below the text. */
+.res-list.notes-shelf .res-items .res-item {
+  isolation: isolate;
+}
+
+.book-pattern {
+  position: absolute;
+  inset: 0;                    /* fill the whole cover */
+  z-index: -1;
+  overflow: hidden;            /* symbols near the edge get cut off */
+  pointer-events: none;        /* clicks pass through to the book link */
+}
+
+/* One symbol. Position, size, angle and fade come from the
+   template (the style="..." on each span); this sets the rest. */
+.book-pattern span {
+  position: absolute;
+  line-height: 1;
+  color: var(--section-accent);              /* violet on physics pages */
+  font-family: 'EB Garamond', 'Times New Roman', serif;  /* has Greek letters */
+  user-select: none;                         /* can't be accidentally highlighted */
+}
+
+
+/* ===== FIGURES IN PHYSICS NOTES =====
+   Centred on the page; the image fills whatever width the figure
+   is given (width="60%" etc. in the shortcode), so it never
+   overflows the text column. */
+.physics-content .img-figure {
+  margin: 28px auto;           /* "auto" left/right = centred */
+}
+
+.physics-content .img-figure img {
+  display: block;
+  width: 100%;                 /* fill the figure's width... */
+  height: auto;                /* ...keeping its proportions */
+  border-radius: 6px;
+}
+
+/* Caption: small, muted, centred under the figure */
+.physics-content .img-figure figcaption {
+  margin-top: 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--text-muted);
+}

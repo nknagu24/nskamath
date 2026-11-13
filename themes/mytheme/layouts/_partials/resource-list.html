@@ -21,53 +21,76 @@ Receives the contents of data/<name>.toml (see physics-resources/single.html).
 
   <div class="res-tools">
 
-    <!-- ===== SEARCH ===== -->
-    <input type="search" class="res-search" id="resSearch"
-           placeholder="Search title, author, note…" aria-label="Search resources">
+    <!-- ===== SEARCH + FILTERS BUTTON =====
+         The Filters button only appears on phones (see CSS);
+         on a computer the filter rows below are always open. -->
+    <div class="res-search-row">
+      <input type="search" class="res-search" id="resSearch"
+             placeholder="Search title, author, note…" aria-label="Search resources">
 
-    <!-- ===== TOPIC FILTER =====
-         data-group="topic" tells the script which row a button belongs to -->
-    <div class="res-chip-row">
-      <span class="res-chips-label">Topic</span>
-      <div class="res-chips" role="group" aria-label="Filter by topic">
-        <button type="button" class="recent-filter res-chip is-active" data-group="topic" data-value="all" aria-pressed="true">All</button>
-        {{- range $topics }}
-        <button type="button" class="recent-filter res-chip" data-group="topic" data-value="{{ . }}" aria-pressed="false">{{ . | humanize }}</button>
-        {{- end }}
+      <button type="button" class="filter-toggle" id="resFilterToggle"
+              aria-expanded="false" aria-controls="resFilterPanel">
+        <i class="fa-solid fa-sliders" aria-hidden="true"></i>
+        <span>Filters</span>
+        <!-- how many filters are active (hidden when none) -->
+        <span class="filter-badge" id="resFilterBadge" hidden>0</span>
+      </button>
+    </div>
+
+    <!-- ===== FOLDING PANEL with the two filter rows =====
+         The inner div is needed for the smooth open/close animation. -->
+    <div class="filter-panel" id="resFilterPanel">
+      <div class="filter-panel-inner">
+
+        <!-- Topic filter -->
+        <div class="res-chip-row">
+          <span class="res-chips-label">Topic</span>
+          <div class="res-chips" role="group" aria-label="Filter by topic">
+            <button type="button" class="recent-filter res-chip is-active" data-group="topic" data-value="all" aria-pressed="true">All</button>
+            {{- range $topics }}
+            <button type="button" class="recent-filter res-chip" data-group="topic" data-value="{{ . }}" aria-pressed="false">{{ . | humanize }}</button>
+            {{- end }}
+          </div>
+        </div>
+
+        <!-- Kind filter -->
+        <div class="res-chip-row">
+          <span class="res-chips-label">Kind</span>
+          <div class="res-chips" role="group" aria-label="Filter by kind">
+            <button type="button" class="recent-filter res-chip is-active" data-group="kind" data-value="all" aria-pressed="true">All</button>
+            {{- range $kinds }}
+            <button type="button" class="recent-filter res-chip" data-group="kind" data-value="{{ . }}" aria-pressed="false">{{ . }}</button>
+            {{- end }}
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- ===== KIND FILTER ===== -->
-    <div class="res-chip-row">
-      <span class="res-chips-label">Kind</span>
-      <div class="res-chips" role="group" aria-label="Filter by kind">
-        <button type="button" class="recent-filter res-chip is-active" data-group="kind" data-value="all" aria-pressed="true">All</button>
-        {{- range $kinds }}
-        <button type="button" class="recent-filter res-chip" data-group="kind" data-value="{{ . }}" aria-pressed="false">{{ . }}</button>
-        {{- end }}
-      </div>
-    </div>
-
-    <!-- ===== COUNT (left) + SORT MENU (right) =====
-         The sort menu re-uses the travel page's dropdown styles
-         (.sort-dropdown / .sort-toggle / .sort-menu). -->
+        <!-- ===== COUNT (left) + SORT MENU and VIEW KNOB (right) ===== -->
     <div class="res-bar">
       <div class="res-count" id="resCount"></div>
 
-      <div class="sort-dropdown res-sort" id="resSortDropdown">
-        <button type="button" class="sort-toggle" id="resSortToggle" aria-haspopup="listbox" aria-expanded="false">
-          <span id="resSortLabel">Title A → Z</span>
-        </button>
-        <ul class="sort-menu" id="resSortMenu" role="listbox">
-          <li role="option" data-value="title-asc" class="is-selected">Title A → Z</li>
-          <li role="option" data-value="title-desc">Title Z → A</li>
-          <li role="option" data-value="year-desc">Newest First</li>
-          <li role="option" data-value="year-asc">Oldest First</li>
-        </ul>
+      <div class="res-bar-right">
+        <div class="sort-dropdown res-sort" id="resSortDropdown">
+          <button type="button" class="sort-toggle" id="resSortToggle" aria-haspopup="listbox" aria-expanded="false">
+            <span id="resSortLabel">Title A → Z</span>
+          </button>
+          <ul class="sort-menu" id="resSortMenu" role="listbox">
+            <li role="option" data-value="title-asc" class="is-selected">Title A → Z</li>
+            <li role="option" data-value="title-desc">Title Z → A</li>
+            <li role="option" data-value="year-desc">Newest First</li>
+            <li role="option" data-value="year-asc">Oldest First</li>
+          </ul>
+        </div>
+
+        <!-- Cards/list knob — switches the whole .res-list.
+             Card view = book-shaped cards (default); list view = rows with notes. -->
+        {{ partial "view-toggle.html" (dict "target" ".res-list" "key" "resourcesView") }}
       </div>
     </div>
 
-  </div>
+  </div><!-- end .res-tools -->
 
   <!-- ===== ONE GROUP PER KIND (Book, Review, ...) ===== -->
   {{- range $kinds }}
@@ -120,24 +143,55 @@ Receives the contents of data/<name>.toml (see physics-resources/single.html).
   const groups = document.querySelectorAll('.res-group');
   const count  = document.getElementById('resCount');
   const empty  = document.getElementById('resEmpty');
+  const badge  = document.getElementById('resFilterBadge');
 
   /* What's currently chosen in each filter row */
   const chosen = { topic: 'all', kind: 'all' };
 
-  /* ===== FILTER =====
-     An item shows only if it matches the search box AND the topic
-     AND the kind. Groups with nothing visible hide their heading. */
+    /* ===== FILTER =====
+     1. Show only items matching the search box AND topic AND kind.
+     2. Hide group headings with nothing left visible.
+     3. Hide filter chips that would lead to zero results. */
   function apply() {
     // every word typed must appear somewhere ("shah ultrafast" works)
     const words = box.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
     let shown = 0;
 
+    // Which topics / kinds still have matching items (filled in below)
+    const topicsLeft = new Set();
+    const kindsLeft  = new Set();
+
     items.forEach(function (item) {
+      const itemTopics = item.dataset.topics.split('|').filter(Boolean);
+
       const okText  = words.every(function (w) { return item.dataset.search.includes(w); });
-      const okTopic = chosen.topic === 'all' || item.dataset.topics.split('|').includes(chosen.topic);
+      const okTopic = chosen.topic === 'all' || itemTopics.includes(chosen.topic);
       const okKind  = chosen.kind === 'all' || item.dataset.kind === chosen.kind;
+
       item.hidden = !(okText && okTopic && okKind);
       if (!item.hidden) shown++;
+
+      // For the TOPIC row, ignore the topic choice itself: a topic chip
+      // stays if it has items matching the search and the chosen kind.
+      if (okText && okKind) {
+        itemTopics.forEach(function (t) { topicsLeft.add(t); });
+      }
+      // For the KIND row, likewise ignore the kind choice itself.
+      if (okText && okTopic) {
+        kindsLeft.add(item.dataset.kind);
+      }
+    });
+
+    // Hide chips with nothing behind them. "All" and the currently
+    // selected chip always stay, so you can always switch back.
+    chips.forEach(function (chip) {
+      const value = chip.dataset.value;
+      if (value === 'all' || chip.classList.contains('is-active')) {
+        chip.hidden = false;
+        return;
+      }
+      const stillThere = (chip.dataset.group === 'topic') ? topicsLeft : kindsLeft;
+      chip.hidden = !stillThere.has(value);
     });
 
     groups.forEach(function (g) {
@@ -146,8 +200,13 @@ Receives the contents of data/<name>.toml (see physics-resources/single.html).
 
     count.textContent = shown + ' of ' + items.length + ' resources';
     empty.hidden = shown > 0;
-  }
 
+    // badge on the Filters button: how many rows have something other than "All"
+    const active = (chosen.topic !== 'all') + (chosen.kind !== 'all');
+    badge.textContent = active;
+    badge.hidden = (active === 0);
+  }
+  
   box.addEventListener('input', apply);            // filters as you type
 
   /* Clicking a chip only affects its own row (topic or kind) */
@@ -162,6 +221,18 @@ Receives the contents of data/<name>.toml (see physics-resources/single.html).
       });
       apply();
     });
+  });
+
+  /* ===== FILTERS BUTTON (phones) =====
+     Opens/closes the folding panel. On a computer the button is
+     hidden by CSS, so it can't be clicked there. */
+  const filterBtn   = document.getElementById('resFilterToggle');
+  const filterPanel = document.getElementById('resFilterPanel');
+
+  filterBtn.addEventListener('click', function () {
+    const open = filterPanel.classList.toggle('is-open');
+    filterBtn.classList.toggle('is-open', open);
+    filterBtn.setAttribute('aria-expanded', open);
   });
 
   /* ===== SORT =====

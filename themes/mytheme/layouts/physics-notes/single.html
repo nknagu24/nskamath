@@ -1,0 +1,19 @@
+{{ define "main" }}
+
+<!-- Violet accent for everything inside (back button hover, etc.) -->
+<div class="accent-physics">
+
+  <!-- Note header — monospace title with the spectrum line under it -->
+  <div class="physics-hero">
+    <h1 class="physics-hero-title">{{ .Title }}</h1>
+    {{ with .Params.summary }}<p class="physics-hero-sub">{{ . }}</p>{{ end }}
+  </div>
+
+  <!-- The note itself; equations are typeset at build time -->
+  <div class="physics-content">
+    {{ .Content }}
+  </div>
+
+</div>
+
+{{ end }}

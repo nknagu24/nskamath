@@ -1,0 +1,139 @@
+{{- /*
+NOTES — section pages at any depth (/blog/physics/notes/ and every
+folder inside it).
+  • Sub-folders  → shown as books on a shelf, each with its own
+                   pattern of scattered Greek / math symbols
+  • Notes inside → shown as a plain list: title + date, nothing else
+A page can have both; the shelf comes first.
+*/ -}}
+{{ define "main" }}
+
+{{- /* The symbols the covers are made from. Add or remove any you like. */}}
+{{- $symbols := slice
+    "α" "β" "γ" "δ" "ε" "ζ" "η" "θ" "λ" "μ" "ν" "ξ" "π" "ρ" "σ" "τ" "φ" "χ" "ψ" "ω"
+    "Γ" "Δ" "Θ" "Λ" "Ξ" "Π" "Σ" "Φ" "Ψ" "Ω"
+    "∫" "∮" "∑" "∏" "∂" "∇" "∞" "√" "±" "≈" "≠" "≤" "≥" "∝" "⊗" "⊕" "ℏ" "⟨" "⟩" "⇌"
+}}
+{{- $count := 20 }}   {{/* maximum symbols per cover */}}
+
+<div class="accent-physics">
+
+  <div class="physics-hero">
+    <h1 class="physics-hero-title">{{ .Params.heading | default .Title }}</h1>
+    {{ with .Params.subtitle }}<p class="physics-hero-sub">{{ . }}</p>{{ end }}
+  </div>
+
+  <!-- Optional intro text written below the +++ in _index.md -->
+  {{ with .Content }}<div class="physics-content">{{ . }}</div>{{ end }}
+
+  <!-- ===== SHELF: one book per sub-folder =====
+       Re-uses the Important Papers book styles (.res-list / .res-item).
+       Order: by "weight" in each folder's _index.md, else alphabetical. -->
+  {{ with .Sections }}
+  <div class="res-list notes-shelf">
+    <ul class="res-items">
+      {{ range . }}
+        {{ $n := len .RegularPagesRecursive }}   {{/* notes inside, at any depth */}}
+        {{ $title := .Title }}
+        <li class="res-item">
+
+          <!-- ===== COVER PATTERN (no overlaps) =====
+               Candidates are rolled one by one and only kept if they
+               don't touch any symbol already on the cover.
+               Each symbol counts as a circle, so rotation can't cause
+               an overlap.
+
+               "Dice": hash.FNV32a turns text into a big number. The same
+               text always gives the same number, so each cover is unique
+               to its section's title but looks the same on every visit.
+
+               Units: x and y are the symbol's CENTRE in % of the cover.
+               The cover is 2:3, so 1% of its height is 1.5× longer than
+               1% of its width; y is multiplied by 1.5 before measuring
+               distances, so both directions use the same ruler. -->
+          {{ $placed := slice }}
+          {{ range $try := seq 80 }}                      {{/* up to 80 attempts */}}
+            {{ if lt (len $placed) $count }}              {{/* stop once the cover is full */}}
+
+              {{/* 1. One seed per attempt, from the title + attempt number */}}
+              {{ $seed := hash.FNV32a (printf "%s|%d" $title $try) }}
+
+              {{/* 2. Each property gets its own roll from the seed.
+                      Label FIRST ("x", "y", ...) so the rolls differ throughout;
+                      div 65536 keeps the hash's well-mixed upper part.
+                        pick  → which symbol
+                        x, y  → centre position, 0…100 % of the cover
+                        size  → 70…289 % of normal text size
+                        angle → −180…179 degrees
+                        fade  → 10…34 % opacity, so the title stays readable */}}
+              {{ $pick  := mod (div (hash.FNV32a (printf "pick%d"  $seed)) 65536) (len $symbols) }}
+              {{ $x     := mod (div (hash.FNV32a (printf "x%d"     $seed)) 65536) 101 }}
+              {{ $y     := mod (div (hash.FNV32a (printf "y%d"     $seed)) 65536) 101 }}
+              {{ $size  := add 70 (mod (div (hash.FNV32a (printf "size%d"  $seed)) 65536) 220) }}
+              {{ $angle := sub (mod (div (hash.FNV32a (printf "angle%d" $seed)) 65536) 360) 180 }}
+              {{ $fade  := add 10 (mod (div (hash.FNV32a (printf "fade%d"  $seed)) 65536) 25) }}
+
+              {{/* 3. Its circle: radius grows with the symbol's size.
+                      0.06 is tuned for a ~140px-wide book (the narrowest
+                      they get, on phones); +1 adds a small gap. */}}
+              {{ $r  := add (mul $size 0.06) 1 }}
+              {{ $yu := mul $y 1.5 }}
+
+              {{/* 4. Does it touch anything already placed?
+                      Two circles touch when the distance between centres
+                      is less than their two radii added together.
+                      (Compared squared, so no square roots are needed.) */}}
+              {{ $ok := true }}
+              {{ range $placed }}
+                {{ $dx  := sub $x .x }}
+                {{ $dy  := sub $yu .yu }}
+                {{ $gap := add $r .r }}
+                {{ if lt (add (mul $dx $dx) (mul $dy $dy)) (mul $gap $gap) }}
+                  {{ $ok = false }}
+                {{ end }}
+              {{ end }}
+
+              {{/* 5. Keep it only if it fits */}}
+              {{ if $ok }}
+                {{ $placed = $placed | append (dict
+                     "x" $x "y" $y "yu" $yu "r" $r
+                     "size" $size "angle" $angle "fade" $fade
+                     "sym" (index $symbols $pick)) }}
+              {{ end }}
+
+            {{ end }}
+          {{ end }}
+
+          <div class="book-pattern" aria-hidden="true">
+            {{ range $placed }}
+              {{/* left/top = the symbol's CENTRE: translate(-50%, -50%)
+                   shifts each symbol back by half its own size first */}}
+              <span style="left: {{ .x }}%; top: {{ .y }}%; font-size: {{ .size }}%; transform: translate(-50%, -50%) rotate({{ .angle }}deg); opacity: {{ .fade }}%;">{{ .sym }}</span>
+            {{ end }}
+          </div>
+
+          <a class="res-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <div class="res-meta">{{ $n }} {{ if eq $n 1 }}note{{ else }}notes{{ end }}</div>
+        </li>
+      {{ end }}
+    </ul>
+  </div>
+  {{ end }}
+
+  <!-- ===== PLAIN LIST: the notes in this folder =====
+       Order: by "weight" if a note sets one, else newest first.
+       Give notes weight = 1, 2, 3 ... to read them like chapters. -->
+  {{ with .RegularPages }}
+  <ol class="notes-list">
+    {{ range . }}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ if not .Date.IsZero }}<span class="notes-date">{{ .Date | time.Format "Jan 2006" }}</span>{{ end }}
+    </li>
+    {{ end }}
+  </ol>
+  {{ end }}
+
+</div>
+
+{{ end }}
