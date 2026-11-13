@@ -7,7 +7,12 @@ Same physics-style hero as the other physics subsections,
 then every page AND sub-section inside it as a tall picture card.
 */ -}}
 {{ define "main" }}
+    <!-- View switch for the picture cards below -->
+    <div class="view-toggle-bar">
+        {{ partial "view-toggle.html" (dict "target" ".astro-landing-cards .astro-cards" "key" "physicsView") }}
+    </div>
 
+    <div class="astro-landing-cards">
 <!-- accent-physics = violet accents for everything inside -->
 <div class="accent-physics">
 

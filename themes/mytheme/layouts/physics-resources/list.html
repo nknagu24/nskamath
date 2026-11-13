@@ -19,7 +19,12 @@
   <!-- If this section ever contains posts (regular .md files),
        they appear below as readout-style cards. If there are none,
        this block renders nothing at all. -->
-  {{ with .RegularPages }}
+    {{ with .RegularPages }}
+  <!-- View switch for the post tiles below -->
+  <div class="view-toggle-bar">
+    {{ partial "view-toggle.html" (dict "target" ".physics-tiles" "key" "physicsView") }}
+  </div>
+
   <div class="subsection-tiles physics-tiles">
     {{ range .ByDate.Reverse }}
     <a class="subsection-tile" href="{{ .RelPermalink }}">

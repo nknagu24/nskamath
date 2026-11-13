@@ -1,0 +1,37 @@
+# ============================================================
+# PHYSICS RESOURCES — one [[resource]] block per item.
+# Shown on /blog/physics/resources/.
+#
+# Fields (only title and kind are required):
+#   title  = the name shown as the link
+#   url    = where it links to (leave out if there's no link)
+#   kind   = the group it's listed under. Use the same spelling
+#            every time: "Book", "Review", "Paper", "Course",
+#            "Software", "Database", "Video"...
+#   author = author(s), as you want them shown
+#   year   = publication year (a number, no quotes)
+#   topics = list of tags — these become the filter buttons.
+#            Keep them lowercase and consistent ("excitons",
+#            not sometimes "Exciton")
+#   note   = your one-line comment; *italics* and **bold** work
+#
+# Order in this file doesn't matter: items are grouped by
+# kind and sorted by title automatically.
+# ============================================================
+
+[[resource]]
+title  = "Colloquium: Excitons in atomically thin transition metal dichalcogenides"
+url    = "https://doi.org/10.1103/RevModPhys.90.021001"
+kind   = "Review"
+author = "G. Wang et al., Rev. Mod. Phys. 90, 021001"
+year   = 2018
+topics = ["excitons", "tmds", "2d-materials"]
+note   = "The go-to starting point for exciton physics in monolayer TMDs."
+
+[[resource]]
+title  = "Ultrafast Spectroscopy of Semiconductors and Semiconductor Nanostructures"
+kind   = "Book"
+author = "Jagdeep Shah"
+year   = 1999
+topics = ["ultrafast", "spectroscopy"]
+note   = "Classic reference on carrier dynamics and ultrafast techniques."

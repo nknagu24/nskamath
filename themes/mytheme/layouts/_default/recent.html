@@ -3,19 +3,120 @@
 <div class="recent-section">
   <h1 class="recent-heading">Recent Posts</h1>
 
-  <div class="recent-grid">
+  <!-- ===== TOOLBAR: filters on the left, view switch on the right ===== -->
+  <div class="recent-toolbar">
+
+    <!-- Filter buttons — "All" selected by default; the rest are
+         generated from the folders inside content/blog/ -->
+    <div class="recent-filters" id="recentFilters">
+      <button class="recent-filter is-active" data-filter="all" aria-pressed="true">All</button>
+
+      {{ with site.GetPage "/blog" }}
+        {{ range .Sections }}
+          {{/* "/blog/travel/" split at "/" → ["", "blog", "travel", ""]; item 2 = folder name */}}
+          {{ $slug := index (split .RelPermalink "/") 2 }}
+          <button class="recent-filter accent-{{ $slug }}" data-filter="{{ $slug }}" aria-pressed="false">
+            {{ .Title }}
+          </button>
+        {{ end }}
+      {{ end }}
+    </div>
+
+
+<!-- View switch — the reusable partial; "recentView" is the same
+         saved-choice name as before, so visitors keep their setting -->
+    {{ partial "view-toggle.html" (dict "target" "#recentGrid" "key" "recentView") }}
+
+  </div>
+
+  <!-- ===== POST CARDS ===== -->
+  <div class="recent-grid" id="recentGrid">
     {{ $pages := where site.RegularPages "Section" "ne" "" }}
     {{ range ($pages.ByDate.Reverse) }}
       {{ if .Params.summary }}
-      <a class="recent-card" href="{{ .RelPermalink }}">
-        <div class="recent-meta">{{ .Params.date | time.Format "January 2006" }} · {{ .Type }}</div>
-        <div class="recent-card-title">{{ .Title }}</div>
-        <div class="recent-summary">{{ .Params.summary }}</div>
-      </a>
+
+        {{/* $slug = blog folder (for filter + colour); $label = section title shown on the card.
+             Non-blog posts keep an empty slug, so they appear only under "All". */}}
+        {{ $slug := "" }}
+        {{ $label := .Type | humanize }}
+        {{ if eq .Section "blog" }}
+          {{ $slug = index (split .RelPermalink "/") 2 }}
+          {{ with site.GetPage (printf "/blog/%s" $slug) }}
+            {{ $label = .Title }}
+          {{ end }}
+        {{ end }}
+
+        <a class="recent-card {{ with $slug }}accent-{{ . }}{{ end }}"
+           href="{{ .RelPermalink }}"
+           data-section="{{ $slug }}">
+          <div class="recent-meta">{{ .Params.date | time.Format "January 2006" }} · {{ $label }}</div>
+          <div class="recent-card-title">{{ .Title }}</div>
+          <div class="recent-summary">{{ .Params.summary }}</div>
+        </a>
+
       {{ end }}
     {{ end }}
   </div>
 
+  <p class="recent-empty" id="recentEmpty" hidden>Nothing here yet — check back soon.</p>
 </div>
+
+<script>
+/* ===== RECENT FILTER =====
+   Clicking a filter: mark it active, show only matching cards. */
+(function () {
+  const buttons = document.querySelectorAll('.recent-filter');
+  const cards   = document.querySelectorAll('.recent-card');
+  const empty   = document.getElementById('recentEmpty');
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const filter = btn.dataset.filter;
+
+      buttons.forEach(function (b) {
+        const on = (b === btn);
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-pressed', on);
+      });
+
+      let shown = 0;
+      cards.forEach(function (card) {
+        const match = (filter === 'all' || card.dataset.section === filter);
+        card.hidden = !match;
+        if (match) shown++;
+      });
+
+      empty.hidden = (shown > 0);
+    });
+  });
+})();
+
+/* ===== VIEW SWITCH (cards ↔ list) =====
+   Adds/removes the "is-list" class on the grid — the CSS does the rest.
+   The choice is saved in the browser (localStorage), so the page
+   reopens in the same view. try/catch: some private-browsing modes
+   block storage; the switch still works, it just won't remember. */
+(function () {
+  const grid   = document.getElementById('recentGrid');
+  const toggle = document.getElementById('viewToggle');
+
+  function setView(view) {
+    grid.classList.toggle('is-list', view === 'list');
+    toggle.dataset.view = view;                       // moves the knob
+    toggle.setAttribute('aria-label',
+      view === 'list' ? 'Switch to card view' : 'Switch to list view');
+    try { localStorage.setItem('recentView', view); } catch (e) {}
+  }
+
+  // start in the saved view, or cards if nothing saved yet
+  let saved = 'cards';
+  try { saved = localStorage.getItem('recentView') || 'cards'; } catch (e) {}
+  setView(saved);
+
+  toggle.addEventListener('click', function () {
+    setView(toggle.dataset.view === 'list' ? 'cards' : 'list');
+  });
+})();
+</script>
 
 {{ end }}

@@ -3,6 +3,7 @@
 
 <p class="section-desc">{{ .Content }}</p>
 
+<!-- Sort dropdown + view switch, side by side on the right -->
 <div class="sort-wrap">
   <div class="sort-dropdown" id="sortDropdown">
     <button type="button" class="sort-toggle" id="sortToggle" aria-haspopup="listbox" aria-expanded="false">
@@ -15,6 +16,9 @@
       <li role="option" data-value="alpha-desc">Z → A</li>
     </ul>
   </div>
+
+  <!-- Cards/list knob — switches the #postList grid below -->
+  {{ partial "view-toggle.html" (dict "target" "#postList" "key" "travelView") }}
 </div>
 
 <div class="travel-grid accent-travel" id="postList">

@@ -5,13 +5,18 @@
 </div>
 
 <!-- Filter by number of players -->
+<!-- Players filter on the left, view switch pushed to the right -->
 <div class="cardgames-filters">
+  <!-- styling lives in style.css (.cardgames-filters select), so dark mode can reach it -->
   <select id="playerFilter">
     <option value="">All Games</option>
     <option value="2">2 Players</option>
     <option value="3-4">3-4 Players</option>
     <option value="5plus">5+ Players</option>
   </select>
+
+  <!-- Cards/list knob — switches the game grid below -->
+  {{ partial "view-toggle.html" (dict "target" ".cardgames-grid-square" "key" "cardgamesView") }}
 </div>
 
 <!-- Grid of square game cards -->

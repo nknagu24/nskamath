@@ -5,6 +5,13 @@
   {{ with .Params.subtitle }}<p class="physics-hero-sub">{{ . }}</p>{{ end }}
 </div>
 
+<!-- View switch, right-aligned. The tiles it controls are written
+     by hand in content/blog/physics/_index.md (.physics-tiles) -->
+<div class="view-toggle-bar">
+  {{ partial "view-toggle.html" (dict "target" ".physics-tiles" "key" "physicsView") }}
+</div>
+
+
 {{ .Content }}
 
 {{ end }}

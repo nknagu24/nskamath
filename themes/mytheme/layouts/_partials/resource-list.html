@@ -1,0 +1,127 @@
+{{- /*
+RESOURCE LIST — builds a searchable, filterable list from a data file.
+Receives the contents of data/<name>.toml (see physics-resources/list.html).
+*/ -}}
+{{- $items := .resource }}
+
+{{- with $items }}
+
+{{- /* Collect every kind and every topic used, without repeats,
+       sorted A→Z. These become the group headings and filter buttons. */}}
+{{- $kinds := slice }}
+{{- $topics := slice }}
+{{- range $items }}
+  {{- $kinds = $kinds | append .kind }}
+  {{- range .topics }}{{ $topics = $topics | append . }}{{ end }}
+{{- end }}
+{{- $kinds = $kinds | uniq | sort }}
+{{- $topics = $topics | uniq | sort }}
+
+<div class="res-list">
+
+  <!-- ===== SEARCH + TOPIC FILTERS ===== -->
+  <div class="res-tools">
+    <input type="search" class="res-search" id="resSearch"
+           placeholder="Search title, author, note…" aria-label="Search resources">
+
+    <div class="res-chips" role="group" aria-label="Filter by topic">
+      <!-- re-uses the glass pill style from the Recent page -->
+      <button type="button" class="recent-filter res-chip is-active" data-topic="all" aria-pressed="true">All</button>
+      {{- range $topics }}
+      <button type="button" class="recent-filter res-chip" data-topic="{{ . }}" aria-pressed="false">{{ . | humanize }}</button>
+      {{- end }}
+    </div>
+
+    <div class="res-count" id="resCount"></div>
+  </div>
+
+  <!-- ===== ONE GROUP PER KIND (Book, Review, ...) ===== -->
+  {{- range $kinds }}
+  {{- $kind := . }}
+  <section class="res-group">
+    <h2 class="res-group-title">{{ $kind }}</h2>
+    <ul class="res-items">
+      {{- range sort (where $items "kind" $kind) "title" }}
+      {{- /* data-search: all searchable text in lowercase, in one attribute.
+             data-topics: topics joined with | so the script can split them. */}}
+      <li class="res-item"
+          data-topics="{{ delimit (.topics | default slice) "|" }}"
+          data-search="{{ lower (printf "%s %s %s %s" .title (.author | default "") (.note | default "") (delimit (.topics | default slice) " ")) }}">
+
+        {{- if .url }}
+        <a class="res-title" href="{{ .url }}" target="_blank" rel="noopener">{{ .title }}</a>
+        {{- else }}
+        <span class="res-title res-title-plain">{{ .title }}</span>
+        {{- end }}
+
+        {{- if or .author .year }}
+        <div class="res-meta">{{ .author }}{{ if and .author .year }} · {{ end }}{{ .year }}</div>
+        {{- end }}
+
+        {{- with .note }}<div class="res-note">{{ . | markdownify }}</div>{{ end }}
+
+        {{- with .topics }}
+        <div class="res-tags">
+          {{- range . }}<span class="res-tag">{{ . }}</span>{{ end }}
+        </div>
+        {{- end }}
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+  {{- end }}
+
+  <p class="res-empty" id="resEmpty" hidden>No resources match that search.</p>
+</div>
+
+<script>
+/* ===== RESOURCE SEARCH + FILTER =====
+   An item shows only if it matches the search box AND the chosen topic.
+   Groups with nothing left visible hide their heading too. */
+(function () {
+  const box    = document.getElementById('resSearch');
+  const chips  = document.querySelectorAll('.res-chip');
+  const items  = document.querySelectorAll('.res-item');
+  const groups = document.querySelectorAll('.res-group');
+  const count  = document.getElementById('resCount');
+  const empty  = document.getElementById('resEmpty');
+  let topic = 'all';
+
+  function apply() {
+    // every word typed must appear somewhere ("shah ultrafast" works)
+    const words = box.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    let shown = 0;
+
+    items.forEach(function (item) {
+      const okText  = words.every(function (w) { return item.dataset.search.includes(w); });
+      const okTopic = topic === 'all' || item.dataset.topics.split('|').includes(topic);
+      item.hidden = !(okText && okTopic);
+      if (!item.hidden) shown++;
+    });
+
+    groups.forEach(function (g) {
+      g.hidden = !g.querySelector('.res-item:not([hidden])');
+    });
+
+    count.textContent = shown + ' of ' + items.length + ' resources';
+    empty.hidden = shown > 0;
+  }
+
+  box.addEventListener('input', apply);            // filters as you type
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      topic = chip.dataset.topic;
+      chips.forEach(function (c) {
+        c.classList.toggle('is-active', c === chip);
+        c.setAttribute('aria-pressed', c === chip);
+      });
+      apply();
+    });
+  });
+
+  apply();                                         // fill in the count on load
+})();
+</script>
+
+{{- end }}

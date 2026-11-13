@@ -1,0 +1,55 @@
+{{- /*
+VIEW TOGGLE (cards ↔ list) — reusable knob with two icons.
+
+Usage:
+  {{ partial "view-toggle.html" (dict "target" ".physics-tiles" "key" "physicsView") }}
+
+  target = CSS selector of the element holding the cards
+           (".something" for a class, "#something" for an id).
+           In list view it gets the class "is-list"; the CSS
+           for that page decides what list view looks like.
+  key    = name the choice is saved under in the browser.
+           Pages with the same key share the choice.
+
+If the target isn't on the page (e.g. a section with no posts),
+the button hides itself.
+*/ -}}
+<button type="button" class="view-toggle" data-view="cards"
+        data-target="{{ .target }}" data-key="{{ .key | default "view" }}"
+        aria-label="Switch to list view">
+  <span class="view-knob"></span>
+  <i class="fa-solid fa-table-cells-large view-icon-cards" aria-hidden="true"></i>
+  <i class="fa-solid fa-list view-icon-list" aria-hidden="true"></i>
+</button>
+<script>
+(function () {
+  /* The button just above this script. Grabbed now, because
+     document.currentScript only works while the script is running. */
+  const btn = document.currentScript.previousElementSibling;
+
+  /* Wait until the whole page is read, since the cards come AFTER the
+     button and don't exist yet at this point. */
+  document.addEventListener('DOMContentLoaded', function () {
+    const target = document.querySelector(btn.dataset.target);
+    const key = btn.dataset.key;
+
+    if (!target) { btn.hidden = true; return; }   // nothing to switch
+
+    function setView(view) {
+      target.classList.toggle('is-list', view === 'list');
+      btn.dataset.view = view;                    // moves the knob
+      btn.setAttribute('aria-label',
+        view === 'list' ? 'Switch to card view' : 'Switch to list view');
+      try { localStorage.setItem(key, view); } catch (e) {}
+    }
+
+    let saved = 'cards';
+    try { saved = localStorage.getItem(key) || 'cards'; } catch (e) {}
+    setView(saved);
+
+    btn.addEventListener('click', function () {
+      setView(btn.dataset.view === 'list' ? 'cards' : 'list');
+    });
+  });
+})();
+</script>
